@@ -59,7 +59,7 @@ public class CustomDetailsService implements UserDetailsService {
 
         if(roles == null){
 
-            return List.of(new SimpleGrantedAuthority("ROLE_USER"));
+            return List.of(new SimpleGrantedAuthority("ROLE_ALUMNO"));
 
         }
 
