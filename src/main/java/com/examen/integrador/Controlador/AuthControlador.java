@@ -1,6 +1,7 @@
 package com.examen.integrador.Controlador;
 
 import com.examen.integrador.Entidades.Usuarios;
+import com.examen.integrador.Jwt.JwtUtil;
 import com.examen.integrador.Seguridad.CustomDetailsService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -8,6 +9,7 @@ import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.BadCredentialsException;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
+import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
@@ -23,12 +25,12 @@ import java.util.Map;
 public class AuthControlador {
 
     private final AuthenticationManager authenticationManager;
-    private final CustomDetailsService customDetailsService;
+    private final JwtUtil jwtUtil;
 
     @Autowired
-    public AuthControlador(AuthenticationManager authenticationManager, CustomDetailsService customDetailsService) {
+    public AuthControlador(AuthenticationManager authenticationManager, CustomDetailsService customDetailsService, JwtUtil jwtUtil) {
         this.authenticationManager = authenticationManager;
-        this.customDetailsService = customDetailsService;
+        this.jwtUtil = jwtUtil;
     }
 
 
@@ -42,9 +44,19 @@ public class AuthControlador {
                     new UsernamePasswordAuthenticationToken(user.getUsername(), user.getPassword())
             );
 
-            SecurityContextHolder.getContext().setAuthentication(auth);
+            GrantedAuthority authority = auth.getAuthorities().stream()
+                    .findFirst()
+                    .orElseThrow(() -> new RuntimeException("No se encontró un rol para el usuario"));
+
+            String token = jwtUtil.generarToken(auth.getName() , authority);
+
+            //SecurityContextHolder.getContext().setAuthentication(auth);
+
             respuesta.put("mensaje", "Logeo exitoso");
+            respuesta.put("username", auth.getName());
+            respuesta.put("token", token);
             respuesta.put("Rol", auth.getAuthorities());
+
             return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
         }catch (BadCredentialsException e){

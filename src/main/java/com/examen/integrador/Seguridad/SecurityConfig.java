@@ -1,5 +1,7 @@
 package com.examen.integrador.Seguridad;
 
+import com.examen.integrador.Jwt.JwtFilterChain;
+import com.examen.integrador.Jwt.JwtUtil;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -10,6 +12,7 @@ import org.springframework.security.config.annotation.web.configuration.EnableWe
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @EnableWebSecurity
 @Configuration
@@ -17,10 +20,12 @@ public class SecurityConfig {
 
 
     private final CustomDetailsService customDetailsService;
+    private final JwtUtil jwtUtil;
 
     @Autowired
-    public SecurityConfig(CustomDetailsService customDetailsService) {
+    public SecurityConfig(CustomDetailsService customDetailsService, JwtFilterChain filterChain, JwtUtil jwtUtil) {
         this.customDetailsService = customDetailsService;
+        this.jwtUtil = jwtUtil;
     }
 
     @Bean
@@ -33,7 +38,8 @@ public class SecurityConfig {
                                   .requestMatchers("/auth/login").permitAll()
                                   .anyRequest().authenticated()
                   )
-                  .formLogin().disable();
+                  .formLogin().disable()
+                   .addFilterBefore(filterChain() ,UsernamePasswordAuthenticationFilter.class);
 
            return httpSecurity.build();
       }
@@ -41,6 +47,11 @@ public class SecurityConfig {
       @Bean
       public PasswordEncoder passwordEncoder(){
           return new BCryptPasswordEncoder();
+      }
+
+      @Bean
+      public JwtFilterChain filterChain(){
+        return new JwtFilterChain(jwtUtil,customDetailsService);
       }
 
       @Bean
