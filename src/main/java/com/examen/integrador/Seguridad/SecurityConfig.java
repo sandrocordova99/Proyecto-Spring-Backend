@@ -31,18 +31,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
-           httpSecurity
-                  .csrf(csrf -> csrf.disable())
-                  .authorizeHttpRequests(
-                          auth -> auth
-                                  .requestMatchers("/auth/login").permitAll()
-                                  .anyRequest().authenticated()
-                  )
-                  .formLogin().disable()
-                   .addFilterBefore(filterChain() ,UsernamePasswordAuthenticationFilter.class);
+        httpSecurity
 
-           return httpSecurity.build();
-      }
+                .authorizeHttpRequests(
+                        auth -> auth
+                                .requestMatchers("/auth/login").permitAll()
+                                .requestMatchers("/auth/register").hasRole("ADMIN")
+                                //.anyRequest().authenticated()
+                ) .csrf(csrf -> {
+                    csrf.ignoringRequestMatchers("/auth/register","/auth/login");
+                })
+                .formLogin().disable()
+                .addFilterBefore(filterChain() ,UsernamePasswordAuthenticationFilter.class);
+
+        return httpSecurity.build();
+    }
 
       @Bean
       public PasswordEncoder passwordEncoder(){
