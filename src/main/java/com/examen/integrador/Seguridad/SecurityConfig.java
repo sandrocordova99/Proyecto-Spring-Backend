@@ -37,7 +37,7 @@ public class SecurityConfig {
                         auth -> auth
                                 .requestMatchers("/auth/login").permitAll()
                                 .requestMatchers("/auth/register").hasRole("ADMIN")
-                                //.anyRequest().authenticated()
+                                .anyRequest().authenticated()
                 ) .csrf(csrf -> {
                     csrf.ignoringRequestMatchers("/auth/register","/auth/login");
                 })

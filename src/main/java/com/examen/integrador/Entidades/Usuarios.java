@@ -23,13 +23,17 @@ public class Usuarios {
     @Column(nullable = false , length = 100 , unique = true )
     private String username;
 
-    @Column(nullable = false , length = 100 , unique = false)
+    @Column(nullable = false , length = 15 , unique = false)
     private String password;
+
+    @Column(nullable = false , length = 15 , unique = false)
+    private String confirm_password;
 
     @Column(nullable = false , length = 100 , unique = false)
     private String email;
 
     @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @Column(nullable = false  , updatable = false)
     private LocalDate nacimiento;
 
     @Enumerated(value = EnumType.STRING)
@@ -53,7 +57,13 @@ public class Usuarios {
 
 
 
+    public String getConfirm_password() {
+        return confirm_password;
+    }
 
+    public void setConfirm_password(String confirm_password) {
+        this.confirm_password = confirm_password;
+    }
     public RolesEnum getRoles() {
         return roles;
     }
@@ -66,14 +76,16 @@ public class Usuarios {
 
     }
 
-    public Usuarios(String apellido, String email, String id, LocalDate nacimiento, String nombre, String password, String username) {
+    public Usuarios(String apellido, String confirm_password, String email, String id, LocalDate nacimiento, String nombre, String username, RolesEnum roles, String password) {
         this.apellido = apellido;
+        this.confirm_password = confirm_password;
         this.email = email;
         this.id = id;
         this.nacimiento = nacimiento;
         this.nombre = nombre;
-        this.password = password;
         this.username = username;
+        this.roles = roles;
+        this.password = password;
     }
 
     public String getApellido() {

@@ -50,12 +50,11 @@ public class AuthControlador {
 
             String token = jwtUtil.generarToken(auth.getName() , authority);
 
-            //SecurityContextHolder.getContext().setAuthentication(auth);
 
             respuesta.put("mensaje", "Logeo exitoso");
-            respuesta.put("username", auth.getName());
             respuesta.put("token", token);
             respuesta.put("Rol", auth.getAuthorities());
+
 
             return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 

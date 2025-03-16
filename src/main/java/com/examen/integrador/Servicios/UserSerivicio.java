@@ -20,6 +20,8 @@ public class UserSerivicio {
 
     public Map<String,Object> registrarUsuario(Usuarios usuarios){
 
+        //generar id y rol
+
         Map<String,Object> respuesta = new HashMap<>();
 
         try{
@@ -31,7 +33,7 @@ public class UserSerivicio {
                 respuesta.put("error", "Username ya existe");
             } else {
 
-                usuarios.setId(AutogenerarId());
+
 
                 respuesta.put("mensaje", "Usuario registrado");
                 respuesta.put("Usuario",  userRepositorio.save(usuarios));
@@ -48,22 +50,7 @@ public class UserSerivicio {
 
 
 
-    public String AutogenerarId(){
 
-        StringBuilder inicio = new StringBuilder("USR-");
-        String valores = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        String[] arrayCaracteres = valores.split("");
-
-        int min = 0;
-        int max = 40;
-        int numeroAleatorio;
-
-        for(int i = 0 ; i<3 ; i++){
-            numeroAleatorio = (int) (Math.floor(Math.random() * (max - min + 1)) + min);
-            inicio.append(arrayCaracteres[numeroAleatorio]);
-        }
-        return inicio.toString();
-    }
 
 
 }

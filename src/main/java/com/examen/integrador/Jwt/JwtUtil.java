@@ -64,7 +64,7 @@ public class JwtUtil {
             if(token.isEmpty()){
                 return false;
             }
-            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJwt(token);
+            Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (Exception e){
             System.out.println("Errro: " + e.getMessage());
