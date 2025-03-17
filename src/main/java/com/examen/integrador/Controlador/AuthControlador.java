@@ -76,6 +76,7 @@ public class AuthControlador {
 
         Map<String,Object> respuesta = new HashMap<>();
 
+
         try{
 
             respuesta.put("respuesta" , userSerivicio.registrarUsuario(user));

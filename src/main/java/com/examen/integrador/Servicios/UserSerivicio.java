@@ -7,6 +7,8 @@ import com.examen.integrador.Validacion.UserValidacion;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.io.PrintWriter;
+import java.io.StringWriter;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -34,16 +36,24 @@ public class UserSerivicio {
                 usuarios.setRoles(RolesEnum.ALUMNO);
             }
 
-            if(userValidacion.validarUsuarios(usuarios).containsKey("Confimacion")){
+            Map<String,Object> resultadoValidacion =userValidacion.validarUsuarios(usuarios);
+
+            if(resultadoValidacion.containsKey("Confimacion")){
                 userRepositorio.save(usuarios);
-                respuesta.put("confirmacion" , "usuario creado con exito");
+                respuesta.put("Confirmación" , resultadoValidacion.get("Confimacion"));
                 respuesta.put("ID" , usuarios.getId());
             } else {
-                respuesta.put("Error" , userValidacion.validarUsuarios(usuarios).containsKey("Error"));
+                respuesta.put("Error" ,resultadoValidacion.get("Error"));
             }
 
         }catch (Exception e){
-            respuesta.put("error" , e.getMessage());
+            StringWriter sw = new StringWriter();
+            e.printStackTrace(new PrintWriter(sw));
+            String stackTrace = sw.toString();
+
+            // Agregar más información al error
+            respuesta.put("error", e.getMessage());
+            respuesta.put("detalle", stackTrace); //
         }
 
         return respuesta;
@@ -58,7 +68,7 @@ public class UserSerivicio {
         String[] arrayCaracteres = valores.split("");
 
         int min = 0;
-        int max = 40;
+        int max = 35;
         int numeroAleatorio;
 
         for(int i = 0 ; i<3 ; i++){
