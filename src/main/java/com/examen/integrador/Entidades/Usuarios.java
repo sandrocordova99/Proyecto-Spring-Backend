@@ -23,10 +23,10 @@ public class Usuarios {
     @Column(nullable = false , length = 100 , unique = true )
     private String username;
 
-    @Column(nullable = false , length = 15 , unique = false)
+    @Column(nullable = false , length = 100 , unique = false)
     private String password;
 
-    @Column(nullable = false , length = 15 , unique = false)
+    @Column(nullable = false , length = 100 , unique = false)
     private String confirm_password;
 
     @Column(nullable = false , length = 100 , unique = false)

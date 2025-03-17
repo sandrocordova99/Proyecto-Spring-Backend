@@ -34,29 +34,36 @@ public class CustomDetailsService implements UserDetailsService {
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
 
+        System.out.println("Usuario: " + username);
+
         try{
             Usuarios usuario = userRepositorio.findUsuariosByUsername(username);
 
             if(usuario == null){
                 throw new UsernameNotFoundException("Usuario no encontrado");
             } else {
+
                 return new org.springframework.security.core.userdetails.User(
                         usuario.getUsername(),
                         usuario.getPassword(),
                         getAuthorities(usuario)
+
                 );
+
             }
 
         }catch (Exception e){
             e.printStackTrace();
             throw new UsernameNotFoundException("Error al cargar usuario", e);
         }
+
+
     }
 
     private Collection<? extends GrantedAuthority> getAuthorities(Usuarios usuario) {
 
         RolesEnum roles = usuario.getRoles();
-
+        System.out.println("rol: " + roles);
         if(roles == null){
 
             return List.of(new SimpleGrantedAuthority("ROLE_ALUMNO"));

@@ -21,10 +21,11 @@ public class JwtUtil {
 
         String roles = authority.getAuthority();
 
+        //los token esperan una lista de Roles en Stirng
         return Jwts.builder()
                 .setSubject(username)
                 .claim("roles" , roles)
-                .setExpiration(new Date((System.currentTimeMillis() + 100 * 60 * 60)))
+                .setExpiration(new Date((System.currentTimeMillis() +  1000 * 60 * 20)))
                 .setIssuedAt(new Date())
                 .signWith(key, SignatureAlgorithm.HS256) // 🔹 Usa la clave personalizada
                 .compact();
@@ -51,7 +52,8 @@ public class JwtUtil {
                 .getBody()
                 .get("roles");
 
-        if(roles instanceof GrantedAuthority){
+        //los roles se guardan como string o lista de string
+        if(roles instanceof String){
             return (String) roles;
         }
 
@@ -67,7 +69,7 @@ public class JwtUtil {
             Jwts.parserBuilder().setSigningKey(key).build().parseClaimsJws(token);
             return true;
         } catch (Exception e){
-            System.out.println("Errro: " + e.getMessage());
+            System.out.println("Error: " + e.getMessage());
             return false;
         }
 

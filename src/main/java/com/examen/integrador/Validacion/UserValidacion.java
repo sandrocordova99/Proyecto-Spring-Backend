@@ -11,12 +11,7 @@ import java.util.*;
 @Service
 public class UserValidacion {
 
-    private final UserRepositorio userRepositorio;
 
-    @Autowired
-    public UserValidacion(UserRepositorio userRepositorio) {
-        this.userRepositorio = userRepositorio;
-    }
 
     public  Map<String,Object> validarUsuarios(Usuarios usu){
 
@@ -26,6 +21,10 @@ public class UserValidacion {
         List<String> mensaje = new ArrayList<>();
 
          try{
+
+             if(usu == null){
+                 mensaje.add("Usuario no puede ser nulo");
+             }
 
              if(usu.getNombre() != null || usu.getNombre().matches(regexNombre)){
                  mensaje.add("Nombre no puede estar vacio y solo puede tener letras");
@@ -53,6 +52,8 @@ public class UserValidacion {
              }
 
 
+
+
             if(mensaje.isEmpty()){
                 mensaje.add("Validacion correcta");
             }
@@ -68,22 +69,7 @@ public class UserValidacion {
     }
 
 
-    public String AutogenerarId(){
 
-        StringBuilder inicio = new StringBuilder("USR-");
-        String valores = "ABCDEFGHIJKLMNOPQRSTUVWXYZ0123456789";
-        String[] arrayCaracteres = valores.split("");
-
-        int min = 0;
-        int max = 40;
-        int numeroAleatorio;
-
-        for(int i = 0 ; i<3 ; i++){
-            numeroAleatorio = (int) (Math.floor(Math.random() * (max - min + 1)) + min);
-            inicio.append(arrayCaracteres[numeroAleatorio]);
-        }
-        return inicio.toString();
-    }
 
 
 

@@ -66,6 +66,9 @@ public class JwtFilterChain extends OncePerRequestFilter {
                         UsernamePasswordAuthenticationToken usuarioAutenticado = new UsernamePasswordAuthenticationToken(
                                 detalleUsuario, null, rolesAuth);
 
+                        System.out.println("Usuario autenticado: "  + usuarioAutenticado.getName());
+                        System.out.println("Rol autenticado: "  + usuarioAutenticado.getAuthorities());
+
                         SecurityContextHolder.getContext().setAuthentication(usuarioAutenticado);
                     } catch (Exception e){
                         e.printStackTrace();
