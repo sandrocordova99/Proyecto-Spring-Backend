@@ -34,7 +34,13 @@ public class UserSerivicio {
                 usuarios.setRoles(RolesEnum.ALUMNO);
             }
 
-            respuesta.put("mensaje" , userValidacion.validarUsuarios(usuarios));
+            if(userValidacion.validarUsuarios(usuarios).containsKey("Confimacion")){
+                userRepositorio.save(usuarios);
+                respuesta.put("confirmacion" , "usuario creado con exito");
+                respuesta.put("ID" , usuarios.getId());
+            } else {
+                respuesta.put("Error" , userValidacion.validarUsuarios(usuarios).containsKey("Error"));
+            }
 
         }catch (Exception e){
             respuesta.put("error" , e.getMessage());

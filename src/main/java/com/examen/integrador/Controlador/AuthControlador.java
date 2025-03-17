@@ -53,6 +53,7 @@ public class AuthControlador {
 
             respuesta.put("mensaje", "Logeo exitoso");
             respuesta.put("token", token);
+
             respuesta.put("Rol", auth.getAuthorities());
 
 
