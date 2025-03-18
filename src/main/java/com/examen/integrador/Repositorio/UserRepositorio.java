@@ -13,4 +13,7 @@ public interface UserRepositorio extends JpaRepository<Usuarios, String> {
 
     @Query("SELECT COUNT(u) > 0 FROM Usuarios u WHERE u.username = :username")
     boolean existsByUsername(@Param("username")String username);
+
+
+
 }

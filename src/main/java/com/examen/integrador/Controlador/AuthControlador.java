@@ -76,15 +76,23 @@ public class AuthControlador {
 
         Map<String,Object> respuesta = new HashMap<>();
 
+        Map<String,Object> respuestaMetodoRegistrar = userSerivicio.registrarUsuario(user);
 
         try{
+            if(respuestaMetodoRegistrar.containsKey("Confirmación")){
 
-            respuesta.put("respuesta" , userSerivicio.registrarUsuario(user));
-            return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
+                respuesta.put("Confirmacion" , respuestaMetodoRegistrar.get("Confirmación"));
+
+                return ResponseEntity.status(HttpStatus.CREATED).body(respuesta);
+            } else {
+                respuesta.put("Error" , respuestaMetodoRegistrar.get("Error"));
+
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(respuesta);
+            }
 
         }
         catch (Exception e){
-            respuesta.put("error", e.getMessage());
+            respuesta.put("ErrorTry", e.getMessage());
             return ResponseEntity.status(HttpStatus.NOT_ACCEPTABLE).body(respuesta);
         }
 

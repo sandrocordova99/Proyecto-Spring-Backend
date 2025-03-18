@@ -1,6 +1,7 @@
 package com.examen.integrador.Entidades;
 
 
+import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.format.annotation.DateTimeFormat;
@@ -32,7 +33,8 @@ public class Usuarios {
     @Column(nullable = false , length = 100 , unique = false)
     private String email;
 
-    @DateTimeFormat(pattern = "dd-MM-yyyy")
+    @DateTimeFormat(pattern = "dd/MM/yyyy")
+    @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
     @Column(nullable = false  , updatable = false)
     private LocalDate nacimiento;
 
