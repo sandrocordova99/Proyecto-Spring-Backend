@@ -2,6 +2,7 @@ package com.examen.integrador.Seguridad;
 
 import com.examen.integrador.Jwt.JwtFilterChain;
 import com.examen.integrador.Jwt.JwtUtil;
+import com.examen.integrador.Servicios.TokenServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -21,11 +22,13 @@ public class SecurityConfig {
 
     private final CustomDetailsService customDetailsService;
     private final JwtUtil jwtUtil;
+    private final TokenServicio tokenServicio;
 
     @Autowired
-    public SecurityConfig(CustomDetailsService customDetailsService, JwtFilterChain filterChain, JwtUtil jwtUtil) {
+    public SecurityConfig(CustomDetailsService customDetailsService, JwtFilterChain filterChain, JwtUtil jwtUtil, TokenServicio tokenServicio) {
         this.customDetailsService = customDetailsService;
         this.jwtUtil = jwtUtil;
+        this.tokenServicio = tokenServicio;
     }
 
     @Bean
@@ -36,10 +39,11 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/auth/login").permitAll()
+                                .requestMatchers("/auth/logout").hasAnyRole("ADMIN", "PROFESOR", "ALUMNO") // ✅ Correcto
                                 .requestMatchers("/auth/register").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 ) .csrf(csrf -> {
-                    csrf.ignoringRequestMatchers("/auth/register","/auth/login");
+                    csrf.ignoringRequestMatchers("/auth/register","/auth/login","/auth/logout");
                 })
                 .formLogin().disable()
                 .addFilterBefore(filterChain() ,UsernamePasswordAuthenticationFilter.class);
@@ -54,7 +58,7 @@ public class SecurityConfig {
 
       @Bean
       public JwtFilterChain filterChain(){
-        return new JwtFilterChain(jwtUtil,customDetailsService);
+            return new JwtFilterChain(jwtUtil,customDetailsService,tokenServicio);
       }
 
       @Bean

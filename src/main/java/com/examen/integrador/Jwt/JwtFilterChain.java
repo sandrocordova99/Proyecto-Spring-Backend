@@ -1,6 +1,7 @@
 package com.examen.integrador.Jwt;
 
 import com.examen.integrador.Seguridad.CustomDetailsService;
+import com.examen.integrador.Servicios.TokenServicio;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -23,11 +24,13 @@ public class JwtFilterChain extends OncePerRequestFilter {
 
     private final JwtUtil jwtUtil;
     private final CustomDetailsService customDetailsService;
+    private final TokenServicio tokenServicio;
 
     @Autowired
-    public JwtFilterChain(JwtUtil jwtUtil, CustomDetailsService customDetailsService) {
+    public JwtFilterChain(JwtUtil jwtUtil, CustomDetailsService customDetailsService, TokenServicio tokenServicio) {
         this.jwtUtil = jwtUtil;
         this.customDetailsService = customDetailsService;
+        this.tokenServicio = tokenServicio;
     }
 
 
@@ -43,6 +46,18 @@ public class JwtFilterChain extends OncePerRequestFilter {
             //3.extraer el token y el username
             String token = encabezado.substring(7);
             String username = jwtUtil.recuperarUsuario(token);
+
+
+
+            //0.Logout
+            if(tokenServicio.checkToken(token)){
+
+                response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+
+                response.getWriter().write("Token no valido  o expirado.");
+
+                return;
+            }
 
             //4.validar si el usuario existe
             if(username != null && SecurityContextHolder.getContext().getAuthentication() == null){

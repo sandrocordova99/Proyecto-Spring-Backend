@@ -22,12 +22,13 @@ public class UserSerivicio {
     private final UserRepositorio userRepositorio;
     private final UserValidacion userValidacion;
 
+
     @Autowired
-    public UserSerivicio(PasswordEncoder passwordEncoder, UserRepositorio userRepositorio, UserValidacion userValidacion ) {
+    public UserSerivicio(PasswordEncoder passwordEncoder, UserRepositorio userRepositorio, UserValidacion userValidacion, TokenServicio tokenServicio) {
         this.passwordEncoder = passwordEncoder;
         this.userRepositorio = userRepositorio;
         this.userValidacion = userValidacion;
-     }
+    }
 
     public Map<String,Object> registrarUsuario(Usuarios usuarios){
 
@@ -35,6 +36,7 @@ public class UserSerivicio {
 
         try{
 
+            
             Map<String,Object> resultadoValidacion =userValidacion.validarUsuarios(usuarios);
 
             if(resultadoValidacion.containsKey("Confirmación")){
