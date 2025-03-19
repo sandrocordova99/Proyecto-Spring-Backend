@@ -2,7 +2,6 @@ package com.examen.integrador.Controlador;
 
 import com.examen.integrador.Entidades.Usuarios;
 import com.examen.integrador.Jwt.JwtUtil;
-import com.examen.integrador.Seguridad.CustomDetailsService;
 import com.examen.integrador.Servicios.TokenServicio;
 import com.examen.integrador.Servicios.UserSerivicio;
 import org.springframework.beans.factory.annotation.Autowired;
