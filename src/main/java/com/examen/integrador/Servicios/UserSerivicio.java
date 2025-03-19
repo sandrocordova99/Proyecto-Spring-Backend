@@ -22,6 +22,14 @@ public class UserSerivicio {
     private final UserRepositorio userRepositorio;
     private final UserValidacion userValidacion;
 
+    /*
+    Listar
+    Listar por Rol
+    Eliminar
+    Editar
+    Usuario logeado
+    */
+
 
     @Autowired
     public UserSerivicio(PasswordEncoder passwordEncoder, UserRepositorio userRepositorio, UserValidacion userValidacion, TokenServicio tokenServicio) {
@@ -74,6 +82,50 @@ public class UserSerivicio {
         return respuestaRegistro;
 
     }
+
+
+
+    public Map<String,Object> listarTodosUsuarios( ){
+
+        Map<String,Object> resultado = new HashMap<>();
+
+        try{
+            List<Usuarios> usuariosList = userRepositorio.findAll();
+
+            if(usuariosList.isEmpty()){
+                resultado.put("mensaje" , "No hay usuarios registrados");
+            } else {
+                resultado.put("mensaje" , usuariosList);
+            }
+
+        }catch (Exception e){
+
+            String mensaje = e.getMessage();
+            resultado.put("mensaje" , mensaje);
+
+        }
+
+        return resultado;
+
+    }
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
     public String AutogenerarId(){
