@@ -40,11 +40,12 @@ public class SecurityConfig {
                         auth -> auth
                                 .requestMatchers("/auth/login").permitAll()
                                 .requestMatchers("/user/listar").hasRole("ADMIN")
+                                .requestMatchers("/user/listarAdmin").hasRole("ADMIN")
                                 .requestMatchers("/auth/logout").hasAnyRole("ADMIN", "PROFESOR", "ALUMNO")
                                 .requestMatchers("/auth/register").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 ) .csrf(csrf -> {
-                    csrf.ignoringRequestMatchers("/auth/register","/auth/login","/auth/logout","/user/listar");
+                    csrf.ignoringRequestMatchers("/auth/register","/auth/login","/auth/logout","/user/listar","/user/listarAdmin");
                 })
                 .formLogin().disable()
                 .addFilterBefore(filterChain() ,UsernamePasswordAuthenticationFilter.class);

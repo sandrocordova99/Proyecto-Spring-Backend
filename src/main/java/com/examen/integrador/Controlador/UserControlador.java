@@ -32,4 +32,15 @@ public class UserControlador {
 
     }
 
+    @GetMapping("/listarAdmin")
+    public ResponseEntity<Map<String,Object>> listarAdmin() {
+
+        Map<String, Object> respuesta = userSerivicio.listarAdmins();
+
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+
+    }
+
+
+
 }

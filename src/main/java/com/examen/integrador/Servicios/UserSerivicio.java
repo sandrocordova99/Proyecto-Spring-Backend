@@ -23,7 +23,7 @@ public class UserSerivicio {
     private final UserValidacion userValidacion;
 
     /*
-    Listar
+
     Listar por Rol
     Eliminar
     Editar
@@ -83,8 +83,6 @@ public class UserSerivicio {
 
     }
 
-
-
     public Map<String,Object> listarTodosUsuarios( ){
 
         Map<String,Object> resultado = new HashMap<>();
@@ -108,6 +106,55 @@ public class UserSerivicio {
         return resultado;
 
     }
+
+    public Map<String,Object> listarAdmins() {
+
+        Map<String, Object> resultado = new HashMap<>();
+        List<Usuarios> usuariosAdmins;
+
+        try{
+            usuariosAdmins = userRepositorio.findUsuariosByRoles(RolesEnum.ADMIN);
+
+            if(usuariosAdmins.isEmpty()){
+                 resultado.put("mensaje" , "No hay administradores registrados");
+            }else{
+                resultado.put("mensaje" ,"Administradores encontrados");
+                resultado.put("Total" , usuariosAdmins.size());
+                resultado.put("Admins" , usuariosAdmins);
+             }
+
+        }catch (Exception e){
+            resultado.put("mensaje" ,e.getMessage());
+        }
+
+            return resultado;
+    }
+
+    public Map<String,Object> listarAlumnos() {
+
+        Map<String, Object> resultado = new HashMap<>();
+
+        List<Usuarios> usuariosAlumnos;
+
+        try{
+            usuariosAlumnos = userRepositorio.findUsuariosByRoles(RolesEnum.ALUMNO);
+
+            if(usuariosAlumnos.isEmpty()){
+                resultado.put("mensaje" , "No hay administradores registrados");
+            }else{
+                resultado.put("mensaje" ,"Administradores encontrados");
+                resultado.put("Total" , usuariosAlumnos.size());
+                resultado.put("Admins" , usuariosAlumnos);
+            }
+
+        }catch (Exception e){
+            resultado.put("mensaje" ,e.getMessage());
+        }
+
+        return resultado;
+    }
+
+
 
 
 
