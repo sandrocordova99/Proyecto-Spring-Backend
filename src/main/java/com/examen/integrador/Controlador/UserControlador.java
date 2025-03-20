@@ -22,7 +22,6 @@ public class UserControlador {
         this.userSerivicio = userSerivicio;
     }
 
-
     @GetMapping("/listar")
     public ResponseEntity<Map<String,Object>> listar() {
 
@@ -31,5 +30,34 @@ public class UserControlador {
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
     }
+
+    @GetMapping("/listarAdmin")
+    public ResponseEntity<Map<String,Object>> listarAdmin() {
+
+        Map<String, Object> respuesta = userSerivicio.listarAdmins();
+
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+
+    }
+
+    @GetMapping("/listarAlumnos")
+    public ResponseEntity<Map<String,Object>> listarAlumnos() {
+
+        Map<String, Object> respuesta = userSerivicio.listarAlumnos();
+
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+
+    }
+
+    @GetMapping("/listarProfesores")
+    public ResponseEntity<Map<String,Object>> listarProfesores() {
+
+        Map<String, Object> respuesta = userSerivicio.listarProfesores();
+
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+
+    }
+
+
 
 }
