@@ -49,6 +49,15 @@ public class UserControlador {
 
     }
 
+    @GetMapping("/listarProfesores")
+    public ResponseEntity<Map<String,Object>> listarProfesores() {
+
+        Map<String, Object> respuesta = userSerivicio.listarProfesores();
+
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+
+    }
+
 
 
 }
