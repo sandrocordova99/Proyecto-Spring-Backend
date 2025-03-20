@@ -58,6 +58,17 @@ public class UserControlador {
 
     }
 
+    @DeleteMapping("/eliminarUsuario/{id}")
+    public ResponseEntity<Map<String,Object>> eliminarUsuario(@PathVariable("id") String id) {
+
+        Map<String, Object> respuesta = userSerivicio.eliminarUsuario(id);
+
+        if(respuesta.containsKey("error")){
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(respuesta);
+        } else {
+            return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+        }
+    }
 
 
 }

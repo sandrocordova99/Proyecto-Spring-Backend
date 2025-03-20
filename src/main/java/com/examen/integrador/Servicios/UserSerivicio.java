@@ -4,16 +4,14 @@ import com.examen.integrador.Entidades.RolesEnum;
 import com.examen.integrador.Entidades.Usuarios;
 import com.examen.integrador.Repositorio.UserRepositorio;
 import com.examen.integrador.Validacion.UserValidacion;
+import jakarta.persistence.EntityNotFoundException;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.io.PrintWriter;
 import java.io.StringWriter;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 
 @Service
 public class UserSerivicio {
@@ -23,8 +21,6 @@ public class UserSerivicio {
     private final UserValidacion userValidacion;
 
     /*
-
-    Listar por Rol
     Eliminar
     Editar
     Usuario logeado
@@ -140,7 +136,7 @@ public class UserSerivicio {
             usuariosAlumnos = userRepositorio.findUsuariosByRoles(RolesEnum.ALUMNO);
 
             if(usuariosAlumnos.isEmpty()){
-                resultado.put("mensaje" , "No hay administradores registrados");
+                resultado.put("mensaje" , "No hay Alumnos registrados");
             }else{
                 resultado.put("mensaje" ,"Alumnos encontrados");
                 resultado.put("Total" , usuariosAlumnos.size());
@@ -164,15 +160,39 @@ public class UserSerivicio {
             usuariosProfesores = userRepositorio.findUsuariosByRoles(RolesEnum.PROFESOR);
 
             if(usuariosProfesores.isEmpty()){
-                resultado.put("mensaje" , "No hay administradores registrados");
+                resultado.put("mensaje" , "No hay Profesores registrados");
             }else{
-                resultado.put("mensaje" ,"Alumnos encontrados");
+                resultado.put("mensaje" ,"Profesores encontrados");
                 resultado.put("Total" , usuariosProfesores.size());
-                resultado.put("Alumnos" , usuariosProfesores);
+                resultado.put("Profesores" , usuariosProfesores);
             }
 
         }catch (Exception e){
             resultado.put("mensaje" ,e.getMessage());
+        }
+
+        return resultado;
+    }
+
+    public Map<String,Object> eliminarUsuario(String id) {
+
+        Map<String, Object> resultado = new HashMap<>();
+
+        try{
+            Optional<Usuarios> usuariosOptional = userRepositorio.findById(id);
+
+            if(usuariosOptional.isEmpty()){
+               throw new EntityNotFoundException("No se encontro usuario con ese ID");
+            } else {
+
+                Usuarios usuarioDelete = usuariosOptional.get();
+                userRepositorio.delete(usuarioDelete);
+                resultado.put("mensaje" , "Usuario eliminado");
+                resultado.put("username eliminado: " , usuarioDelete.getUsername());
+            }
+
+        }catch (Exception e){
+            resultado.put("error" ,e.getMessage());
         }
 
         return resultado;
