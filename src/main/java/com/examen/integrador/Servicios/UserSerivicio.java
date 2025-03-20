@@ -142,9 +142,33 @@ public class UserSerivicio {
             if(usuariosAlumnos.isEmpty()){
                 resultado.put("mensaje" , "No hay administradores registrados");
             }else{
-                resultado.put("mensaje" ,"Administradores encontrados");
+                resultado.put("mensaje" ,"Alumnos encontrados");
                 resultado.put("Total" , usuariosAlumnos.size());
-                resultado.put("Admins" , usuariosAlumnos);
+                resultado.put("Alumnos" , usuariosAlumnos);
+            }
+
+        }catch (Exception e){
+            resultado.put("mensaje" ,e.getMessage());
+        }
+
+        return resultado;
+    }
+
+    public Map<String,Object> listarProfesores() {
+
+        Map<String, Object> resultado = new HashMap<>();
+
+        List<Usuarios> usuariosProfesores;
+
+        try{
+            usuariosProfesores = userRepositorio.findUsuariosByRoles(RolesEnum.PROFESOR);
+
+            if(usuariosProfesores.isEmpty()){
+                resultado.put("mensaje" , "No hay administradores registrados");
+            }else{
+                resultado.put("mensaje" ,"Alumnos encontrados");
+                resultado.put("Total" , usuariosProfesores.size());
+                resultado.put("Alumnos" , usuariosProfesores);
             }
 
         }catch (Exception e){
