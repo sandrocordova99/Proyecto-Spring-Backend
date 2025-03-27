@@ -44,12 +44,13 @@ public class SecurityConfig {
                                 .requestMatchers("/user/listarAlumnos").hasRole("ADMIN")
                                 .requestMatchers("/user/listarProfesores").hasRole("ADMIN")
                                 .requestMatchers("/user/eliminarUsuario/{id}").hasRole("ADMIN")
+                                .requestMatchers("/user/editarUsuarios/{id}").hasRole("ADMIN")
                                 .requestMatchers("/auth/logout").hasAnyRole("ADMIN", "PROFESOR", "ALUMNO")
                                 .requestMatchers("/auth/register").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 ) .csrf(csrf -> {
                     csrf.ignoringRequestMatchers("/auth/register","/auth/login","/auth/logout","/user/listar","/user/listarAdmin"
-                    ,"/user/listarAlumnos","/user/listarProfesores","/user/eliminarUsuario/{id}");
+                    ,"/user/listarAlumnos","/user/listarProfesores","/user/eliminarUsuario/{id}","/user/editarUsuarios/{id}");
                 })
                 .formLogin().disable()
                 .addFilterBefore(filterChain() ,UsernamePasswordAuthenticationFilter.class);

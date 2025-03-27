@@ -70,5 +70,14 @@ public class UserControlador {
         }
     }
 
+    @PutMapping("/editarUsuarios/{id}")
+    public ResponseEntity<Map<String,Object>> editarAlumnos(@PathVariable("id") String id , @RequestBody Usuarios usuarios) {
+
+        Map<String, Object> respuesta = userSerivicio.editarUsuario(usuarios , id);
+
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+
+    }
+
 
 }
