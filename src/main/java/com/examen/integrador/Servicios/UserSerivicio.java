@@ -21,9 +21,11 @@ public class UserSerivicio {
     private final UserValidacion userValidacion;
 
     /*
-    Eliminar
+
     Editar
+
     Usuario logeado
+
     */
 
 
@@ -198,7 +200,46 @@ public class UserSerivicio {
         return resultado;
     }
 
+    public Map<String,Object> editarUsuario(Usuarios usuarios , String Id) {
 
+        Map<String,Object> respuestaUpdate = new HashMap<>();
+        Map<String,Object> respuestaValidacion ;
+
+        try{
+
+            Optional<Usuarios> usuariosOptional = userRepositorio.findById(Id);
+
+            if(usuariosOptional.isEmpty()){
+                throw new EntityNotFoundException("usuario no encontrado");
+            }
+
+            Usuarios usuariosById= usuariosOptional.get();
+
+            respuestaValidacion = userValidacion.validarUsuarios(usuarios);
+
+            if(respuestaValidacion.containsKey("Confirmación") ){
+
+                usuariosById.setUsername(usuarios.getUsername());
+
+                 userRepositorio.save(usuariosById);
+
+                respuestaUpdate.put("confirmacion: " , "usuario actualizado con excito");
+
+            } else if (respuestaValidacion.containsKey("Error")) {
+
+                respuestaUpdate.put("error: " , respuestaValidacion.get("Error"));
+
+            } else if (respuestaValidacion.containsKey("ErrorTry") ){
+                respuestaUpdate.put("error try: " , respuestaValidacion.get("ErrorTry"));
+            }
+
+        }catch (Exception e){
+            respuestaUpdate.put("error" ,e.getMessage());
+        }
+
+        return respuestaUpdate;
+
+    }
 
 
 
