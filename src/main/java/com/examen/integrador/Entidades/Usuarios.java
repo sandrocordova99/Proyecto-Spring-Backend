@@ -1,6 +1,5 @@
 package com.examen.integrador.Entidades;
 
-
 import com.fasterxml.jackson.annotation.JsonFormat;
 import jakarta.persistence.*;
 import lombok.*;
@@ -9,55 +8,50 @@ import org.springframework.format.annotation.DateTimeFormat;
 import java.time.LocalDate;
 
 @Entity
-@Table(name = "Usuarios")
+@Table(name = "usuarios")
+@Getter
+@Setter
 public class Usuarios {
 
     @Id
     private String id;
 
-    @Column(nullable = false , length = 100 , unique = false)
+    @Column(nullable = false, length = 100)
     private String nombre;
 
-    @Column(nullable = false , length = 100 , unique = false)
+    @Column(nullable = false, length = 100)
     private String apellido;
 
-    @Column(nullable = false , length = 100 , unique = true )
+    @Column(nullable = false, length = 100, unique = true)
     private String username;
 
-    @Column(nullable = false , length = 100 , unique = false)
+    @Column(nullable = false, length = 100)
     private String password;
 
-    @Column(nullable = false , length = 100 , unique = false)
+    @Column(nullable = false, length = 100)
     private String confirm_password;
 
-    @Column(nullable = false , length = 100 , unique = false)
+    @Column(nullable = false, length = 100)
     private String email;
 
     @DateTimeFormat(pattern = "dd/MM/yyyy")
     @JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "dd/MM/yyyy")
-    @Column(nullable = false  , updatable = false)
+    @Column(nullable = false, updatable = false)
     private LocalDate nacimiento;
 
     @Enumerated(value = EnumType.STRING)
     private RolesEnum roles;
 
+    @OneToOne(mappedBy = "usuarios", cascade = CascadeType.ALL)
+    private Administradores administradores;
 
+    @OneToOne(mappedBy = "usuarios", cascade = CascadeType.ALL)
+    private Alumnos alumnos;
 
+    @OneToOne(mappedBy = "usuarios", cascade = CascadeType.ALL)
+    private Profesores profesores;
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    
 
     public String getConfirm_password() {
         return confirm_password;
@@ -66,6 +60,7 @@ public class Usuarios {
     public void setConfirm_password(String confirm_password) {
         this.confirm_password = confirm_password;
     }
+
     public RolesEnum getRoles() {
         return roles;
     }
@@ -74,11 +69,12 @@ public class Usuarios {
         this.roles = roles;
     }
 
-    public Usuarios(){
+    public Usuarios() {
 
     }
 
-    public Usuarios(String apellido, String confirm_password, String email, String id, LocalDate nacimiento, String nombre, String username, RolesEnum roles, String password) {
+    public Usuarios(String apellido, String confirm_password, String email, String id, LocalDate nacimiento,
+            String nombre, String username, RolesEnum roles, String password) {
         this.apellido = apellido;
         this.confirm_password = confirm_password;
         this.email = email;
