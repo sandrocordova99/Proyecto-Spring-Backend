@@ -2,6 +2,7 @@ package com.examen.integrador.Entidades;
 
  
  
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -23,7 +24,7 @@ public class Alumnos {
     private String grado;
 
     @MapsId   
-    @OneToOne() 
+    @OneToOne(cascade = CascadeType.ALL) 
     @JoinColumn(name = "usuario_id")
     private Usuarios usuarios;
 
