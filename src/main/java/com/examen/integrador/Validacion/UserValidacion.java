@@ -1,6 +1,6 @@
 package com.examen.integrador.Validacion;
 
-import com.examen.integrador.Entidades.RolesEnum;
+ 
 import com.examen.integrador.Entidades.Usuarios;
 import com.examen.integrador.Repositorio.UserRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;

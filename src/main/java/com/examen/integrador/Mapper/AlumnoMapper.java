@@ -18,14 +18,35 @@ public interface AlumnoMapper {
     // patron singleton
     AlumnoMapper instancia = Mappers.getMapper(AlumnoMapper.class);
 
-    Usuarios toUsuario(RequestAlumnoDTO requestAlumnoDTO);
+    
+    Usuarios toUsuario(ResponseAlumnoDTO dto);
 
-    Alumnos toAlumno(RequestAlumnoDTO requestAlumnoDTO);
-
-    List<Alumnos> toListAlumnos(List<ResponseAlumnoDTO> responseAlumnoDTO);
-
-    // setear el campo alumno en usuarios
+   
+   
+    //mostrar
     @Mapping(target = "usuarios", expression = "java(toUsuario(dto))")
-    Alumnos toAlumnoConUsuario(RequestAlumnoDTO dto);
+    Alumnos toAlumno(ResponseAlumnoDTO dto);
+
+    Usuarios toUsuario(RequestAlumnoDTO dto);
+    
+    //guardar
+    @Mapping(target = "usuarios", expression = "java(toUsuario(dto))")
+    Alumnos crearAlumno(RequestAlumnoDTO dto);
+  
+    /*Listar  alumnos*/
+    List<ResponseAlumnoDTO> ListAlumnos(List<Alumnos> alumnos);
+
+    @Mapping(source = "usuarios.nombre", target = "nombre")
+    @Mapping(source = "usuarios.apellido", target = "apellido")
+    @Mapping(source = "usuarios.username", target = "username")
+    @Mapping(source = "usuarios.email", target = "email")
+    @Mapping(source = "usuarios.nacimiento", target = "nacimiento")
+    @Mapping(source = "usuarios.roles", target = "roles")
+    ResponseAlumnoDTO toResponseAlumnoDTO(Alumnos alumno);
+
+   
+  
+
+   
 
 }

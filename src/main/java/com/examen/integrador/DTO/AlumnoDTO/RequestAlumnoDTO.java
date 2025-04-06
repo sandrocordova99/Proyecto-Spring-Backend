@@ -30,7 +30,6 @@ public class RequestAlumnoDTO {
 
     private RolesEnum roles;
 
-
     //Alumno
     private String nombreDeApoderado;
 }
