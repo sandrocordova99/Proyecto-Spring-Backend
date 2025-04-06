@@ -20,12 +20,12 @@ public class Alumnos {
     @Id
     private String id;
 
-    @Column(length = 100)
-    private String grado;
-
     @MapsId   
     @OneToOne(cascade = CascadeType.ALL) 
     @JoinColumn(name = "usuario_id")
     private Usuarios usuarios;
+
+    @Column(name = "apoderado")
+    private String nombreDeApoderado;
 
 }

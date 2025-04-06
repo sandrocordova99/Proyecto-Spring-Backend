@@ -35,7 +35,7 @@ public class UserSerivicio {
         this.userRepositorio = userRepositorio;
         this.userValidacion = userValidacion;
     }
-
+ 
     public Map<String, Object> registrarUsuario(Usuarios usuarios) {
 
         Map<String, Object> respuestaRegistro = new HashMap<>();
@@ -224,7 +224,7 @@ public class UserSerivicio {
                 usuariosById.setRoles(usuarios.getRoles());
                 usuariosById.setNacimiento(usuarios.getNacimiento());
                 usuariosById.setUsername(usuarios.getUsername());
-            
+
                 userRepositorio.save(usuariosById);
 
                 respuestaUpdate.put("confirmacion: ", "Usuario actualizado con excito");

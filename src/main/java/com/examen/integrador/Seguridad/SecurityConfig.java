@@ -46,11 +46,12 @@ public class SecurityConfig {
                                 .requestMatchers("/user/eliminarUsuario/{id}").hasRole("ADMIN")
                                 .requestMatchers("/user/editarUsuarios/{id}").hasRole("ADMIN")
                                 .requestMatchers("/auth/logout").hasAnyRole("ADMIN", "PROFESOR", "ALUMNO")
+                                .requestMatchers("/alu/listar").hasAnyRole("ADMIN", "PROFESOR")
                                 .requestMatchers("/auth/register").hasRole("ADMIN")
                                 .anyRequest().authenticated()
                 ) .csrf(csrf -> {
                     csrf.ignoringRequestMatchers("/auth/register","/auth/login","/auth/logout","/user/listar","/user/listarAdmin"
-                    ,"/user/listarAlumnos","/user/listarProfesores","/user/eliminarUsuario/{id}","/user/editarUsuarios/{id}");
+                    ,"/user/listarAlumnos","/user/listarProfesores","/user/eliminarUsuario/{id}","/user/editarUsuarios/{id}","/alu/listar" );
                 })
                 .formLogin().disable()
                 .addFilterBefore(filterChain() ,UsernamePasswordAuthenticationFilter.class);
