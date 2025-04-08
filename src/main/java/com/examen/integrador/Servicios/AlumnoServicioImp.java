@@ -42,7 +42,7 @@ public class AlumnoServicioImp implements AlumnoServicio {
 
         Usuarios usu = AlumnoMapper.instancia.toUsuario(dto);
 
-        
+            
 
         throw new UnsupportedOperationException("Unimplemented method 'crearAlumno'");
     }
