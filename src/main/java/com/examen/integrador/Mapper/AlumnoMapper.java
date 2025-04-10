@@ -12,25 +12,25 @@ import com.examen.integrador.DTO.AlumnoDTO.ResponseAlumnoDTO;
 import com.examen.integrador.Entidades.Alumnos;
 import com.examen.integrador.Entidades.Usuarios;
 
+
 @Mapper
 public interface AlumnoMapper {
 
-    // patron singleton
     AlumnoMapper instancia = Mappers.getMapper(AlumnoMapper.class);
 
-    Usuarios toUsuario(ResponseAlumnoDTO dto);
-
-    // mostrar
-    @Mapping(target = "usuarios", expression = "java(toUsuario(dto))")
+    // ✅ Cambiar expresión con el método correcto para el tipo de DTO
+    @Mapping(target = "usuarios", expression = "java(toUsuarioResponse(dto))")
     Alumnos toAlumnoResponse(ResponseAlumnoDTO dto);
 
-    // guardar
-    @Mapping(target = "usuarios", expression = "java(toUsuario(dto))")
+    // ✅ Cambiar expresión con el método correcto para el tipo de DTO
+    @Mapping(target = "usuarios", expression = "java(toUsuarioRequest(dto))")
     Alumnos toAlumnoRequest(RequestAlumnoDTO dto);
 
-    Usuarios toUsuario(RequestAlumnoDTO dto);
+    // Métodos que convierten un DTO a un Usuario
+    Usuarios toUsuarioResponse(ResponseAlumnoDTO dto);
 
-    /* Listar alumnos */
+    Usuarios toUsuarioRequest(RequestAlumnoDTO dto);
+
     List<ResponseAlumnoDTO> ListAlumnos(List<Alumnos> alumnos);
 
     @Mapping(source = "usuarios.nombre", target = "nombre")
@@ -40,5 +40,4 @@ public interface AlumnoMapper {
     @Mapping(source = "usuarios.nacimiento", target = "nacimiento")
     @Mapping(source = "usuarios.roles", target = "roles")
     ResponseAlumnoDTO toResponseAlumnoDTO(Alumnos alumno);
-
 }

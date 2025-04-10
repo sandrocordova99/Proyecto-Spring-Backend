@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -29,7 +30,7 @@ public class AlumnosControlador {
     private final UserValidacion userValidacion;
 
     @Autowired
-    public AlumnosControlador(AlumnoServicioImp alumnoServicioImp , UserValidacion userValidacion) {
+    public AlumnosControlador(AlumnoServicioImp alumnoServicioImp, UserValidacion userValidacion) {
         this.alumnoServicioImp = alumnoServicioImp;
         this.userValidacion = userValidacion;
     }
@@ -48,19 +49,24 @@ public class AlumnosControlador {
     }
 
     @PostMapping("/crear")
-    public ResponseEntity<Map<String,Object>> crearAlumnos(RequestAlumnoDTO dto) {
+    public ResponseEntity<Map<String, Object>> crearAlumnos(@RequestBody RequestAlumnoDTO dto) {
 
-        Map<String,Object> respuesta = new HashMap();
+        Map<String, Object> respuesta = new HashMap();
 
-        Map<String,Object> validacion = userValidacion.validarUsuarios(dto);
+        Map<String, Object> respuestaValidacion = userValidacion.validarUsuarios(dto);
 
-        if(validacion.containsKey("Confirmación")){
-            
-            respuesta.put("Confirmacion: ", validacion.get("Confirmación"));
-            
+        if (respuestaValidacion.containsKey("Confirmación")) {
+
             Alumnos alu = alumnoServicioImp.crearAlumno(dto);
 
-        } 
+            respuesta.put("validacion", respuestaValidacion.get("Confirmación"));
+            respuesta.put("ID", alu.getId());
+
+        } else {
+
+            respuesta.put("respuesta", respuestaValidacion.get("Errores"));
+
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 

@@ -21,7 +21,7 @@ public class Alumnos {
     private String id;
 
     @MapsId   
-    @OneToOne(cascade = CascadeType.ALL) 
+    @OneToOne(cascade = CascadeType.ALL)   
     @JoinColumn(name = "usuario_id")
     private Usuarios usuarios;
 
