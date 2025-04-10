@@ -1,7 +1,9 @@
 package com.examen.integrador.Validacion;
 
- 
+import com.examen.integrador.DTO.AlumnoDTO.RequestAlumnoDTO;
+import com.examen.integrador.Entidades.Alumnos;
 import com.examen.integrador.Entidades.Usuarios;
+import com.examen.integrador.Mapper.AlumnoMapper;
 import com.examen.integrador.Repositorio.UserRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -19,11 +21,44 @@ public class UserValidacion {
 
     }
 
-    public Map<String, Object> validarUsuarios(Usuarios usu) {
+    /*
+     * USAR UN SWITCH DEPENDIENDO DEL ROL , DEPENDIENDO DE ESO QUE LLAME A UN METODO
+     * QUE VA VALIDAR LOS DATOS DEL USUARIO Y LA ENTIDAD
+     * ANIDADA. PREPARAR PRIMERO LA LOGICA
+     * 
+     * PODRIA SER PRIMERO QUE LLEGUE EL USERDTO Y LUEGO LO SEPARO EN 2 O ALGO ASI XD
+     */
+    String regexNombre = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]+$";
+    String regexEmail = "^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\\.com$";
 
-        String regexNombre = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]+$";
-        String regexEmail = "^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\\.com$";
+    public Map<String, Object> validarUsuarios(RequestAlumnoDTO usu) {
+
+        Map<String, Object> respuestaValidacionEntidades = new HashMap<>();
+
+        Map<String, Object> respuestaValidacionComun = validacionComun(usu);
+
+        switch (usu.getRoles().name().toString()) {
+            case "ADMIN":
+                respuestaValidacionEntidades = validarAdmin(usu);
+                break;
+
+            case "ALUMNO":
+                respuestaValidacionEntidades = validarAlumno(usu);
+                break;
+
+            default:
+                respuestaValidacionEntidades = validarProfe(usu);
+                break;
+        }
+
+        return respuestaValidacionComun;
+
+    }
+
+    private Map<String, Object> validacionComun(RequestAlumnoDTO usu) {
+
         Map<String, Object> respuestaValidacion = new HashMap<>();
+
         List<String> mensajeValidacion = new ArrayList<>();
 
         try {
@@ -73,10 +108,33 @@ public class UserValidacion {
             }
 
         } catch (Exception e) {
-            respuestaValidacion.put("ErrorTry", e.getMessage());
+            respuestaValidacion.put("Error", e.getMessage());
         }
 
         return respuestaValidacion;
+    }
+
+    private Map<String, Object> validarAlumno(RequestAlumnoDTO usu) {
+
+        Alumnos alu = AlumnoMapper.instancia.toAlumnoRequest(usu);
+
+        
+
+        if(alu.getNombreDeApoderado().isEmpty() || !alu.getNombreDeApoderado().matches(regexNombre)){
+            
+        }
+
+        throw new UnsupportedOperationException("Unimplemented method 'validarAlumno'");
+    }
+
+    private Map<String, Object> validarProfe(RequestAlumnoDTO usu) {
+
+        throw new UnsupportedOperationException("Unimplemented method 'validarProfe'");
+    }
+
+    private Map<String, Object> validarAdmin(RequestAlumnoDTO usu) {
+
+        throw new UnsupportedOperationException("Unimplemented method 'validarAdmin'");
     }
 
 }

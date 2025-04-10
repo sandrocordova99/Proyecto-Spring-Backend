@@ -35,34 +35,39 @@ public class UserSerivicio {
         this.userRepositorio = userRepositorio;
         this.userValidacion = userValidacion;
     }
- 
+
     public Map<String, Object> registrarUsuario(Usuarios usuarios) {
 
         Map<String, Object> respuestaRegistro = new HashMap<>();
 
         try {
 
-            Map<String, Object> resultadoValidacion = userValidacion.validarUsuarios(usuarios);
-
-            if (resultadoValidacion.containsKey("Confirmación")) {
-
-                usuarios.setPassword(passwordEncoder.encode(usuarios.getPassword()));
-
-                usuarios.setConfirm_password(passwordEncoder.encode(usuarios.getPassword()));
-
-                usuarios.setId(AutogenerarId(usuarios.getRoles().name()));
-
-                if (usuarios.getRoles() == null) {
-                    usuarios.setRoles(RolesEnum.ALUMNO);
-                }
-
-                userRepositorio.save(usuarios);
-
-                respuestaRegistro.put("Confirmación", resultadoValidacion.get("Confirmación"));
-
-            } else {
-                respuestaRegistro.put("Error", resultadoValidacion.get("Error"));
-            }
+            // Map<String, Object> resultadoValidacion =
+            // userValidacion.validarUsuarios(usuarios);
+            /*
+             * 
+             * 
+             * if (resultadoValidacion.containsKey("Confirmación")) {
+             * 
+             * usuarios.setPassword(passwordEncoder.encode(usuarios.getPassword()));
+             * 
+             * usuarios.setConfirm_password(passwordEncoder.encode(usuarios.getPassword()));
+             * 
+             * usuarios.setId(AutogenerarId(usuarios.getRoles().name()));
+             * 
+             * if (usuarios.getRoles() == null) {
+             * usuarios.setRoles(RolesEnum.ALUMNO);
+             * }
+             * 
+             * userRepositorio.save(usuarios);
+             * 
+             * // respuestaRegistro.put("Confirmación",
+             * resultadoValidacion.get("Confirmación"));
+             * 
+             * } else {
+             * // respuestaRegistro.put("Error", resultadoValidacion.get("Error"));
+             * }
+             */
 
         } catch (Exception e) {
             StringWriter sw = new StringWriter();
@@ -73,7 +78,7 @@ public class UserSerivicio {
             respuestaRegistro.put("detalleTry", stackTrace); //
         }
 
-        return respuestaRegistro;
+        return null;
 
     }
 
@@ -211,31 +216,36 @@ public class UserSerivicio {
 
             Usuarios usuariosById = usuariosOptional.get();
 
-            respuestaValidacion = userValidacion.validarUsuarios(usuarios);
+            // respuestaValidacion = userValidacion.validarUsuarios(usuarios);
 
-            if (respuestaValidacion.containsKey("Confirmación")) {
-
-                usuariosById.setUsername(usuarios.getUsername());
-                usuariosById.setNombre(usuarios.getNombre());
-                usuariosById.setApellido(usuarios.getApellido());
-                usuariosById.setEmail(usuarios.getEmail());
-                usuariosById.setPassword(usuarios.getPassword());
-                usuariosById.setConfirm_password(usuarios.getConfirm_password());
-                usuariosById.setRoles(usuarios.getRoles());
-                usuariosById.setNacimiento(usuarios.getNacimiento());
-                usuariosById.setUsername(usuarios.getUsername());
-
-                userRepositorio.save(usuariosById);
-
-                respuestaUpdate.put("confirmacion: ", "Usuario actualizado con excito");
-
-            } else if (respuestaValidacion.containsKey("Error")) {
-
-                respuestaUpdate.put("error: ", respuestaValidacion.get("Error"));
-
-            } else if (respuestaValidacion.containsKey("ErrorTry")) {
-                respuestaUpdate.put("error try: ", respuestaValidacion.get("ErrorTry"));
-            }
+            /*
+             * 
+             * 
+             * if (respuestaValidacion.containsKey("Confirmación")) {
+             * 
+             * usuariosById.setUsername(usuarios.getUsername());
+             * usuariosById.setNombre(usuarios.getNombre());
+             * usuariosById.setApellido(usuarios.getApellido());
+             * usuariosById.setEmail(usuarios.getEmail());
+             * usuariosById.setPassword(usuarios.getPassword());
+             * usuariosById.setConfirm_password(usuarios.getConfirm_password());
+             * usuariosById.setRoles(usuarios.getRoles());
+             * usuariosById.setNacimiento(usuarios.getNacimiento());
+             * usuariosById.setUsername(usuarios.getUsername());
+             * 
+             * userRepositorio.save(usuariosById);
+             * 
+             * respuestaUpdate.put("confirmacion: ", "Usuario actualizado con excito");
+             * 
+             * } else if (respuestaValidacion.containsKey("Error")) {
+             * 
+             * respuestaUpdate.put("error: ", respuestaValidacion.get("Error"));
+             * 
+             * } else if (respuestaValidacion.containsKey("ErrorTry")) {
+             * respuestaUpdate.put("error try: ", respuestaValidacion.get("ErrorTry"));
+             * }
+             * 
+             */
 
         } catch (Exception e) {
             respuestaUpdate.put("error", e.getMessage());
