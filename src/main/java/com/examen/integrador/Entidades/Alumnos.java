@@ -1,6 +1,8 @@
 package com.examen.integrador.Entidades;
 
+import java.util.ArrayList;
 import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 
 import jakarta.persistence.CascadeType;
@@ -37,6 +39,6 @@ public class Alumnos {
             joinColumns = @JoinColumn(name = "alumno_id"),  
             inverseJoinColumns = @JoinColumn(name = "curso_id")  
     )
-    private Set<Cursos> cursos = new HashSet<>();
+    private List<Cursos> cursos = new ArrayList ();
 
 }

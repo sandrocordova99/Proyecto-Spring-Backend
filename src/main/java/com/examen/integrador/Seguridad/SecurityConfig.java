@@ -2,7 +2,8 @@ package com.examen.integrador.Seguridad;
 
 import com.examen.integrador.Jwt.JwtFilterChain;
 import com.examen.integrador.Jwt.JwtUtil;
-import com.examen.integrador.Servicios.TokenServicio;
+import com.examen.integrador.Servicios.Token.TokenServicio;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
