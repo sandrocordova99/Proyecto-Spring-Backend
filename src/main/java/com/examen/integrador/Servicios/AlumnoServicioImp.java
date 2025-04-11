@@ -3,23 +3,31 @@ package com.examen.integrador.Servicios;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
-import java.util.List;
+import org.springframework.transaction.annotation.Transactional;
+
 import com.examen.integrador.DTO.AlumnoDTO.RequestAlumnoDTO;
 import com.examen.integrador.DTO.AlumnoDTO.ResponseAlumnoDTO;
 import com.examen.integrador.Entidades.Alumnos;
 import com.examen.integrador.Entidades.Usuarios;
 import com.examen.integrador.Mapper.AlumnoMapper;
 import com.examen.integrador.Repositorio.AlumnosRepositorio;
+import com.examen.integrador.Repositorio.UserRepositorio;
 
 @Service
 public class AlumnoServicioImp implements AlumnoServicio {
 
+    private final PasswordEncoder passwordEncoder;
     private final AlumnosRepositorio alumnosRepositorio;
+    private final UserRepositorio userRepositorio;
 
     @Autowired
-    AlumnoServicioImp(AlumnosRepositorio alumnosRepositorio) {
+    AlumnoServicioImp(AlumnosRepositorio alumnosRepositorio, UserRepositorio userRepositorio,
+            PasswordEncoder passwordEncoder) {
         this.alumnosRepositorio = alumnosRepositorio;
+        this.userRepositorio = userRepositorio;
+        this.passwordEncoder = passwordEncoder;
     }
 
     @Override
@@ -37,16 +45,33 @@ public class AlumnoServicioImp implements AlumnoServicio {
         }
     }
 
+    @Transactional
     @Override
     public Alumnos crearAlumno(RequestAlumnoDTO dto) {
 
-        Usuarios usu = AlumnoMapper.instancia.toUsuario(dto);
+        try {
 
-            
+            Usuarios usu = AlumnoMapper.instancia.toUsuarioRequest(dto);
 
-        throw new UnsupportedOperationException("Unimplemented method 'crearAlumno'");
+            usu.setId(AutogenerarId());
+            usu.setPassword(passwordEncoder.encode(usu.getPassword()));
+            usu.setConfirm_password(passwordEncoder.encode(usu.getPassword()));
+
+            Alumnos alu = AlumnoMapper.instancia.toAlumnoRequest(dto);
+
+            // bidireccional
+            alu.setUsuarios(usu);
+            usu.setAlumnos(alu);
+
+            // Se guarda una sola vez
+            userRepositorio.save(usu);
+
+            return alu;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al crear usuario y alumno", e);
+        }
+
     }
-
 
     public String AutogenerarId() {
 
@@ -64,6 +89,5 @@ public class AlumnoServicioImp implements AlumnoServicio {
         }
         return respuesta.toString();
     }
-
 
 }

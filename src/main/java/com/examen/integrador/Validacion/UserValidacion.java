@@ -20,22 +20,19 @@ public class UserValidacion {
         this.userRepositorio = userRepositorio;
 
     }
-
-    /*
-     * USAR UN SWITCH DEPENDIENDO DEL ROL , DEPENDIENDO DE ESO QUE LLAME A UN METODO
-     * QUE VA VALIDAR LOS DATOS DEL USUARIO Y LA ENTIDAD
-     * ANIDADA. PREPARAR PRIMERO LA LOGICA
-     * 
-     * PODRIA SER PRIMERO QUE LLEGUE EL USERDTO Y LUEGO LO SEPARO EN 2 O ALGO ASI XD
-     */
+    
     String regexNombre = "^[a-zA-ZáéíóúÁÉÍÓÚüÜñÑ\\s]+$";
     String regexEmail = "^[a-zA-Z0-9._%+-]+@(gmail|hotmail|outlook)\\.com$";
 
     public Map<String, Object> validarUsuarios(RequestAlumnoDTO usu) {
 
-        Map<String, Object> respuestaValidacionEntidades = new HashMap<>();
+        List<String> respuestaValidacionComun = validacionComun(usu);
 
-        Map<String, Object> respuestaValidacionComun = validacionComun(usu);
+        List<String> respuestaValidacionEntidades = new ArrayList();
+
+        List<String> erroresTotales = new ArrayList<>();
+
+        Map<String, Object> respuesta = new HashMap();
 
         switch (usu.getRoles().name().toString()) {
             case "ADMIN":
@@ -51,13 +48,22 @@ public class UserValidacion {
                 break;
         }
 
-        return respuestaValidacionComun;
+        erroresTotales.addAll(respuestaValidacionComun);
+
+        erroresTotales.addAll(respuestaValidacionEntidades);
+
+        if (erroresTotales.isEmpty()) {
+            respuesta.put("Confirmación", "Información registrada correctamente.");
+        } else {
+            respuesta.put("Errores", erroresTotales);
+        }
+    
+        return respuesta;
+         
 
     }
 
-    private Map<String, Object> validacionComun(RequestAlumnoDTO usu) {
-
-        Map<String, Object> respuestaValidacion = new HashMap<>();
+    private List<String> validacionComun(RequestAlumnoDTO usu) {
 
         List<String> mensajeValidacion = new ArrayList<>();
 
@@ -101,38 +107,34 @@ public class UserValidacion {
                 }
             }
 
-            if (mensajeValidacion.isEmpty()) {
-                respuestaValidacion.put("Confirmación", "Informacion registrada correctamente , usuario registrado");
-            } else {
-                respuestaValidacion.put("Error", mensajeValidacion);
-            }
+            
 
         } catch (Exception e) {
-            respuestaValidacion.put("Error", e.getMessage());
+            mensajeValidacion.add(e.getMessage());
         }
 
-        return respuestaValidacion;
+        return mensajeValidacion;
     }
 
-    private Map<String, Object> validarAlumno(RequestAlumnoDTO usu) {
+    private List<String> validarAlumno(RequestAlumnoDTO usu) {
 
         Alumnos alu = AlumnoMapper.instancia.toAlumnoRequest(usu);
 
-        
+        List<String> mensajeValidacion = new ArrayList<>();
 
-        if(alu.getNombreDeApoderado().isEmpty() || !alu.getNombreDeApoderado().matches(regexNombre)){
-            
+        if (alu.getNombreDeApoderado().isEmpty() || !alu.getNombreDeApoderado().matches(regexNombre)) {
+            mensajeValidacion.add("Nombre no puede estar vacio ni contener caracteres invalidos");
         }
 
-        throw new UnsupportedOperationException("Unimplemented method 'validarAlumno'");
+        return mensajeValidacion;
     }
 
-    private Map<String, Object> validarProfe(RequestAlumnoDTO usu) {
+    private List<String> validarProfe(RequestAlumnoDTO usu) {
 
         throw new UnsupportedOperationException("Unimplemented method 'validarProfe'");
     }
 
-    private Map<String, Object> validarAdmin(RequestAlumnoDTO usu) {
+    private List<String> validarAdmin(RequestAlumnoDTO usu) {
 
         throw new UnsupportedOperationException("Unimplemented method 'validarAdmin'");
     }

@@ -12,7 +12,6 @@ import lombok.Setter;
 public class RequestAlumnoDTO {
 
     //Usuarios
-    private String id;
 
     private String nombre;
 
