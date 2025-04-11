@@ -18,18 +18,20 @@ public interface AlumnoMapper {
 
     AlumnoMapper instancia = Mappers.getMapper(AlumnoMapper.class);
 
-    // ✅ Cambiar expresión con el método correcto para el tipo de DTO
+    
     @Mapping(target = "usuarios", expression = "java(toUsuarioResponse(dto))")
     Alumnos toAlumnoResponse(ResponseAlumnoDTO dto);
 
-    // ✅ Cambiar expresión con el método correcto para el tipo de DTO
-    @Mapping(target = "usuarios", expression = "java(toUsuarioRequest(dto))")
+    
+    //@Mapping(target = "usuarios", expression = "java(toUsuarioRequest(dto))")
     Alumnos toAlumnoRequest(RequestAlumnoDTO dto);
+
+    Usuarios toUsuarioRequest(RequestAlumnoDTO dto);
 
     // Métodos que convierten un DTO a un Usuario
     Usuarios toUsuarioResponse(ResponseAlumnoDTO dto);
 
-    Usuarios toUsuarioRequest(RequestAlumnoDTO dto);
+    
 
     List<ResponseAlumnoDTO> ListAlumnos(List<Alumnos> alumnos);
 

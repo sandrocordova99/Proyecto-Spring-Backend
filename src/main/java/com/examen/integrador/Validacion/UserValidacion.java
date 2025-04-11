@@ -57,8 +57,9 @@ public class UserValidacion {
         } else {
             respuesta.put("Errores", erroresTotales);
         }
-
+    
         return respuesta;
+         
 
     }
 
@@ -106,9 +107,7 @@ public class UserValidacion {
                 }
             }
 
-            if (mensajeValidacion.isEmpty()) {
-                mensajeValidacion.add("Todo registrado con exito");
-            }
+            
 
         } catch (Exception e) {
             mensajeValidacion.add(e.getMessage());

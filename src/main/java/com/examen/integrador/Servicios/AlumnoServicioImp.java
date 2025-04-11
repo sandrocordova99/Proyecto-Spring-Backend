@@ -50,20 +50,21 @@ public class AlumnoServicioImp implements AlumnoServicio {
     public Alumnos crearAlumno(RequestAlumnoDTO dto) {
 
         try {
-            // Crear usuario
+
             Usuarios usu = AlumnoMapper.instancia.toUsuarioRequest(dto);
+
             usu.setId(AutogenerarId());
             usu.setPassword(passwordEncoder.encode(usu.getPassword()));
             usu.setConfirm_password(passwordEncoder.encode(usu.getPassword()));
 
-            userRepositorio.save(usu);
-            System.out.println("Usuario guardado con ID: " + usu.getId());
-
-            // Crear alumno
             Alumnos alu = AlumnoMapper.instancia.toAlumnoRequest(dto);
+
+            // bidireccional
             alu.setUsuarios(usu);
-            System.out.println("ID del Alumno antes de guardar: " + alu.getId()); // Verificación aquí
-            alumnosRepositorio.save(alu);
+            usu.setAlumnos(alu);
+
+            // Se guarda una sola vez
+            userRepositorio.save(usu);
 
             return alu;
         } catch (Exception e) {
