@@ -1,12 +1,15 @@
 package com.examen.integrador.Entidades;
 
- 
- 
+import java.util.HashSet;
+import java.util.Set;
+
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
@@ -20,12 +23,20 @@ public class Alumnos {
     @Id
     private String id;
 
-    @MapsId   
-    @OneToOne(cascade = CascadeType.ALL)   
+    @MapsId
+    @OneToOne(cascade = CascadeType.ALL)
     @JoinColumn(name = "usuario_id")
     private Usuarios usuarios;
 
     @Column(name = "apoderado")
     private String nombreDeApoderado;
+
+    @ManyToMany
+    @JoinTable(
+            name = "alumnos_cursos",  
+            joinColumns = @JoinColumn(name = "alumno_id"),  
+            inverseJoinColumns = @JoinColumn(name = "curso_id")  
+    )
+    private Set<Cursos> cursos = new HashSet<>();
 
 }
