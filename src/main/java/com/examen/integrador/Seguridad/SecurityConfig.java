@@ -20,13 +20,13 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 @Configuration
 public class SecurityConfig {
 
-
     private final CustomDetailsService customDetailsService;
     private final JwtUtil jwtUtil;
     private final TokenServicio tokenServicio;
 
     @Autowired
-    public SecurityConfig(CustomDetailsService customDetailsService, JwtFilterChain filterChain, JwtUtil jwtUtil, TokenServicio tokenServicio) {
+    public SecurityConfig(CustomDetailsService customDetailsService, JwtFilterChain filterChain, JwtUtil jwtUtil,
+            TokenServicio tokenServicio) {
         this.customDetailsService = customDetailsService;
         this.jwtUtil = jwtUtil;
         this.tokenServicio = tokenServicio;
@@ -50,35 +50,38 @@ public class SecurityConfig {
                                 .requestMatchers("/alu/listar").hasAnyRole("ADMIN", "PROFESOR")
                                 .requestMatchers("/alu/crear").hasAnyRole("ADMIN")
                                 .requestMatchers("/auth/register").hasRole("ADMIN")
-                                .anyRequest().authenticated()
-                ) .csrf(csrf -> {
-                    csrf.ignoringRequestMatchers("/auth/register","/auth/login","/auth/logout","/user/listar","/user/listarAdmin"
-                    ,"/user/listarAlumnos","/user/listarProfesores","/user/eliminarUsuario/{id}","/user/editarUsuarios/{id}","/alu/listar","/alu/crear" );
+                                .requestMatchers("/curso/crear").hasRole("PROFESOR")
+                                .anyRequest().authenticated())
+                .csrf(csrf -> {
+                    csrf.ignoringRequestMatchers("/auth/register", "/auth/login", "/auth/logout", "/user/listar",
+                            "/user/listarAdmin", "/user/listarAlumnos", "/user/listarProfesores",
+                            "/user/eliminarUsuario/{id}", "/user/editarUsuarios/{id}", "/alu/listar", "/alu/crear,",
+                            "/curso/crear");
                 })
                 .formLogin().disable()
-                .addFilterBefore(filterChain() ,UsernamePasswordAuthenticationFilter.class);
+                .addFilterBefore(filterChain(), UsernamePasswordAuthenticationFilter.class);
 
         return httpSecurity.build();
     }
 
-      @Bean
-      public PasswordEncoder passwordEncoder(){
-          return new BCryptPasswordEncoder();
-      }
+    @Bean
+    public PasswordEncoder passwordEncoder() {
+        return new BCryptPasswordEncoder();
+    }
 
-      @Bean
-      public JwtFilterChain filterChain(){
-            return new JwtFilterChain(jwtUtil,customDetailsService,tokenServicio);
-      }
+    @Bean
+    public JwtFilterChain filterChain() {
+        return new JwtFilterChain(jwtUtil, customDetailsService, tokenServicio);
+    }
 
-      @Bean
-      public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder) throws Exception{
-            return http.getSharedObject(AuthenticationManagerBuilder.class)
-                    .userDetailsService(customDetailsService)
-                    .passwordEncoder(passwordEncoder)
-                    .and()
-                    .build();
-      }
-
+    @Bean
+    public AuthenticationManager authenticationManager(HttpSecurity http, PasswordEncoder passwordEncoder)
+            throws Exception {
+        return http.getSharedObject(AuthenticationManagerBuilder.class)
+                .userDetailsService(customDetailsService)
+                .passwordEncoder(passwordEncoder)
+                .and()
+                .build();
+    }
 
 }

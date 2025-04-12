@@ -2,7 +2,7 @@ package com.examen.integrador.Entidades;
 
 import java.util.ArrayList;
 import java.util.List;
- 
+
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -24,6 +24,7 @@ public class Cursos {
     @Column(length = 20, nullable = false, name = "Nombre")
     private String nombre;
 
+    @Column(nullable = true, name = "cantidad")
     private int cantidad;
 
 }

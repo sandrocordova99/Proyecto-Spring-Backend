@@ -33,5 +33,5 @@ public class ResponseAlumnoDTO {
     private String nombreDeApoderado;
 
     // Cursos
-    private List<CursosSimpleDTO> cursos;
+    //private List<CursosSimpleDTO> cursos;
 }
