@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.examen.integrador.DTO.CursoDTO.CursoRequestDTO;
-
+import com.examen.integrador.DTO.CursoDTO.CursoResponseDTO;
 import com.examen.integrador.Servicios.Curso.CursoServicioImp;
 
 @RestController
@@ -37,6 +37,10 @@ public class CursoControlador {
 
         respuesta.put("Cursos", cursoServicioImp.crearCurso(dto));
 
+        CursoResponseDTO curso =cursoServicioImp.crearCurso(dto);
+
+        System.out.println("Curso nombre " + curso.getNombre());
+        
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
     }

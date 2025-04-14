@@ -1,9 +1,7 @@
 package com.examen.integrador.DTO.AlumnoDTO;
 
 import java.time.LocalDate;
-import java.util.List;
-
-import com.examen.integrador.DTO.CursoDTO.CursosSimpleDTO;
+ 
 import com.examen.integrador.Entidades.RolesEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
