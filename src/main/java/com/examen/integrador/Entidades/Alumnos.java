@@ -12,6 +12,7 @@ import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.MapsId;
 import jakarta.persistence.OneToOne;
 import lombok.Getter;
@@ -40,5 +41,11 @@ public class Alumnos {
             inverseJoinColumns = @JoinColumn(name = "curso_id")  
     )
     private List<Cursos> cursos = new ArrayList ();
+
+    @ManyToOne()
+    @JoinColumn(
+        name = "grado"
+    )
+    private Grados grado;
 
 }
