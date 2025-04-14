@@ -2,8 +2,8 @@ package com.examen.integrador.Controlador;
 
 import com.examen.integrador.Entidades.Usuarios;
 import com.examen.integrador.Jwt.JwtUtil;
-import com.examen.integrador.Servicios.TokenServicio;
 import com.examen.integrador.Servicios.UserSerivicio;
+import com.examen.integrador.Servicios.Token.TokenServicio;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;

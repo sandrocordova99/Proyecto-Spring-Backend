@@ -1,7 +1,8 @@
 package com.examen.integrador.Jwt;
 
 import com.examen.integrador.Seguridad.CustomDetailsService;
-import com.examen.integrador.Servicios.TokenServicio;
+import com.examen.integrador.Servicios.Token.TokenServicio;
+
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;

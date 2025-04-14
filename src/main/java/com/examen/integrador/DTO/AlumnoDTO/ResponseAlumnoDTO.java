@@ -1,5 +1,7 @@
 package com.examen.integrador.DTO.AlumnoDTO;
+
 import java.time.LocalDate;
+ 
 import com.examen.integrador.Entidades.RolesEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -10,7 +12,7 @@ import lombok.Setter;
 @NoArgsConstructor
 public class ResponseAlumnoDTO {
 
-    //Usuarios
+    // Usuarios
     private String id;
 
     private String nombre;
@@ -25,6 +27,9 @@ public class ResponseAlumnoDTO {
 
     private RolesEnum roles;
 
-    //Alumno
+    // Alumno
     private String nombreDeApoderado;
+
+    // Cursos
+    //private List<CursosSimpleDTO> cursos;
 }

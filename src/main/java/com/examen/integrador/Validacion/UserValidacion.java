@@ -2,8 +2,7 @@ package com.examen.integrador.Validacion;
 
 import com.examen.integrador.DTO.AlumnoDTO.RequestAlumnoDTO;
 import com.examen.integrador.Entidades.Alumnos;
-import com.examen.integrador.Entidades.Usuarios;
-import com.examen.integrador.Mapper.AlumnoMapper;
+ import com.examen.integrador.Mapper.AlumnoMapper;
 import com.examen.integrador.Repositorio.UserRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;

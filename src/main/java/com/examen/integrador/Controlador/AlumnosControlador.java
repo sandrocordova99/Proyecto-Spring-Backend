@@ -16,8 +16,7 @@ import org.springframework.web.bind.annotation.RestController;
 import com.examen.integrador.DTO.AlumnoDTO.RequestAlumnoDTO;
 import com.examen.integrador.DTO.AlumnoDTO.ResponseAlumnoDTO;
 import com.examen.integrador.Entidades.Alumnos;
-
-import com.examen.integrador.Servicios.AlumnoServicioImp;
+import com.examen.integrador.Servicios.Alumno.AlumnoServicioImp;
 import com.examen.integrador.Validacion.UserValidacion;
 
 @RestController

@@ -1,4 +1,4 @@
-package com.examen.integrador.Servicios;
+package com.examen.integrador.Servicios.Alumno;
 
 import java.util.List;
 
@@ -11,7 +11,5 @@ public interface AlumnoServicio {
     List<ResponseAlumnoDTO> ListAlumnos();
 
     Alumnos crearAlumno(RequestAlumnoDTO dto);
-
-    
 
 }
