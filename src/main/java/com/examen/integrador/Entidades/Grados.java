@@ -26,13 +26,17 @@ public class Grados {
      * del grado el curso que pueden llevar.
      */
 
-    @Column(name = "nombre" , nullable = false , unique = true)
+     
+    @Column(name = "nombre" , nullable = false , unique = false)
     private String nombre;
+
+    @Column(name = "cantidadAlumnos" , nullable = false , unique = false)
+    private int cantidad;
 
     @OneToMany(mappedBy = "grado")
     private List<Alumnos> alumnos = new ArrayList();
 
-    @OneToMany(mappedBy = "cursos")
+    @OneToMany(mappedBy = "grado")
     private List<Cursos> cursos = new ArrayList();
 
 }
