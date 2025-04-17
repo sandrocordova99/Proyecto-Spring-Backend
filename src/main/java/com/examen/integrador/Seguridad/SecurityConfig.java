@@ -36,7 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain securityFilterChain(HttpSecurity httpSecurity) throws Exception {
 
         httpSecurity
-
+                .csrf(csrf -> csrf.disable())
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/auth/login").permitAll()
@@ -51,14 +51,18 @@ public class SecurityConfig {
                                 .requestMatchers("/alu/crear").hasAnyRole("ADMIN")
                                 .requestMatchers("/auth/register").hasRole("ADMIN")
                                 .requestMatchers("/curso/crear").hasRole("PROFESOR")
+                                .requestMatchers("/curso/listar").hasAnyRole("ADMIN", "PROFESOR")
                                 .requestMatchers("/grado/crear").hasRole("ADMIN")
+                                
+                                .requestMatchers("/").permitAll()
                                 .anyRequest().authenticated())
-                .csrf(csrf -> {
+                                /* .csrf(csrf -> {
                     csrf.ignoringRequestMatchers("/auth/register", "/auth/login", "/auth/logout", "/user/listar",
                             "/user/listarAdmin", "/user/listarAlumnos", "/user/listarProfesores",
-                            "/user/eliminarUsuario/{id}", "/user/editarUsuarios/{id}", "/alu/listar", "/alu/crear,",
-                            "/curso/crear","/grado/crear");
-                })
+                            "/user/eliminarUsuario/{id}", "/user/editarUsuarios/{id}", "/alu/listar", "/alu/crear",
+                            "/curso/crear", "/grado/crear");
+                }) */
+               
                 .formLogin().disable()
                 .addFilterBefore(filterChain(), UsernamePasswordAuthenticationFilter.class);
 

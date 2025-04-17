@@ -7,4 +7,6 @@ public interface GradoServicio {
 
     GradoResponseDTO crearGrado(GradoRequestDTO dto);
 
+    GradoResponseDTO asignarCursos(String CursoId);
+
 }

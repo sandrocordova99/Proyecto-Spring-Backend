@@ -41,4 +41,11 @@ public class GradoServicioImp implements GradoServicio {
 
     }
 
+
+    @Override
+    public GradoResponseDTO asignarCursos(String CursoId) {
+        
+        throw new UnsupportedOperationException("Unimplemented method 'asignarCursos'");
+    }
+
 }

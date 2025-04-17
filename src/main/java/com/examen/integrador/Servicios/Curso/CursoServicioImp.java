@@ -1,5 +1,7 @@
 package com.examen.integrador.Servicios.Curso;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.examen.integrador.DTO.CursoDTO.CursoRequestDTO;
@@ -24,20 +26,34 @@ public class CursoServicioImp implements CursoServicio {
     public CursoResponseDTO crearCurso(CursoRequestDTO dto) {
 
         try {
-             
+
             Cursos cursos = CursoMapper.instancia.toCursoRequest(dto);
 
             cursos.setId(autogenerarID.generarId("CURSOS"));
-
-             
 
             // cantidad
 
             cursosRepositorio.save(cursos);
 
             return CursoMapper.instancia.toCursoReponse(cursos);
+
         } catch (Exception e) {
             throw new RuntimeException("Error al guardar el curso", e);
+        }
+
+    }
+
+    @Override
+    public List<CursoResponseDTO> listarCursosDTO() {
+
+        try {
+            List<Cursos> cursosList = cursosRepositorio.findAll();
+
+            List<CursoResponseDTO> cursosListDTO = CursoMapper.instancia.listarCursosDTO(cursosList);
+
+            return cursosListDTO;
+        } catch (Exception e) {
+            throw new RuntimeException("Error al listar cursos", e);
         }
 
     }

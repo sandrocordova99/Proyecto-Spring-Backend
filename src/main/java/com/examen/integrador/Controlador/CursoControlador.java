@@ -1,12 +1,12 @@
 package com.examen.integrador.Controlador;
 
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,10 +37,21 @@ public class CursoControlador {
 
         respuesta.put("Cursos", cursoServicioImp.crearCurso(dto));
 
-        CursoResponseDTO curso =cursoServicioImp.crearCurso(dto);
+        CursoResponseDTO curso = cursoServicioImp.crearCurso(dto);
 
         System.out.println("Curso nombre " + curso.getNombre());
-        
+
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+
+    }
+
+    @GetMapping("/listar")
+    public ResponseEntity<Map<String, Object>> listarCursos() {
+
+        Map<String, Object> respuesta = new HashMap();
+
+        respuesta.put("Cursos", cursoServicioImp.listarCursosDTO());
+
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
     }

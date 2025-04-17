@@ -11,4 +11,6 @@ public class CursoResponseDTO {
     private String nombre;
 
     private int cantidad;
+
+    private String grado;
 }
