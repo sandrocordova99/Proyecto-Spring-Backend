@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+
+import com.examen.integrador.DTO.GradoDTO.AsignarGradoDTO;
 import com.examen.integrador.DTO.GradoDTO.GradoRequestDTO;
 import com.examen.integrador.Servicios.Grado.GradoServicioImp;
 
@@ -32,6 +34,17 @@ public class GradoControlador {
         // userValidacion.validarUsuarios(dto);
 
         respuesta.put("Grado", gradoServicioImp.crearGrado(dto));
+
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+
+    }
+
+    @PostMapping("/asignar")
+    public ResponseEntity<Map<String, Object>> asignarCursos(@RequestBody AsignarGradoDTO dto) {
+
+        Map<String, Object> respuesta = new HashMap();
+
+        respuesta.put("Grado", gradoServicioImp.asignarCursos(dto));
 
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 

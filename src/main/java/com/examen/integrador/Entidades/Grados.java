@@ -1,7 +1,9 @@
 package com.examen.integrador.Entidades;
 
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
@@ -18,15 +20,6 @@ public class Grados {
     @Id
     private String id;
 
-    /*
-     * Muchos alumnos pueden estar en un solo grado
-     * Muchos cursos se pueden dictar en un solo grado
-     * 
-     * No hay una relacion directa entre alumnos - cursos , en todo caso dependeria
-     * del grado el curso que pueden llevar.
-     */
-
-     
     @Column(name = "nombre" , nullable = false , unique = false)
     private String nombre;
 
@@ -37,6 +30,6 @@ public class Grados {
     private List<Alumnos> alumnos = new ArrayList();
 
     @OneToMany(mappedBy = "grado")
-    private List<Cursos> cursos = new ArrayList();
+    private Set<Cursos> cursos = new HashSet();
 
 }

@@ -1,6 +1,5 @@
 package com.examen.integrador.DTO.GradoDTO;
 
-import java.util.HashSet;
 import java.util.Set;
 
 import lombok.Getter;
@@ -10,12 +9,10 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class GradoResponseDTO {
+public class AsignarGradoDTO {
 
-    private String nombre;
+    private String gradoId;
 
-    private int cantidad;
-
-    private Set<String> cursos = new HashSet();
+    private Set<String> cursosId;
 
 }
