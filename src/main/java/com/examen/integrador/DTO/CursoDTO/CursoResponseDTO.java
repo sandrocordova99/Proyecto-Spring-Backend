@@ -5,10 +5,12 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 
 @Getter
- @Setter
+@Setter
 @NoArgsConstructor
 public class CursoResponseDTO {
     private String nombre;
 
     private int cantidad;
+
+    private String grado;
 }

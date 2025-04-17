@@ -20,6 +20,10 @@ public class AutogenerarID {
                 respuesta = new StringBuilder("CRS-");
                 break;
 
+            case "GRADOS":
+                respuesta = new StringBuilder("GRD-");
+                break;
+
             case "ADMIN":
                 respuesta = new StringBuilder("ADM-");
                 break;
