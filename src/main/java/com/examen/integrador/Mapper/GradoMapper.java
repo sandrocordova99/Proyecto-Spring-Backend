@@ -1,6 +1,7 @@
 package com.examen.integrador.Mapper;
 
 import java.util.stream.Collectors;
+import java.util.List;
 import java.util.Set;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -26,5 +27,8 @@ public interface GradoMapper {
                 .map(Cursos::getNombre)
                 .collect(Collectors.toSet());
     }
+    
+    List<GradoResponseDTO> listGradoResponseDTO(List<Grados> grados);
+
 
 }

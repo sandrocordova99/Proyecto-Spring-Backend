@@ -7,6 +7,7 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -29,7 +30,7 @@ public class Grados {
     @OneToMany(mappedBy = "grado")
     private List<Alumnos> alumnos = new ArrayList();
 
-    @OneToMany(mappedBy = "grado")
+    @OneToMany(mappedBy = "grado" , fetch = FetchType.EAGER)
     private Set<Cursos> cursos = new HashSet();
 
 }
