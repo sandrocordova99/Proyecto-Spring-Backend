@@ -70,12 +70,31 @@ public class GradoServicioImp implements GradoServicio {
 
             Grados grados = gradosOptional.get();
 
+            for (Cursos curso : cursosList) {
+                curso.setGrado(grados); // establecer la relación desde el lado del curso
+            }
+
             grados.setCursos(listaCursos);
 
             gradoRepositorio.save(grados);
 
+            cursosRepositorio.saveAll(cursosList); 
+            
             return GradoMapper.instancia.toGradoReponse(grados);
 
+        } catch (Exception e) {
+            throw new RuntimeException("Error", e);
+        }
+
+    }
+    
+    @Override
+    public List<GradoResponseDTO> listGradoResponseDTO() {
+
+        try {
+            List<Grados> listaGrados = gradoRepositorio.findAll();
+
+            return GradoMapper.instancia.listGradoResponseDTO(listaGrados);
         } catch (Exception e) {
             throw new RuntimeException("Error", e);
         }

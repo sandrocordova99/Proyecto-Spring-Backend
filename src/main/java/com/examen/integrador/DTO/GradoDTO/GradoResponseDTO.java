@@ -17,5 +17,5 @@ public class GradoResponseDTO {
     private int cantidad;
 
     private Set<String> cursos = new HashSet();
-
+    
 }
