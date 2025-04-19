@@ -11,7 +11,8 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.examen.integrador.DTO.GradoDTO.AsignarGradoDTO;
+import com.examen.integrador.DTO.CursoDTO.AsignarGradoDTO;
+import com.examen.integrador.DTO.GradoDTO.AsignarAlumnosDTO;
 import com.examen.integrador.DTO.GradoDTO.GradoRequestDTO;
 import com.examen.integrador.Servicios.Grado.GradoServicioImp;
 
@@ -57,6 +58,17 @@ public class GradoControlador {
         Map<String, Object> respuesta = new HashMap();
 
         respuesta.put("Grado", gradoServicioImp.listGradoResponseDTO( ));
+
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+
+    }
+
+    @PostMapping("/asignarAlumnos")
+    public ResponseEntity<Map<String, Object>> asignarAlumnos(@RequestBody AsignarAlumnosDTO dto) {
+
+        Map<String, Object> respuesta = new HashMap();
+
+        respuesta.put("Grado", gradoServicioImp.asignarAlumnos(dto ));
 
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
