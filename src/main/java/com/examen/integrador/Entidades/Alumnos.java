@@ -1,9 +1,7 @@
 package com.examen.integrador.Entidades;
 
 import java.util.ArrayList;
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
@@ -35,17 +33,11 @@ public class Alumnos {
     private String nombreDeApoderado;
 
     @ManyToMany
-    @JoinTable(
-            name = "alumnos_cursos",  
-            joinColumns = @JoinColumn(name = "alumno_id"),  
-            inverseJoinColumns = @JoinColumn(name = "curso_id")  
-    )
-    private List<Cursos> cursos = new ArrayList ();
+    @JoinTable(name = "alumnos_cursos", joinColumns = @JoinColumn(name = "alumno_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
+    private List<Cursos> cursos = new ArrayList();
 
     @ManyToOne()
-    @JoinColumn(
-        name = "grado"
-    )
+    @JoinColumn(name = "grado")
     private Grados grado;
 
 }

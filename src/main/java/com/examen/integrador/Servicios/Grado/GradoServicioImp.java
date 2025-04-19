@@ -1,5 +1,6 @@
 package com.examen.integrador.Servicios.Grado;
 
+import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Optional;
@@ -9,12 +10,15 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
-import com.examen.integrador.DTO.GradoDTO.AsignarGradoDTO;
+import com.examen.integrador.DTO.CursoDTO.AsignarGradoDTO;
+import com.examen.integrador.DTO.GradoDTO.AsignarAlumnosDTO;
 import com.examen.integrador.DTO.GradoDTO.GradoRequestDTO;
 import com.examen.integrador.DTO.GradoDTO.GradoResponseDTO;
+import com.examen.integrador.Entidades.Alumnos;
 import com.examen.integrador.Entidades.Cursos;
 import com.examen.integrador.Entidades.Grados;
 import com.examen.integrador.Mapper.GradoMapper;
+import com.examen.integrador.Repositorio.AlumnosRepositorio;
 import com.examen.integrador.Repositorio.CursosRepositorio;
 import com.examen.integrador.Repositorio.GradoRepositorio;
 import com.examen.integrador.Validacion.AutogenerarID;
@@ -25,13 +29,15 @@ public class GradoServicioImp implements GradoServicio {
     private final GradoRepositorio gradoRepositorio;
     private final AutogenerarID autogenerarID;
     private final CursosRepositorio cursosRepositorio;
+    private final AlumnosRepositorio alumnosRepositorio;
 
     @Autowired
     public GradoServicioImp(GradoRepositorio gradoRepositorio, AutogenerarID autogenerarID,
-            CursosRepositorio cursosRepositorio) {
+            CursosRepositorio cursosRepositorio, AlumnosRepositorio alumnosRepositorio) {
         this.gradoRepositorio = gradoRepositorio;
         this.autogenerarID = autogenerarID;
         this.cursosRepositorio = cursosRepositorio;
+        this.alumnosRepositorio = alumnosRepositorio;
     }
 
     // para este punto ya deberia esta validado los campos
@@ -78,8 +84,8 @@ public class GradoServicioImp implements GradoServicio {
 
             gradoRepositorio.save(grados);
 
-            cursosRepositorio.saveAll(cursosList); 
-            
+            cursosRepositorio.saveAll(cursosList);
+
             return GradoMapper.instancia.toGradoReponse(grados);
 
         } catch (Exception e) {
@@ -87,7 +93,7 @@ public class GradoServicioImp implements GradoServicio {
         }
 
     }
-    
+
     @Override
     public List<GradoResponseDTO> listGradoResponseDTO() {
 
@@ -99,6 +105,35 @@ public class GradoServicioImp implements GradoServicio {
             throw new RuntimeException("Error", e);
         }
 
+    }
+
+    @Override
+    public GradoResponseDTO asignarAlumnos(AsignarAlumnosDTO dto) {
+
+        Optional<Grados> gradosOptional = gradoRepositorio.findById(dto.getGradoId());
+
+        List<Alumnos> alumnosList = alumnosRepositorio.findAllById(dto.getAlumnos());
+
+        Set<Alumnos> alumnosSet = new HashSet<>(alumnosList);
+
+        if (gradosOptional.isEmpty() || alumnosList.isEmpty()) {
+            throw new UsernameNotFoundException("No se encontró grado o cursos con ese ID");
+        }
+
+        Grados grado = gradosOptional.get();
+
+        for (Alumnos alumno : alumnosSet) {
+            alumno.setGrado(grado);
+            alumno.setCursos(new ArrayList<>(grado.getCursos()));
+        }
+
+        alumnosRepositorio.saveAll(alumnosSet);
+
+        grado.setAlumnos(new ArrayList<>(alumnosSet));
+        gradoRepositorio.save(grado);
+
+        return GradoMapper.instancia.toGradoReponse(grado);
+         
     }
 
 }

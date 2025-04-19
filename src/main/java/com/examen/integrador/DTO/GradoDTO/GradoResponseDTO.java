@@ -16,6 +16,9 @@ public class GradoResponseDTO {
 
     private int cantidad;
 
+    //list alumnos nombres
+    private Set<AlumnoSimpleDTO> alumnos = new HashSet();
+
     private Set<String> cursos = new HashSet();
     
 }
