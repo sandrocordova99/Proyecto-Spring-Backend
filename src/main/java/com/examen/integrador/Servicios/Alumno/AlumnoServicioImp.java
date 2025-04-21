@@ -37,7 +37,7 @@ public class AlumnoServicioImp implements AlumnoServicio {
             List<Alumnos> listaAlumnos = alumnosRepositorio.findAll();
 
             List<ResponseAlumnoDTO> ListAlumnosDTO = AlumnoMapper.instancia.ListAlumnos(listaAlumnos);
-
+            
             return ListAlumnosDTO;
         } catch (Exception e) {
 

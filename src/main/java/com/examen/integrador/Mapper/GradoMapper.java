@@ -22,7 +22,7 @@ public interface GradoMapper {
     Grados toGradoRequest(GradoRequestDTO dto);
 
     @Mapping(source = "cursos", target = "cursos")
-    @Mapping(target = "alumnos", expression = "java(mapAlumnosToDTO(grados.getAlumnos().stream().collect(Collectors.toSet())))")
+    @Mapping(source = "alumnos", target = "alumnos") // así, sin necesidad de hacer toSet
     GradoResponseDTO toGradoReponse(Grados grados);
 
     default Set<String> mapCursosToNombres(Set<Cursos> cursos) {
