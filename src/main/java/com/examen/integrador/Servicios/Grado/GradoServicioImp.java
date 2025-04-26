@@ -125,6 +125,9 @@ public class GradoServicioImp implements GradoServicio {
         for (Alumnos alumno : alumnosSet) {
             alumno.setGrado(grado);
             alumno.setCursos(new ArrayList<>(grado.getCursos()));
+
+            System.out.println("grados alumno : " + alumno.getGrado());
+            System.out.println("Cursos alumno : " + alumno.getCursos());
         }
 
         alumnosRepositorio.saveAll(alumnosSet);
@@ -133,7 +136,7 @@ public class GradoServicioImp implements GradoServicio {
         gradoRepositorio.save(grado);
 
         return GradoMapper.instancia.toGradoReponse(grado);
-         
+
     }
 
 }
