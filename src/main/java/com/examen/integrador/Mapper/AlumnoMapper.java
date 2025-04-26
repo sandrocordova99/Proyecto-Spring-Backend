@@ -13,10 +13,10 @@ import org.mapstruct.factory.Mappers;
 
 import com.examen.integrador.DTO.AlumnoDTO.RequestAlumnoDTO;
 import com.examen.integrador.DTO.AlumnoDTO.ResponseAlumnoDTO;
+import com.examen.integrador.DTO.GradoDTO.AlumnoSimpleDTO;
 import com.examen.integrador.Entidades.Alumnos;
 import com.examen.integrador.Entidades.Cursos;
 import com.examen.integrador.Entidades.Usuarios;
-
 
 /*
  
@@ -56,5 +56,9 @@ public interface AlumnoMapper {
                 .map(Cursos::getNombre)
                 .collect(Collectors.toSet());
     }
+
+    @Mapping(source = "usuarios.nombre", target = "nombre")
+    @Mapping(source = "usuarios.apellido", target = "apellido")
+    AlumnoSimpleDTO toAlumnoSimpleDTO(Alumnos alu);
 
 }

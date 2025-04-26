@@ -49,6 +49,8 @@ public class CursoServicioImp implements CursoServicio {
         try {
             List<Cursos> cursosList = cursosRepositorio.findAll();
 
+            
+
             List<CursoResponseDTO> cursosListDTO = CursoMapper.instancia.listarCursosDTO(cursosList);
 
             return cursosListDTO;

@@ -114,9 +114,6 @@ public class GradoServicioImp implements GradoServicio {
 
         List<Alumnos> alumnosList = alumnosRepositorio.findAllById(dto.getAlumnos());
 
-        System.out.println(" alumnoDTO : " + dto.getAlumnos());
-        System.out.println(" GRADO : " + dto.getGradoId());
-
         Set<Alumnos> alumnosSet = new HashSet<>(alumnosList);
 
         if (gradosOptional.isEmpty() || alumnosList.isEmpty()) {

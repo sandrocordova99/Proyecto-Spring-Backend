@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Set;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
+import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
 import com.examen.integrador.DTO.GradoDTO.AlumnoSimpleDTO;
@@ -21,23 +22,23 @@ public interface GradoMapper {
 
     Grados toGradoRequest(GradoRequestDTO dto);
 
-    @Mapping(source = "cursos", target = "cursos")
-    @Mapping(source = "alumnos", target = "alumnos") // así, sin necesidad de hacer toSet
+    @Mapping(source = "cursos", target = "cursos", qualifiedByName = "cursosToNombres")
+    @Mapping(source = "alumnos", target = "alumnos", qualifiedByName = "alumnosToSimpleDTO")
     GradoResponseDTO toGradoReponse(Grados grados);
 
-    default Set<String> mapCursosToNombres(Set<Cursos> cursos) {
+    @Named("cursosToNombres")
+    default Set<String> cursosToNombres(Set<Cursos> cursos) {
         return cursos.stream()
                 .map(Cursos::getNombre)
                 .collect(Collectors.toSet());
     }
 
-    default Set<AlumnoSimpleDTO> mapAlumnosToDTO(Set<Alumnos> alumnos) {
-        return alumnos.stream().map(alumno -> {
-            AlumnoSimpleDTO dto = new AlumnoSimpleDTO();
-            dto.setNombre(alumno.getUsuarios().getNombre());
-            dto.setApellido(alumno.getUsuarios().getApellido());
-            return dto;
-        }).collect(Collectors.toSet());
+    @Named("alumnosToSimpleDTO")
+    default Set<AlumnoSimpleDTO> alumnosToSimpleDTO(List<Alumnos> alumnos) {
+        AlumnoMapper alumnoMapper = AlumnoMapper.instancia;
+        return alumnos.stream()
+                .map(alumnoMapper::toAlumnoSimpleDTO)
+                .collect(Collectors.toSet());
     }
 
     List<GradoResponseDTO> listGradoResponseDTO(List<Grados> grados);
