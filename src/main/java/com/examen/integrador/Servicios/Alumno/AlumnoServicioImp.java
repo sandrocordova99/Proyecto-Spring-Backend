@@ -1,12 +1,17 @@
 package com.examen.integrador.Servicios.Alumno;
 
 import java.util.List;
+import java.util.Optional;
+
+import javax.management.RuntimeErrorException;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.examen.integrador.DTO.AlumnoDTO.AlumnoEditDTO;
 import com.examen.integrador.DTO.AlumnoDTO.RequestAlumnoDTO;
 import com.examen.integrador.DTO.AlumnoDTO.ResponseAlumnoDTO;
 import com.examen.integrador.Entidades.Alumnos;
@@ -49,6 +54,8 @@ public class AlumnoServicioImp implements AlumnoServicio {
     @Override
     public Alumnos crearAlumno(RequestAlumnoDTO dto) {
 
+
+
         try {
 
             Usuarios usu = AlumnoMapper.instancia.toUsuarioRequest(dto);
@@ -72,6 +79,46 @@ public class AlumnoServicioImp implements AlumnoServicio {
         }
 
     }
+
+    @Override
+    public ResponseAlumnoDTO actualizarAlumno(AlumnoEditDTO dto) {
+
+        try {
+            
+            Optional<Usuarios> usu = userRepositorio.findById(dto.getAlumnoID());
+            Optional<Alumnos> alu = alumnosRepositorio.findById(dto.getAlumnoID());
+
+            if(usu.isEmpty() && alu.isPresent()){
+                throw new UsernameNotFoundException("Id incorrecto");
+            } else {
+
+                Usuarios usuariosUpdate = usu.get();
+                Alumnos alumnosUpdate = alu.get();   
+                
+                usuariosUpdate.setNombre(dto.getNombre());
+                usuariosUpdate.setApellido(dto.getApellido());
+                usuariosUpdate.setUsername(dto.getUsername());
+                usuariosUpdate.setEmail(dto.getEmail());
+                usuariosUpdate.setNombre(dto.getNombre());
+                
+                alumnosUpdate.setNombreDeApoderado(dto.getNombreDeApoderado());
+
+                userRepositorio.save(usuariosUpdate);
+                alumnosRepositorio.save(alumnosUpdate);
+
+                ResponseAlumnoDTO alumnoDTO = AlumnoMapper.instancia.toResponseAlumnoDTO(alumnosUpdate);
+
+                return alumnoDTO;
+            }
+            
+        } catch (Exception e) {
+
+             throw new RuntimeException("Error al actualizar" + e);
+        }
+        
+        
+    }
+
 
     public String AutogenerarId() {
 

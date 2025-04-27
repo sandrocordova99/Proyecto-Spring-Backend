@@ -21,11 +21,8 @@ public class Grados {
     @Id
     private String id;
 
-    @Column(name = "nombre" , nullable = false , unique = false)
+    @Column(name = "nombre" , nullable = false , unique = true)
     private String nombre;
-
-    @Column(name = "cantidadAlumnos" , nullable = false , unique = false)
-    private int cantidad;
 
     @OneToMany(mappedBy = "grado")
     private List<Alumnos> alumnos = new ArrayList();

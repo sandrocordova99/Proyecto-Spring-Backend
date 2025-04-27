@@ -23,7 +23,7 @@ public class Cursos {
     @ManyToMany(mappedBy = "cursos")
     private List<Alumnos> alumnos = new ArrayList();
 
-    @Column(length = 20, nullable = false, name = "nombre")
+    @Column(length = 20, nullable = false, name = "nombre" , unique = true  )
     private String nombre;
 
     @Column(nullable = true, name = "cantidad")
