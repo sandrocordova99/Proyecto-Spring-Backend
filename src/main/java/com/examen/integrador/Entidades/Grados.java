@@ -30,4 +30,7 @@ public class Grados {
     @OneToMany(mappedBy = "grado" , fetch = FetchType.EAGER)
     private Set<Cursos> cursos = new HashSet();
 
+    @Column(name = "cantidad_alumnos"   )
+    private int cantidad_alumnos = 0;
+
 }

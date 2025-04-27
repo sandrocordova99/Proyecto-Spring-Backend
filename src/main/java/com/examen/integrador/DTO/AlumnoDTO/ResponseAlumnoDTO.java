@@ -30,9 +30,11 @@ public class ResponseAlumnoDTO {
 
     private String nombreDeApoderado;
 
-    // agregar esto
-    private Set<String> cursos;
+    // Borrarlo y cambiarlo por GradoDTO 
+    //private Set<String> cursos;
 
-    private String grado;
+    //private String grado; 
+    
+    private AlumnoGradoResponseDTO grado;
 
 }
