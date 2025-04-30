@@ -11,19 +11,15 @@ import org.mapstruct.Mapping;
 import org.mapstruct.Named;
 import org.mapstruct.factory.Mappers;
 
+import com.examen.integrador.DTO.AlumnoDTO.AlumnoGradoResponseDTO;
 import com.examen.integrador.DTO.AlumnoDTO.RequestAlumnoDTO;
 import com.examen.integrador.DTO.AlumnoDTO.ResponseAlumnoDTO;
 import com.examen.integrador.DTO.GradoDTO.AlumnoSimpleDTO;
 import com.examen.integrador.Entidades.Alumnos;
 import com.examen.integrador.Entidades.Cursos;
+import com.examen.integrador.Entidades.Grados;
 import com.examen.integrador.Entidades.Usuarios;
 
-/*
- 
-
-
-
- */
 @Mapper
 public interface AlumnoMapper {
 
@@ -44,17 +40,32 @@ public interface AlumnoMapper {
     @Mapping(source = "usuarios.email", target = "email")
     @Mapping(source = "usuarios.nacimiento", target = "nacimiento")
     @Mapping(source = "usuarios.roles", target = "roles")
-    @Mapping(source = "cursos", target = "cursos", qualifiedByName = "mapCursosToDTO")
-    @Mapping(source = "grado.nombre", target = "grado") // 👈 CORRECTO aquí
+    @Mapping(source = "grado", target = "grado", qualifiedByName = "mapGradoToGradoDTO")
     ResponseAlumnoDTO toResponseAlumnoDTO(Alumnos alumno);
 
-    @Named("mapCursosToDTO")
-    default Set<String> mapCursosToDTO(List<Cursos> cursos) {
-        if (cursos == null)
-            return new HashSet<>();
-        return cursos.stream()
-                .map(Cursos::getNombre)
-                .collect(Collectors.toSet());
+    @Named("mapGradoToGradoDTO")
+    default AlumnoGradoResponseDTO mapGradoToGradoDTO(Grados grado) {
+
+        if (grado == null) {
+            return null;
+        }
+    
+        AlumnoGradoResponseDTO alumnoDTO = new AlumnoGradoResponseDTO();
+        alumnoDTO.setNombre(grado.getNombre());
+    
+        Set<Cursos> cursos = grado.getCursos();
+        Set<String> cursosNombre = new HashSet<>();
+    
+        if (cursos != null) {
+            for (Cursos c : cursos) {
+                cursosNombre.add(c.getNombre());
+            }
+        }
+    
+        alumnoDTO.setCursos(cursosNombre);
+    
+        return alumnoDTO;
+
     }
 
     @Mapping(source = "usuarios.nombre", target = "nombre")

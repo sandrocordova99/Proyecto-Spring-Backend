@@ -49,7 +49,7 @@ public class Usuarios {
     private Alumnos alumnos;
 
     @OneToOne(mappedBy = "usuarios", cascade = CascadeType.ALL)
-    private Profesores profesores;
+    private Profesor profesores;
 
     
 

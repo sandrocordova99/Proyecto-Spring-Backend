@@ -21,7 +21,7 @@ import lombok.Setter;
 @Getter
 @Setter
 public class Alumnos {
-
+    
     @Id
     private String id;
 
@@ -32,7 +32,7 @@ public class Alumnos {
 
     @Column(name = "apoderado")
     private String nombreDeApoderado;
-
+    
     @ManyToMany
     @JoinTable(name = "alumnos_cursos", joinColumns = @JoinColumn(name = "alumno_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
     private List<Cursos> cursos = new ArrayList();

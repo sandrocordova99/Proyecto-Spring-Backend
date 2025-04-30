@@ -49,6 +49,7 @@ public class SecurityConfig {
                                 .requestMatchers("/auth/logout").hasAnyRole("ADMIN", "PROFESOR", "ALUMNO")
                                 .requestMatchers("/alu/listar").hasAnyRole("ADMIN", "PROFESOR")
                                 .requestMatchers("/alu/crear").hasAnyRole("ADMIN")
+                                .requestMatchers("/alu/actualizar").hasAnyRole("ADMIN")
                                 .requestMatchers("/auth/register").hasRole("ADMIN")
                                 .requestMatchers("/curso/crear").hasRole("PROFESOR")
                                 .requestMatchers("/curso/listar").hasAnyRole("ADMIN", "PROFESOR")

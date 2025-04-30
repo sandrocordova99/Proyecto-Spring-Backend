@@ -1,9 +1,10 @@
-package com.examen.integrador.DTO.AlumnoDTO;
+package com.examen.integrador.DTO.ProfesorDTO;
 
 import java.time.LocalDate;
 import java.util.Set;
 
 import com.examen.integrador.Entidades.RolesEnum;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,10 +12,7 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResponseAlumnoDTO {
-
-    // Usuarios
-    private String id;
+public class ProfesorResponseDTO {
 
     private String nombre;
 
@@ -22,19 +20,20 @@ public class ResponseAlumnoDTO {
 
     private String username;
 
+    private String password;
+
+    private String confirm_password;
+
     private String email;
 
     private LocalDate nacimiento;
 
     private RolesEnum roles;
 
-    private String nombreDeApoderado;
+    //CUrsos y grados
 
-    // Borrarlo y cambiarlo por GradoDTO 
-    //private Set<String> cursos;
+    Set<String> nombreGrados;
 
-    //private String grado; 
-    
-    private AlumnoGradoResponseDTO grado;
+    String nombreCurso;
 
 }

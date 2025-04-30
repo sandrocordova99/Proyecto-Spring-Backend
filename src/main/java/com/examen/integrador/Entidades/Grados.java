@@ -9,6 +9,9 @@ import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -21,16 +24,19 @@ public class Grados {
     @Id
     private String id;
 
-    @Column(name = "nombre" , nullable = false , unique = false)
+    @Column(name = "nombre", nullable = false, unique = true)
     private String nombre;
-
-    @Column(name = "cantidadAlumnos" , nullable = false , unique = false)
-    private int cantidad;
 
     @OneToMany(mappedBy = "grado")
     private List<Alumnos> alumnos = new ArrayList();
 
-    @OneToMany(mappedBy = "grado" , fetch = FetchType.EAGER)
+    @OneToMany(mappedBy = "grado", fetch = FetchType.EAGER)
     private Set<Cursos> cursos = new HashSet();
+
+    @Column(name = "cantidad_alumnos")
+    private int cantidad_alumnos = 0;
+
+    @ManyToMany(mappedBy = "grados")
+    Set<Profesor> profesor = new HashSet();
 
 }

@@ -24,7 +24,13 @@ public interface GradoMapper {
 
     @Mapping(source = "cursos", target = "cursos", qualifiedByName = "cursosToNombres")
     @Mapping(source = "alumnos", target = "alumnos", qualifiedByName = "alumnosToSimpleDTO")
+    @Mapping(source = "alumnos", target = "cantidad", qualifiedByName = "alumnosToCantidad")
     GradoResponseDTO toGradoReponse(Grados grados);
+
+    @Named("alumnosToCantidad")
+    default int alumnosToCantidad(List<Alumnos> alumnos) {
+        return  alumnos != null  ? alumnos.size() : 0 ;
+    }
 
     @Named("cursosToNombres")
     default Set<String> cursosToNombres(Set<Cursos> cursos) {
