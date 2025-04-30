@@ -20,12 +20,6 @@ import com.examen.integrador.Entidades.Cursos;
 import com.examen.integrador.Entidades.Grados;
 import com.examen.integrador.Entidades.Usuarios;
 
-/*
- 
-
-
-
- */
 @Mapper
 public interface AlumnoMapper {
 
