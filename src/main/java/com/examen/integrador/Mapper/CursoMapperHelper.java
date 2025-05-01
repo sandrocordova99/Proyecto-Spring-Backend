@@ -9,8 +9,12 @@ import com.examen.integrador.Repositorio.CursosRepositorio;
 
 @Component
 public class CursoMapperHelper {
+    private final CursosRepositorio cursosRepositorio;
+
     @Autowired
-    private CursosRepositorio cursosRepositorio;
+    public CursoMapperHelper(CursosRepositorio cursosRepositorio) {
+        this.cursosRepositorio = cursosRepositorio;
+    }
 
     @Named("mapCursoIdToCurso")
     public Cursos mapCursoIdToCurso(String cursoId) {

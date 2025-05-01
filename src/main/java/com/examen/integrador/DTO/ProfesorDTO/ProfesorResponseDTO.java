@@ -21,10 +21,6 @@ public class ProfesorResponseDTO {
 
     private String username;
 
-    private String password;
-
-    private String confirm_password;
-
     private String email;
 
     private LocalDate nacimiento;
