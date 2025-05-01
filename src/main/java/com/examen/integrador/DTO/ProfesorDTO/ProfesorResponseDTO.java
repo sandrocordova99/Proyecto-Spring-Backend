@@ -1,5 +1,6 @@
 package com.examen.integrador.DTO.ProfesorDTO;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.Set;
 
@@ -30,8 +31,11 @@ public class ProfesorResponseDTO {
 
     private RolesEnum roles;
 
-    //CUrsos y grados
+    private Date contratacion;
 
+    private Double sueldo;
+    
+    // CUrsos y grados
     Set<String> nombreGrados;
 
     String nombreCurso;
