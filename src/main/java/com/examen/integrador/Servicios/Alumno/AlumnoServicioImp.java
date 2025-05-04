@@ -58,16 +58,14 @@ public class AlumnoServicioImp implements AlumnoServicio {
     @Override
     public Alumnos crearAlumno(RequestAlumnoDTO dto) {
 
-
-
         try {
 
-            Usuarios usu = AlumnoMapper.instancia.toUsuarioRequest(dto);
+            Usuarios usu = AlumnoMapper.instancia.toUsuarioRequest(dto);    
 
             usu.setId(AutogenerarId());
             usu.setPassword(passwordEncoder.encode(usu.getPassword()));
             usu.setConfirm_password(passwordEncoder.encode(usu.getPassword()));
-
+            
             Alumnos alu = AlumnoMapper.instancia.toAlumnoRequest(dto);
 
             // bidireccional
