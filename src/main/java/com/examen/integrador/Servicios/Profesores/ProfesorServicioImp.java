@@ -11,8 +11,10 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorRequestDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorResponseDTO;
+import com.examen.integrador.Entidades.Grados;
 import com.examen.integrador.Entidades.Profesor;
 import com.examen.integrador.Entidades.Usuarios;
+import com.examen.integrador.Mapper.GradoMapper;
 import com.examen.integrador.Mapper.ProfesorMapper;
 import com.examen.integrador.Repositorio.ProfesoresRepositorio;
 import com.examen.integrador.Repositorio.UserRepositorio;
@@ -42,7 +44,6 @@ public class ProfesorServicioImp implements ProfesorServicio {
     public ProfesorResponseDTO crearProfesor(ProfesorRequestDTO dto) {
 
         try {
-            
 
             Usuarios usu = profesorMapper.toUsuarioRequest(dto);
 
@@ -59,7 +60,6 @@ public class ProfesorServicioImp implements ProfesorServicio {
 
             userRepositorio.save(usu);
 
-
             return profesorMapper.toProfesorResponse(profesor);
         } catch (Exception e) {
             throw new RuntimeException("Error al guardar el grado", e);
@@ -70,7 +70,17 @@ public class ProfesorServicioImp implements ProfesorServicio {
     @Override
     public List<ProfesorResponseDTO> listarProfesores() {
 
-        throw new UnsupportedOperationException("Unimplemented method 'listarProfesores'");
+        try {
+            List<Profesor> listaProfesor = profesorRepositorio.findAll();
+
+            return profesorMapper.toProfesorResponseList(listaProfesor);
+
+        } catch (Exception e) {
+
+            throw new RuntimeException("Error", e);
+            
+        }
+
     }
 
 }

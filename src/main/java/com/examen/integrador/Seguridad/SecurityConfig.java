@@ -58,6 +58,7 @@ public class SecurityConfig {
                                 .requestMatchers("/grado/asignarAlumnos").hasRole("ADMIN")
                                 .requestMatchers("/grado/listar").hasAnyRole("ADMIN", "PROFESOR")
                                 .requestMatchers("/profesor/crear").hasRole("ADMIN")
+                                .requestMatchers("/profesor/listar").hasRole("ADMIN")
                                 .requestMatchers("/").permitAll()
                                 .anyRequest().authenticated())
                                 /* .csrf(csrf -> {
