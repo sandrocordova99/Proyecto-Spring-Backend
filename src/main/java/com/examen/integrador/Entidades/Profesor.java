@@ -44,7 +44,7 @@ public class Profesor {
     private Double sueldo;
 
     @ManyToMany
-    @JoinTable(name = "profesor_cursos", joinColumns = @JoinColumn(name = "profesor_id"), inverseJoinColumns = @JoinColumn(name = "curso_id"))
+    @JoinTable(name = "profesor_grados", joinColumns = @JoinColumn(name = "profesor_id"), inverseJoinColumns = @JoinColumn(name = "grado_id"))
     Set<Grados> grados = new HashSet();
 
     @ManyToOne

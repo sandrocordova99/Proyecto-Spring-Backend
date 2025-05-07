@@ -7,25 +7,26 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.examen.integrador.DTO.ProfesorDTO.AsignarGradoProfesorDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorRequestDTO;
- import com.examen.integrador.Servicios.Profesores.ProfesorServicioImp;
+import com.examen.integrador.DTO.ProfesorDTO.ProfesorUpdateDTO;
+import com.examen.integrador.Servicios.Profesores.ProfesorServicioImp;
 
 @RestController
 @RequestMapping("/profesor")
 public class ProfesorControlador {
-    
+
     private final ProfesorServicioImp profesorServicioImp;
 
-    public ProfesorControlador(ProfesorServicioImp profesorServicioImp){
+    public ProfesorControlador(ProfesorServicioImp profesorServicioImp) {
         this.profesorServicioImp = profesorServicioImp;
-    }   
+    }
 
-    
     @PostMapping("/crear")
     public ResponseEntity<Map<String, Object>> crearProfesor(@RequestBody ProfesorRequestDTO dto) {
 
@@ -39,7 +40,7 @@ public class ProfesorControlador {
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
     }
-    
+
     @PostMapping("/asignarGrados")
     public ResponseEntity<Map<String, Object>> asignarGrados(@RequestBody AsignarGradoProfesorDTO dto) {
 
@@ -47,7 +48,7 @@ public class ProfesorControlador {
 
         // Map<String, Object> respuestaValidacion =
         // userValidacion.validarUsuarios(dto);
-        
+
         respuesta.put("Grados: ", profesorServicioImp.asignarGrados(dto));
 
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -67,4 +68,18 @@ public class ProfesorControlador {
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
     }
+
+    @PutMapping("/actualizar")
+    public ResponseEntity<Map<String, Object>> actualizarProfesor(@RequestBody ProfesorUpdateDTO dto) {
+
+        Map<String, Object> respuesta = new HashMap();
+
+        // Map<String, Object> respuestaValidacion =
+        // userValidacion.validarUsuarios(dto);
+
+        respuesta.put("actualizado", profesorServicioImp.actualizarProfesores(dto));
+
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+    }
+
 }

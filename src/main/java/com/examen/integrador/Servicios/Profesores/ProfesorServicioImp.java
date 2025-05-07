@@ -15,6 +15,7 @@ import com.examen.integrador.DTO.CursoDTO.AsignarGradoDTO;
 import com.examen.integrador.DTO.ProfesorDTO.AsignarGradoProfesorDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorRequestDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorResponseDTO;
+import com.examen.integrador.DTO.ProfesorDTO.ProfesorUpdateDTO;
 import com.examen.integrador.Entidades.Profesor;
 import com.examen.integrador.Entidades.Cursos;
 import com.examen.integrador.Entidades.Grados;
@@ -125,6 +126,7 @@ public class ProfesorServicioImp implements ProfesorServicio {
 
                 profesor.setGrados(listaGrados);
 
+                profesorRepositorio.save(profesor);
             }
 
             return profesorMapper.toProfesorResponse(profesor);
@@ -133,6 +135,50 @@ public class ProfesorServicioImp implements ProfesorServicio {
             throw new RuntimeException("Error al implementar grados", e);
         }
 
+    }
+
+    @Override
+    @Transactional
+    public ProfesorResponseDTO actualizarProfesores(ProfesorUpdateDTO dto) {
+
+        Profesor profeOptional = profesorRepositorio.findById(dto.getId())
+                .orElseThrow(() -> new EntityNotFoundException("No se encontró el profesor con ese ID"));
+
+        Usuarios aluOptional =  userRepositorio.findById(dto.getId())
+        .orElseThrow(() -> new EntityNotFoundException("No se encontró el profesor con ese ID"));
+
+        
+        aluOptional.setNombre(dto.getNombre());
+        aluOptional.setApellido(dto.getApellido());
+        aluOptional.setPassword(passwordEncoder.encode(dto.getPassword()));
+        aluOptional.setConfirm_password(passwordEncoder.encode(dto.getConfirm_password()));
+        aluOptional.setUsername(dto.getUsername());
+        aluOptional.setEmail(dto.getEmail());
+
+
+        profeOptional.setSueldo(dto.getSueldo());
+
+        //cursos
+        Cursos curso = cursosRepositorio.findById(dto.getCursoId()).orElseThrow(()-> new EntityNotFoundException("grado no encontrado"));
+
+        profeOptional.setCurso(curso); //la actualizacion es bidireccional , osea que tambien debo actualizar cursos o bueno no che la verdad
+
+        Set<Grados> listaGrados = new HashSet();
+
+        //grados
+        for(String id : dto.getListaGrados()){
+
+            Grados grados = gradoRepositorio.findById(id)
+            .orElseThrow(() -> new EntityNotFoundException("No se encontró el grado con ese ID"));
+
+            listaGrados.add(grados);
+        }
+
+        profeOptional.setGrados(listaGrados);
+
+        profesorRepositorio.save(profeOptional);
+
+        return profesorMapper.toProfesorResponse(profeOptional);
     }
 
 }

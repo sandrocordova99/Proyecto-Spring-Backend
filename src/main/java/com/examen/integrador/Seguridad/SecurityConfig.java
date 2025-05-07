@@ -60,6 +60,7 @@ public class SecurityConfig {
                                 .requestMatchers("/profesor/crear").hasRole("ADMIN")
                                 .requestMatchers("/profesor/listar").hasRole("ADMIN")
                                 .requestMatchers("/profesor/asignar").hasRole("ADMIN")
+                                .requestMatchers("/profesor/actualizar").hasRole("ADMIN")
                                 .requestMatchers("/").permitAll()
                                 .anyRequest().authenticated())
                                 /* .csrf(csrf -> {
