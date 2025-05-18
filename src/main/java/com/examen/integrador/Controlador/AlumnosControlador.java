@@ -15,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.examen.integrador.DTO.AlumnoDTO.AlumnoEditDTO;
+import com.examen.integrador.DTO.AlumnoDTO.AlumnoGradoResponseDTO;
 import com.examen.integrador.DTO.AlumnoDTO.RequestAlumnoDTO;
 import com.examen.integrador.DTO.AlumnoDTO.ResponseAlumnoDTO;
 import com.examen.integrador.Entidades.Alumnos;
@@ -71,24 +72,22 @@ public class AlumnosControlador {
 
         Map<String, Object> respuesta = new HashMap();
 
-        //Map<String, Object> respuestaValidacion = userValidacion.validarUsuarios(dto);
+        dto.setEdicion(true);
 
-        respuesta.put("Actualizacion: ", alumnoServicioImp.actualizarAlumno(dto));
-        /*
-         if (respuestaValidacion.containsKey("Confirmación")) {
-            Alumnos alu = alumnoServicioImp.crearAlumno(dto);
+        Map<String, Object> respuestaValidacion = userValidacion.validarUsuarios(dto);
+
+        if (respuestaValidacion.containsKey("Confirmación")) {
+
+            ResponseAlumnoDTO alu = alumnoServicioImp.actualizarAlumno(dto);
+
             respuesta.put("validacion", respuestaValidacion.get("Confirmación"));
-            respuesta.put("ID", alu.getId());
+
         } else {
             respuesta.put("Error", respuestaValidacion.get("Errores"));
         }
 
-         */
-       
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
     }
-
-    
 
 }
