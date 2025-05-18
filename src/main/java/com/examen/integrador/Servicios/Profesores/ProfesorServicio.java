@@ -5,7 +5,7 @@ import java.util.List;
 import com.examen.integrador.DTO.ProfesorDTO.AsignarGradoProfesorDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorRequestDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorResponseDTO;
-import com.examen.integrador.DTO.ProfesorDTO.ProfesorUpdateDTO;
+import com.examen.integrador.DTO.ProfesorDTO.ProfesorEditDTO;
 
 public interface ProfesorServicio {
 
@@ -15,7 +15,7 @@ public interface ProfesorServicio {
 
     ProfesorResponseDTO asignarGrados(AsignarGradoProfesorDTO grados);
 
-    ProfesorResponseDTO actualizarProfesores(ProfesorUpdateDTO dto);
+    ProfesorResponseDTO actualizarProfesores(ProfesorEditDTO dto);
 
 
 }

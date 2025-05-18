@@ -15,7 +15,7 @@ import com.examen.integrador.DTO.CursoDTO.AsignarGradoDTO;
 import com.examen.integrador.DTO.ProfesorDTO.AsignarGradoProfesorDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorRequestDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorResponseDTO;
-import com.examen.integrador.DTO.ProfesorDTO.ProfesorUpdateDTO;
+import com.examen.integrador.DTO.ProfesorDTO.ProfesorEditDTO;
 import com.examen.integrador.Entidades.Profesor;
 import com.examen.integrador.Entidades.Cursos;
 import com.examen.integrador.Entidades.Grados;
@@ -139,7 +139,7 @@ public class ProfesorServicioImp implements ProfesorServicio {
 
     @Override
     @Transactional
-    public ProfesorResponseDTO actualizarProfesores(ProfesorUpdateDTO dto) {
+    public ProfesorResponseDTO actualizarProfesores(ProfesorEditDTO dto) {
 
         Profesor profeOptional = profesorRepositorio.findById(dto.getId())
                 .orElseThrow(() -> new EntityNotFoundException("No se encontró el profesor con ese ID"));
@@ -150,8 +150,7 @@ public class ProfesorServicioImp implements ProfesorServicio {
         
         aluOptional.setNombre(dto.getNombre());
         aluOptional.setApellido(dto.getApellido());
-        aluOptional.setPassword(passwordEncoder.encode(dto.getPassword()));
-        aluOptional.setConfirm_password(passwordEncoder.encode(dto.getConfirm_password()));
+ 
         aluOptional.setUsername(dto.getUsername());
         aluOptional.setEmail(dto.getEmail());
 

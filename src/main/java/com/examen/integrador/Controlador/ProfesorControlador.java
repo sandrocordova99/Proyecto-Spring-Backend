@@ -12,19 +12,24 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.examen.integrador.DTO.AlumnoDTO.ResponseAlumnoDTO;
 import com.examen.integrador.DTO.ProfesorDTO.AsignarGradoProfesorDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorRequestDTO;
-import com.examen.integrador.DTO.ProfesorDTO.ProfesorUpdateDTO;
+import com.examen.integrador.DTO.ProfesorDTO.ProfesorResponseDTO;
+import com.examen.integrador.DTO.ProfesorDTO.ProfesorEditDTO;
 import com.examen.integrador.Servicios.Profesores.ProfesorServicioImp;
+import com.examen.integrador.Validacion.UserValidacion;
 
 @RestController
 @RequestMapping("/profesor")
 public class ProfesorControlador {
 
     private final ProfesorServicioImp profesorServicioImp;
+    private final UserValidacion userValidacion;
 
-    public ProfesorControlador(ProfesorServicioImp profesorServicioImp) {
+    public ProfesorControlador(ProfesorServicioImp profesorServicioImp, UserValidacion userValidacion) {
         this.profesorServicioImp = profesorServicioImp;
+        this.userValidacion = userValidacion;
     }
 
     @PostMapping("/crear")
@@ -60,9 +65,6 @@ public class ProfesorControlador {
 
         Map<String, Object> respuesta = new HashMap();
 
-        // Map<String, Object> respuestaValidacion =
-        // userValidacion.validarUsuarios(dto);
-
         respuesta.put("Lista", profesorServicioImp.listarProfesores());
 
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -70,14 +72,23 @@ public class ProfesorControlador {
     }
 
     @PutMapping("/actualizar")
-    public ResponseEntity<Map<String, Object>> actualizarProfesor(@RequestBody ProfesorUpdateDTO dto) {
+    public ResponseEntity<Map<String, Object>> actualizarProfesor(@RequestBody ProfesorEditDTO dto) {
 
         Map<String, Object> respuesta = new HashMap();
 
-        // Map<String, Object> respuestaValidacion =
-        // userValidacion.validarUsuarios(dto);
+        dto.setEdicion(true);
 
-        respuesta.put("actualizado", profesorServicioImp.actualizarProfesores(dto));
+        Map<String, Object> respuestaValidacion = userValidacion.validarUsuarios(dto);
+
+        if (respuestaValidacion.containsKey("Confirmación")) {
+
+            ProfesorResponseDTO alu = profesorServicioImp.actualizarProfesores(dto);
+
+            respuesta.put("validacion", respuestaValidacion.get("Confirmación"));
+
+        } else {
+            respuesta.put("Error", respuestaValidacion.get("Errores"));
+        }
 
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
     }

@@ -53,6 +53,8 @@ public class SecurityConfig {
                                 .requestMatchers("/auth/register").hasRole("ADMIN")
                                 .requestMatchers("/curso/crear").hasRole("PROFESOR")
                                 .requestMatchers("/curso/listar").hasAnyRole("ADMIN", "PROFESOR")
+                                .requestMatchers("/curso/borrar/{id}").hasRole("ADMIN")
+
                                 .requestMatchers("/grado/crear").hasRole("ADMIN")
                                 .requestMatchers("/grado/asignar").hasRole("ADMIN")
                                 .requestMatchers("/grado/asignarAlumnos").hasRole("ADMIN")
@@ -63,13 +65,17 @@ public class SecurityConfig {
                                 .requestMatchers("/profesor/actualizar").hasRole("ADMIN")
                                 .requestMatchers("/").permitAll()
                                 .anyRequest().authenticated())
-                                /* .csrf(csrf -> {
-                    csrf.ignoringRequestMatchers("/auth/register", "/auth/login", "/auth/logout", "/user/listar",
-                            "/user/listarAdmin", "/user/listarAlumnos", "/user/listarProfesores",
-                            "/user/eliminarUsuario/{id}", "/user/editarUsuarios/{id}", "/alu/listar", "/alu/crear",
-                            "/curso/crear", "/grado/crear");
-                }) */
-               
+                /*
+                 * .csrf(csrf -> {
+                 * csrf.ignoringRequestMatchers("/auth/register", "/auth/login", "/auth/logout",
+                 * "/user/listar",
+                 * "/user/listarAdmin", "/user/listarAlumnos", "/user/listarProfesores",
+                 * "/user/eliminarUsuario/{id}", "/user/editarUsuarios/{id}", "/alu/listar",
+                 * "/alu/crear",
+                 * "/curso/crear", "/grado/crear");
+                 * })
+                 */
+
                 .formLogin().disable()
                 .addFilterBefore(filterChain(), UsernamePasswordAuthenticationFilter.class);
 

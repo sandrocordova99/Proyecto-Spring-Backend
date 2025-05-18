@@ -11,4 +11,6 @@ public interface CursoServicio {
 
     List<CursoResponseDTO> listarCursosDTO ( );
 
+    String eliminarCurso(String id);
+
 }

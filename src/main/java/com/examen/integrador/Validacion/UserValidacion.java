@@ -3,10 +3,13 @@ package com.examen.integrador.Validacion;
 import com.examen.integrador.DTO.UsuarioBaseDTO;
 import com.examen.integrador.DTO.AlumnoDTO.AlumnoEditDTO;
 import com.examen.integrador.DTO.AlumnoDTO.RequestAlumnoDTO;
+import com.examen.integrador.DTO.ProfesorDTO.ProfesorEditDTO;
+import com.examen.integrador.DTO.ProfesorDTO.ProfesorRequestDTO;
 import com.examen.integrador.Repositorio.UserRepositorio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-
+import java.time.LocalDate;
+import java.time.ZoneId;
 import java.util.*;
 
 @Service
@@ -101,9 +104,7 @@ public class UserValidacion {
                         .add("Fecha de nacimiento no puede estar vacía y debe ser en formato dd-MM-yyyy.");
             }
 
-            if (usu.getRoles() == null) {
-                mensajeValidacion.add("Rol no puede ser nulo.");
-            }
+ 
         }
 
         if (usu.getEmail() == null || !usu.getEmail().matches(regexEmail)) {
@@ -121,8 +122,8 @@ public class UserValidacion {
             if (alumnoDTO.getNombreDeApoderado() == null || alumnoDTO.getNombreDeApoderado().isEmpty()
                     || !alumnoDTO.getNombreDeApoderado().matches(regexNombre)) {
                 mensajeValidacion.add("El nombre del apoderado no puede estar vacío ni contener caracteres inválidos.");
-            }   
-            
+            }
+
         } else if (usu instanceof AlumnoEditDTO alumnoEditDTO) {
 
             if (alumnoEditDTO.getNombreDeApoderado() == null || alumnoEditDTO.getNombreDeApoderado().isEmpty()
@@ -139,7 +140,47 @@ public class UserValidacion {
 
     private List<String> validarProfe(UsuarioBaseDTO usu) {
 
-        throw new UnsupportedOperationException("Unimplemented method 'validarProfe'");
+        List<String> mensajeValidacion = new ArrayList<>();
+
+        if (usu instanceof ProfesorRequestDTO pro) {
+
+            // crear constante
+            if (pro.getSueldo() == null || pro.getSueldo() < 1110) {
+                mensajeValidacion.add("El sueldo debe ser obligatorio y no puede ser menor al sueldo minimo.");
+            }
+
+            if (pro.getContratacion() == null) {
+                mensajeValidacion.add("La fecha de contratación debe ser obligatoria.");
+            } else {
+                Date fechaContratacion = pro.getContratacion(); // Aquí suponemos que es un objeto de tipo Date
+                LocalDate fechaContratacionLocalDate = fechaContratacion.toInstant().atZone(ZoneId.systemDefault())
+                        .toLocalDate();
+
+                LocalDate hoy = LocalDate.now();
+                LocalDate unaSemanaAntes = hoy.minusWeeks(1);
+                LocalDate unaSemanaDespues = hoy.plusWeeks(1);
+
+                if (fechaContratacionLocalDate.isBefore(unaSemanaAntes)
+                        || fechaContratacionLocalDate.isAfter(unaSemanaDespues)) {
+                    mensajeValidacion
+                            .add("La fecha de contratación debe estar dentro de una semana antes o después de hoy.");
+                }
+            }
+
+        } else if (usu instanceof ProfesorEditDTO pro) {
+
+          // crear constante
+            if (pro.getSueldo() == null || pro.getSueldo() < 1110) {
+                mensajeValidacion.add("El sueldo debe ser obligatorio y no puede ser menor al sueldo minimo.");
+            }
+
+            
+
+        } else {
+            mensajeValidacion.add("Error interno: El DTO recibido no es de tipo alumno.");
+        }
+
+        return mensajeValidacion;
     }
 
     private List<String> validarAdmin(UsuarioBaseDTO usu) {

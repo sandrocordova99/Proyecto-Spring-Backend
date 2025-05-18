@@ -1,4 +1,5 @@
 package com.examen.integrador.DTO;
+
 import java.time.LocalDate;
 import com.examen.integrador.Entidades.RolesEnum;
 import lombok.Getter;
@@ -10,8 +11,8 @@ import lombok.Setter;
 @NoArgsConstructor
 public class UsuarioBaseDTO {
 
-    //Usuarios
-    
+    // Usuarios
+
     private String nombre;
 
     private String apellido;
@@ -28,5 +29,5 @@ public class UsuarioBaseDTO {
 
     private RolesEnum roles;
 
-     private boolean edicion = false;
+    private boolean edicion = false;
 }
