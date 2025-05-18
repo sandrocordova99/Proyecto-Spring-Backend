@@ -1,9 +1,6 @@
-package com.examen.integrador.DTO.AlumnoDTO;
-
+package com.examen.integrador.DTO;
 import java.time.LocalDate;
-
 import com.examen.integrador.Entidades.RolesEnum;
-
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,16 +8,19 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ResponseAlumnoDTO {
+public class UsuarioBaseDTO {
 
-    // Usuarios
-    // Usuarios
-
+    //Usuarios
+    
     private String nombre;
 
     private String apellido;
 
     private String username;
+
+    private String password;
+
+    private String confirm_password;
 
     private String email;
 
@@ -28,8 +28,5 @@ public class ResponseAlumnoDTO {
 
     private RolesEnum roles;
 
-    private String nombreDeApoderado;
-
-    private AlumnoGradoResponseDTO grado;
-
+     private boolean edicion = false;
 }

@@ -1,9 +1,6 @@
 package com.examen.integrador.DTO.AlumnoDTO;
 
-import java.time.LocalDate;
-
-import com.examen.integrador.Entidades.RolesEnum;
-
+import com.examen.integrador.DTO.UsuarioBaseDTO;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,21 +8,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class AlumnoEditDTO {
+public class AlumnoEditDTO extends UsuarioBaseDTO{
 
     private String alumnoID;
-
-    private String nombre;
-
-    private String apellido;
-
-    private String username;
-
-    private String email;
-
     // Alumno
     private String nombreDeApoderado;
 
     private String gradoID;
+
+     
 
 }
