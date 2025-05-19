@@ -2,17 +2,18 @@ package com.examen.integrador.Servicios.Curso;
 
 import java.util.List;
 
-import javax.management.RuntimeErrorException;
-
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
 
+import com.examen.integrador.DTO.CursoDTO.CursoEditDTO;
 import com.examen.integrador.DTO.CursoDTO.CursoRequestDTO;
 import com.examen.integrador.DTO.CursoDTO.CursoResponseDTO;
 import com.examen.integrador.Entidades.Alumnos;
 import com.examen.integrador.Entidades.Cursos;
+import com.examen.integrador.Entidades.Grados;
 import com.examen.integrador.Mapper.CursoMapper;
 import com.examen.integrador.Repositorio.CursosRepositorio;
+import com.examen.integrador.Repositorio.GradoRepositorio;
 import com.examen.integrador.Validacion.AutogenerarID;
 
 @Service
@@ -20,10 +21,12 @@ public class CursoServicioImp implements CursoServicio {
 
     private final CursosRepositorio cursosRepositorio;
     private final AutogenerarID autogenerarID;
+    private final GradoRepositorio gradoRepositorio;
 
-    public CursoServicioImp(CursosRepositorio cursosRepositorio, AutogenerarID autogenerarID) {
+    public CursoServicioImp(CursosRepositorio cursosRepositorio, AutogenerarID autogenerarID , GradoRepositorio gradoRepositorio) {
         this.cursosRepositorio = cursosRepositorio;
         this.autogenerarID = autogenerarID;
+        this.gradoRepositorio = gradoRepositorio;
     }
 
     @Override
@@ -83,5 +86,29 @@ public class CursoServicioImp implements CursoServicio {
         }
 
     }
+
+    @Override
+    public CursoResponseDTO editarCurso(CursoEditDTO dto) {
+
+        try {
+
+            Cursos curso = cursosRepositorio.findById(dto.getId()).orElseThrow(
+                    () -> new UsernameNotFoundException("Curso no encontrado con ese id"));
+
+            curso.setNombre(dto.getNombre());
+
+            Grados grados = gradoRepositorio.findById(dto.getGrado()).orElseThrow(
+                    () -> new UsernameNotFoundException("Grado no encontrado con ese id"));
+
+            curso.setGrado(grados);
+
+            return CursoMapper.instancia.toCursoReponse(cursosRepositorio.save(curso));
+
+
+        } catch (Exception e) {
+            throw new RuntimeException("Error al borrar curso: ", e);
+        }
+
+     }
 
 }
