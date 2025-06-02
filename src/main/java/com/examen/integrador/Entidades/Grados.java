@@ -37,4 +37,6 @@ public class Grados {
     @ManyToMany(mappedBy = "grados")
     Set<Profesor> profesor = new HashSet();
 
+    @OneToMany(mappedBy = "grados")
+    private Set<Categorias> categorias;
 }
