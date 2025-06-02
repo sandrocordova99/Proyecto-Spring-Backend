@@ -100,7 +100,7 @@ public class CursoServicioImp implements CursoServicio {
             Grados grados = gradoRepositorio.findById(dto.getGrado()).orElseThrow(
                     () -> new UsernameNotFoundException("Grado no encontrado con ese id"));
 
-            curso.setGrado(grados);
+            //curso.setGrado(grados);
 
             return CursoMapper.instancia.toCursoReponse(cursosRepositorio.save(curso));
 

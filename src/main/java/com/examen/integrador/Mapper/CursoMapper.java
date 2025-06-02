@@ -1,8 +1,6 @@
 package com.examen.integrador.Mapper;
 
 import java.util.List;
-import java.util.Set;
-import java.util.stream.Collectors;
 
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
@@ -11,7 +9,6 @@ import org.mapstruct.factory.Mappers;
 
 import com.examen.integrador.DTO.CursoDTO.CursoRequestDTO;
 import com.examen.integrador.DTO.CursoDTO.CursoResponseDTO;
-import com.examen.integrador.DTO.GradoDTO.AlumnoSimpleDTO;
 import com.examen.integrador.Entidades.Alumnos;
 import com.examen.integrador.Entidades.Cursos;
 
@@ -25,7 +22,7 @@ public interface CursoMapper {
 
    // CursoResponseDTO toCursoReponse(Cursos cursos);
 
-   @Mapping(source = "grado.nombre", target = "grado")
+   //@Mapping(source = "grado.nombre", target = "grado")
    @Mapping(source = "alumnos", target = "cantidad", qualifiedByName = "alumnosToCantidad")
    CursoResponseDTO toCursoReponse(Cursos cursos);
 

@@ -35,5 +35,5 @@ public class Categorias {
     @ManyToOne()
     @JoinColumn(name = "grados")
     private Grados grados;
-
+    
 }

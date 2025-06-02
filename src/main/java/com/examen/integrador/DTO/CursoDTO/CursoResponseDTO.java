@@ -13,5 +13,5 @@ public class CursoResponseDTO {
 
     private int cantidad;
 
-    private String grado;
+     private String grado;
 }
