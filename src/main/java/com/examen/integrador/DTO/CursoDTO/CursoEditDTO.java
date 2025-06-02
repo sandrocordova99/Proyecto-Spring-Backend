@@ -7,11 +7,14 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class CursoResponseDTO {
-    
+public class CursoEditDTO {
+
+    private String id;
+
     private String nombre;
 
-    private int cantidad;
+    //descripcion , etc 
 
-     private String grado;
+    private String grado;
+
 }

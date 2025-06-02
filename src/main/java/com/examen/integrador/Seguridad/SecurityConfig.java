@@ -54,6 +54,8 @@ public class SecurityConfig {
                                 .requestMatchers("/curso/crear").hasRole("PROFESOR")
                                 .requestMatchers("/curso/listar").hasAnyRole("ADMIN", "PROFESOR")
                                 .requestMatchers("/curso/borrar/{id}").hasRole("ADMIN")
+                                
+                                .requestMatchers("/curso/actualizar").hasRole("ADMIN")
 
                                 .requestMatchers("/grado/crear").hasRole("ADMIN")
                                 .requestMatchers("/grado/asignar").hasRole("ADMIN")

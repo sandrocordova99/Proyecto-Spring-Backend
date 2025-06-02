@@ -7,10 +7,7 @@ import java.util.Set;
 
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
@@ -30,8 +27,10 @@ public class Grados {
     @OneToMany(mappedBy = "grado")
     private List<Alumnos> alumnos = new ArrayList();
 
-    @OneToMany(mappedBy = "grado", fetch = FetchType.EAGER)
-    private Set<Cursos> cursos = new HashSet();
+    /*
+     * @OneToMany(mappedBy = "grado", fetch = FetchType.EAGER)
+     * private Set<Cursos> cursos = new HashSet();
+     */
 
     @Column(name = "cantidad_alumnos")
     private int cantidad_alumnos = 0;
@@ -39,4 +38,6 @@ public class Grados {
     @ManyToMany(mappedBy = "grados")
     Set<Profesor> profesor = new HashSet();
 
+    @OneToMany(mappedBy = "grados")
+    private Set<Categorias> categorias;
 }

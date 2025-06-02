@@ -26,19 +26,24 @@ public class Cursos {
     @ManyToMany(mappedBy = "cursos")
     private List<Alumnos> alumnos = new ArrayList();
 
-    @Column(length = 20, nullable = false, name = "nombre" , unique = true  )
+    @Column(length = 20, nullable = false, name = "nombre", unique = true)
     private String nombre;
 
     @Column(nullable = true, name = "cantidad")
     private int cantidad;
 
-    @ManyToOne()
-    @JoinColumn(
-        name = "grado"
-    )
-    private Grados grado;
+    /*
+     * @ManyToOne()
+     * 
+     * @JoinColumn(name = "grado")
+     * private Grados grado;
+     * 
+     */
 
     @OneToMany(mappedBy = "curso")
     private Set<Profesor> profesores = new HashSet<>();
+
+    @OneToMany(mappedBy = "cursos")
+    private Set<Categorias> categorias;
 
 }

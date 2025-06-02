@@ -77,10 +77,10 @@ public class GradoServicioImp implements GradoServicio {
             Grados grados = gradosOptional.get();
 
             for (Cursos curso : cursosList) {
-                curso.setGrado(grados); // establecer la relación desde el lado del curso
+                //curso.setGrado(grados); // establecer la relación desde el lado del curso
             }
 
-            grados.setCursos(listaCursos);
+            //grados.setCursos(listaCursos);
 
             gradoRepositorio.save(grados);
 
@@ -124,7 +124,7 @@ public class GradoServicioImp implements GradoServicio {
 
         for (Alumnos alumno : alumnosSet) {
             alumno.setGrado(grado);
-            alumno.setCursos(new ArrayList<>(grado.getCursos()));
+            //alumno.setCursos(new ArrayList<>(grado.getCursos()));
 
             System.out.println("grados alumno : " + alumno.getGrado());
             System.out.println("Cursos alumno : " + alumno.getCursos());

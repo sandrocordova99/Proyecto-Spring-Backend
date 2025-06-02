@@ -4,7 +4,7 @@ package com.examen.integrador.Mapper;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
- 
+
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
@@ -48,21 +48,24 @@ public interface AlumnoMapper {
         if (grado == null) {
             return null;
         }
-    
+
         AlumnoGradoResponseDTO alumnoDTO = new AlumnoGradoResponseDTO();
         alumnoDTO.setNombre(grado.getNombre());
-    
-        Set<Cursos> cursos = grado.getCursos();
+
+        // Set<Cursos> cursos = grado.getCursos();
         Set<String> cursosNombre = new HashSet<>();
-    
-        if (cursos != null) {
-            for (Cursos c : cursos) {
-                cursosNombre.add(c.getNombre());
-            }
-        }
-    
+
+        /*
+         * if (cursos != null) {
+         * for (Cursos c : cursos) {
+         * cursosNombre.add(c.getNombre());
+         * }
+         * }
+         * 
+         */
+
         alumnoDTO.setCursos(cursosNombre);
-    
+
         return alumnoDTO;
 
     }

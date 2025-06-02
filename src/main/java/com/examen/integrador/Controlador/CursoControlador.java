@@ -10,10 +10,12 @@ import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.examen.integrador.DTO.CursoDTO.CursoEditDTO;
 import com.examen.integrador.DTO.CursoDTO.CursoRequestDTO;
 import com.examen.integrador.DTO.CursoDTO.CursoResponseDTO;
 import com.examen.integrador.Servicios.Curso.CursoServicioImp;
@@ -67,6 +69,17 @@ public class CursoControlador {
 
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
+    }
+
+    @PutMapping("/actualizar")
+    public ResponseEntity<Map<String, Object>> actualizarCursos(@RequestBody CursoEditDTO dto) {
+
+        Map<String, Object> respuesta = new HashMap();
+
+        respuesta.put("Cursos", cursoServicioImp.editarCurso(dto));
+
+        return ResponseEntity.status(HttpStatus.OK).body(respuesta);
+        
     }
 
 }
