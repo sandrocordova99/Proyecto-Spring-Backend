@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -34,13 +35,13 @@ public class Cursos {
      * @JoinColumn(name = "grado")
      * private Grados grado;
      * 
-     */ 
+     */
 
     @OneToMany(mappedBy = "curso")
     private Set<Profesor> profesores = new HashSet<>();
 
-    @OneToMany(mappedBy = "cursos")
-    private Set<Categorias> categorias;
+    @OneToMany(mappedBy = "cursos", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Categorias> categorias = new HashSet<>();
 
     @ManyToMany(mappedBy = "cursos")
     private List<Alumnos> alumnos = new ArrayList();

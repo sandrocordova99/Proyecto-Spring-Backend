@@ -12,6 +12,7 @@ import com.examen.integrador.Entidades.Alumnos;
 import com.examen.integrador.Entidades.Categorias;
 import com.examen.integrador.Entidades.Cursos;
 import com.examen.integrador.Entidades.Grados;
+import com.examen.integrador.Entidades.Profesor;
 import com.examen.integrador.Mapper.CursoMapper;
 import com.examen.integrador.Repositorio.CategoriasRepositorio;
 import com.examen.integrador.Repositorio.CursosRepositorio;
@@ -40,21 +41,17 @@ public class CursoServicioImp implements CursoServicio {
     @Transactional
     public CursoResponseDTO crearCurso(CursoRequestDTO dto) {
         System.out.println("👉 Creando curso: " + dto.getNombre());
-        try {       
+        try {
 
-            
-
-            Cursos cursos = CursoMapper.instancia.toCursoRequest(dto);    
+            Cursos cursos = CursoMapper.instancia.toCursoRequest(dto);
 
             cursos.setId(autogenerarID.generarId("CURSOS"));
 
             Cursos CursoSave = cursosRepositorio.save(cursos);
 
-            // despues creo las categorias  
+            // despues creo las categorias
 
             List<Grados> listaGrados = gradoRepositorio.findAll();
-
-             
 
             for (Grados g : listaGrados) {
 
@@ -70,7 +67,6 @@ public class CursoServicioImp implements CursoServicio {
 
                 categoriasRepositorio.save(categoria);
 
-                 
             }
 
             return CursoMapper.instancia.toCursoReponse(CursoSave);
@@ -100,14 +96,30 @@ public class CursoServicioImp implements CursoServicio {
     public String eliminarCurso(String id) {
 
         try {
+
+            //limpio las entidades vinculadas --> ESTO SOLO APLICA CUANDO NO PUEDO USAR EL CASCADE.TIPY ALL 
             Cursos cursoDelete = cursosRepositorio.findById(id)
                     .orElseThrow(() -> new UsernameNotFoundException("No se encontro el curso con ese ID"));
 
             for (Alumnos alumno : cursoDelete.getAlumnos()) {
                 alumno.getCursos().remove(cursoDelete); // Importante: remover el curso del alumno
             }
+
+            for (Profesor profesor : cursoDelete.getProfesores()) {
+                profesor.setCurso(null);
+            }
+
+           
+
+
+            //limpio mi entidad
             cursoDelete.getAlumnos().clear();
+
+            cursoDelete.getProfesores().clear();
+
+ 
             cursosRepositorio.save(cursoDelete);
+
             cursosRepositorio.delete(cursoDelete);
 
             return cursoDelete.getNombre();
