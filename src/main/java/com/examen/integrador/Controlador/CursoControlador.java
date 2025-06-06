@@ -18,17 +18,23 @@ import org.springframework.web.bind.annotation.RestController;
 import com.examen.integrador.DTO.CursoDTO.CursoEditDTO;
 import com.examen.integrador.DTO.CursoDTO.CursoRequestDTO;
 import com.examen.integrador.DTO.CursoDTO.CursoResponseDTO;
+import com.examen.integrador.Repositorio.CursosRepositorio;
 import com.examen.integrador.Servicios.Curso.CursoServicioImp;
+import com.examen.integrador.Validacion.UserValidacion;
 
 @RestController
 @RequestMapping("/curso")
 public class CursoControlador {
 
     private final CursoServicioImp cursoServicioImp;
+    private final UserValidacion userValidacion;
+    private final CursosRepositorio cursosRepositorio;
 
     @Autowired
-    public CursoControlador(CursoServicioImp cursoServicioImp) {
+    public CursoControlador(CursoServicioImp cursoServicioImp , UserValidacion userValidacion , CursosRepositorio cursosRepositorio) {
         this.cursoServicioImp = cursoServicioImp;
+        this.userValidacion = userValidacion;
+        this.cursosRepositorio = cursosRepositorio;
     }
 
     @PostMapping("/crear")
@@ -36,14 +42,16 @@ public class CursoControlador {
 
         Map<String, Object> respuesta = new HashMap();
 
-        // Map<String, Object> respuestaValidacion =
-        // userValidacion.validarUsuarios(dto);
+        if(cursosRepositorio.existsByNombre(dto.getNombre())){
+
+            respuesta.put("error" , "Nombre ya existe");
+
+            return ResponseEntity.status(HttpStatus.CONFLICT).body(respuesta);
+        } 
 
         respuesta.put("Cursos", cursoServicioImp.crearCurso(dto));
 
-        CursoResponseDTO curso = cursoServicioImp.crearCurso(dto);
-
-        System.out.println("Curso nombre " + curso.getNombre());
+        //CursoResponseDTO curso = cursoServicioImp.crearCurso(dto);
 
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
@@ -79,7 +87,7 @@ public class CursoControlador {
         respuesta.put("Cursos", cursoServicioImp.editarCurso(dto));
 
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
-        
+
     }
 
 }

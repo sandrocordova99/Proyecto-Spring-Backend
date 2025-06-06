@@ -7,6 +7,7 @@ import lombok.Setter;
 @Setter
 
 public class CursoRequestDTO {
+    
     private String nombre;
 
     

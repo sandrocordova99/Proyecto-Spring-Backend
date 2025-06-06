@@ -32,6 +32,10 @@ public class AutogenerarID {
                 respuesta = new StringBuilder("ALU-");
                 break;
 
+            case "CATEGORIAS":
+                respuesta = new StringBuilder("CTG-");
+                break;
+
             case "PROFESOR":
                 respuesta = new StringBuilder("PRF-");
                 break;

@@ -5,12 +5,12 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToMany;
-import jakarta.persistence.ManyToOne;
+
 import jakarta.persistence.OneToMany;
 import lombok.Getter;
 import lombok.Setter;
@@ -22,9 +22,6 @@ public class Cursos {
 
     @Id
     private String id;
-
-    @ManyToMany(mappedBy = "cursos")
-    private List<Alumnos> alumnos = new ArrayList();
 
     @Column(length = 20, nullable = false, name = "nombre", unique = true)
     private String nombre;
@@ -43,7 +40,9 @@ public class Cursos {
     @OneToMany(mappedBy = "curso")
     private Set<Profesor> profesores = new HashSet<>();
 
-    @OneToMany(mappedBy = "cursos")
-    private Set<Categorias> categorias;
+    @OneToMany(mappedBy = "cursos", cascade = CascadeType.ALL, orphanRemoval = true)
+    private Set<Categorias> categorias = new HashSet<>();
 
+    @ManyToMany(mappedBy = "cursos")
+    private List<Alumnos> alumnos = new ArrayList();
 }
