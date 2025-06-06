@@ -51,7 +51,7 @@ public class SecurityConfig {
                                 .requestMatchers("/alu/crear").hasAnyRole("ADMIN")
                                 .requestMatchers("/alu/actualizar").hasAnyRole("ADMIN")
                                 .requestMatchers("/auth/register").hasRole("ADMIN")
-                                .requestMatchers("/curso/crear").hasRole("PROFESOR")
+                                .requestMatchers("/curso/crear").hasRole("ADMIN")
                                 .requestMatchers("/curso/listar").hasAnyRole("ADMIN", "PROFESOR")
                                 .requestMatchers("/curso/borrar/{id}").hasRole("ADMIN")
                                 
