@@ -40,7 +40,6 @@ public class CursoServicioImp implements CursoServicio {
     @Override
     @Transactional
     public CursoResponseDTO crearCurso(CursoRequestDTO dto) {
-        System.out.println("👉 Creando curso: " + dto.getNombre());
         try {
 
             Cursos cursos = CursoMapper.instancia.toCursoRequest(dto);
@@ -59,7 +58,7 @@ public class CursoServicioImp implements CursoServicio {
 
                 categoria.setId(autogenerarID.generarId("CATEGORIAS"));
 
-                categoria.setNombre(CursoSave.getNombre() + " - " + g.getNombre());
+                categoria.setNombre(CursoSave.getNombre());
 
                 categoria.setGrados(g);
 
@@ -97,7 +96,8 @@ public class CursoServicioImp implements CursoServicio {
 
         try {
 
-            //limpio las entidades vinculadas --> ESTO SOLO APLICA CUANDO NO PUEDO USAR EL CASCADE.TIPY ALL 
+            // limpio las entidades vinculadas --> ESTO SOLO APLICA CUANDO NO PUEDO USAR EL
+            // CASCADE.TIPY ALL
             Cursos cursoDelete = cursosRepositorio.findById(id)
                     .orElseThrow(() -> new UsernameNotFoundException("No se encontro el curso con ese ID"));
 
@@ -109,15 +109,11 @@ public class CursoServicioImp implements CursoServicio {
                 profesor.setCurso(null);
             }
 
-           
-
-
-            //limpio mi entidad
+            // limpio mi entidad
             cursoDelete.getAlumnos().clear();
 
             cursoDelete.getProfesores().clear();
 
- 
             cursosRepositorio.save(cursoDelete);
 
             cursosRepositorio.delete(cursoDelete);
@@ -131,6 +127,7 @@ public class CursoServicioImp implements CursoServicio {
     }
 
     @Override
+    @Transactional
     public CursoResponseDTO editarCurso(CursoEditDTO dto) {
 
         try {
@@ -140,11 +137,15 @@ public class CursoServicioImp implements CursoServicio {
 
             curso.setNombre(dto.getNombre());
 
-            Grados grados = gradoRepositorio.findById(dto.getGrado()).orElseThrow(
-                    () -> new UsernameNotFoundException("Grado no encontrado con ese id"));
+            // Grados grados = gradoRepositorio.findById(dto.getGrado()).orElseThrow(
+            // () -> new UsernameNotFoundException("Grado no encontrado con ese id"));
 
             // curso.setGrado(grados);
 
+            for (Categorias categoria : curso.getCategorias()) {
+                String nuevoNombre = dto.getNombre() + " - " + categoria.getGrados().getNombre();
+                categoria.setNombre(nuevoNombre);
+            }
             return CursoMapper.instancia.toCursoReponse(cursosRepositorio.save(curso));
 
         } catch (Exception e) {

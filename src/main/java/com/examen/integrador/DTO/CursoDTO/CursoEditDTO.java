@@ -15,6 +15,7 @@ public class CursoEditDTO {
 
     //descripcion , etc 
 
-    private String grado;
+    /*Momentaneamente esto se borra*/
+    //private String grado;
 
 }
