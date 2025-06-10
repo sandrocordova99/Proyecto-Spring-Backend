@@ -15,6 +15,7 @@ import com.examen.integrador.DTO.GradoDTO.AsignarAlumnosDTO;
 import com.examen.integrador.DTO.GradoDTO.GradoRequestDTO;
 import com.examen.integrador.DTO.GradoDTO.GradoResponseDTO;
 import com.examen.integrador.Entidades.Alumnos;
+import com.examen.integrador.Entidades.Categorias;
 import com.examen.integrador.Entidades.Cursos;
 import com.examen.integrador.Entidades.Grados;
 import com.examen.integrador.Mapper.GradoMapper;
@@ -77,7 +78,9 @@ public class GradoServicioImp implements GradoServicio {
             Grados grados = gradosOptional.get();
 
             for (Cursos curso : cursosList) {
-                //curso.setGrado(grados); // establecer la relación desde el lado del curso
+                
+                Set<Categorias> categorias = curso.getCategorias();
+
             }
 
             //grados.setCursos(listaCursos);

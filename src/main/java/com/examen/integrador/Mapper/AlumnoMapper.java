@@ -15,6 +15,7 @@ import com.examen.integrador.DTO.AlumnoDTO.RequestAlumnoDTO;
 import com.examen.integrador.DTO.AlumnoDTO.ResponseAlumnoDTO;
 import com.examen.integrador.DTO.GradoDTO.AlumnoSimpleDTO;
 import com.examen.integrador.Entidades.Alumnos;
+import com.examen.integrador.Entidades.Categorias;
 import com.examen.integrador.Entidades.Cursos;
 import com.examen.integrador.Entidades.Grados;
 import com.examen.integrador.Entidades.Usuarios;
@@ -52,17 +53,14 @@ public interface AlumnoMapper {
         AlumnoGradoResponseDTO alumnoDTO = new AlumnoGradoResponseDTO();
         alumnoDTO.setNombre(grado.getNombre());
 
-        // Set<Cursos> cursos = grado.getCursos();
+        Set<Categorias> cursos = grado.getCategorias();
         Set<String> cursosNombre = new HashSet<>();
 
-        /*
-         * if (cursos != null) {
-         * for (Cursos c : cursos) {
-         * cursosNombre.add(c.getNombre());
-         * }
-         * }
-         * 
-         */
+        if (cursos != null) {
+            for (Categorias c : cursos) {
+                cursosNombre.add(c.getNombre());
+            }
+        }
 
         alumnoDTO.setCursos(cursosNombre);
 
