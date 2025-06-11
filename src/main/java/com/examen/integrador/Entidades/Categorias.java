@@ -32,4 +32,6 @@ public class Categorias {
     @JoinColumn(name = "grados")
     private Grados grados;
 
+    
+
 }
