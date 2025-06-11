@@ -51,23 +51,7 @@ public class CursoServicioImp implements CursoServicio {
             // despues creo las categorias
 
             List<Grados> listaGrados = gradoRepositorio.findAll();
-
-            for (Grados g : listaGrados) {
-
-                Categorias categoria = new Categorias();
-
-                categoria.setId(autogenerarID.generarId("CATEGORIAS"));
-
-                categoria.setNombre(CursoSave.getNombre());
-
-                categoria.setGrados(g);
-
-                categoria.setCursos(CursoSave);
-
-                categoriasRepositorio.save(categoria);
-
-            }
-
+            
             return CursoMapper.instancia.toCursoReponse(CursoSave);
 
         } catch (Exception e) {

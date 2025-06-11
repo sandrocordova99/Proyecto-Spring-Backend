@@ -20,9 +20,12 @@ import com.examen.integrador.Entidades.Cursos;
 import com.examen.integrador.Entidades.Grados;
 import com.examen.integrador.Mapper.GradoMapper;
 import com.examen.integrador.Repositorio.AlumnosRepositorio;
+import com.examen.integrador.Repositorio.CategoriasRepositorio;
 import com.examen.integrador.Repositorio.CursosRepositorio;
 import com.examen.integrador.Repositorio.GradoRepositorio;
 import com.examen.integrador.Validacion.AutogenerarID;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class GradoServicioImp implements GradoServicio {
@@ -31,14 +34,16 @@ public class GradoServicioImp implements GradoServicio {
     private final AutogenerarID autogenerarID;
     private final CursosRepositorio cursosRepositorio;
     private final AlumnosRepositorio alumnosRepositorio;
+    private final CategoriasRepositorio categoriasRepositorio;
 
     @Autowired
     public GradoServicioImp(GradoRepositorio gradoRepositorio, AutogenerarID autogenerarID,
-            CursosRepositorio cursosRepositorio, AlumnosRepositorio alumnosRepositorio) {
+            CursosRepositorio cursosRepositorio, AlumnosRepositorio alumnosRepositorio , CategoriasRepositorio categoriasRepositorio) {
         this.gradoRepositorio = gradoRepositorio;
         this.autogenerarID = autogenerarID;
         this.cursosRepositorio = cursosRepositorio;
         this.alumnosRepositorio = alumnosRepositorio;
+        this.categoriasRepositorio = categoriasRepositorio;
     }
 
     // para este punto ya deberia esta validado los campos
@@ -61,35 +66,49 @@ public class GradoServicioImp implements GradoServicio {
     }
 
     @Override
+    @Transactional
     public GradoResponseDTO asignarCursos(AsignarGradoDTO dto) {
 
         try {
 
-            Optional<Grados> gradosOptional = gradoRepositorio.findById(dto.getGradoId());
+            Optional<Grados> gradoOptional = gradoRepositorio.findById(dto.getGradoId());
 
             List<Cursos> cursosList = cursosRepositorio.findAllById(dto.getCursosId());
 
             Set<Cursos> listaCursos = new HashSet<>(cursosList);
 
-            if (gradosOptional.isEmpty() || listaCursos.isEmpty()) {
+            if (gradoOptional.isEmpty() || listaCursos.isEmpty()) {
                 throw new UsernameNotFoundException("No se encontró grado o cursos con ese ID");
             }
 
-            Grados grados = gradosOptional.get();
+            Grados grado = gradoOptional.get();
+
+            Set<Categorias> categoriasList = new HashSet();
 
             for (Cursos curso : cursosList) {
-                
-                Set<Categorias> categorias = curso.getCategorias();
 
+                Categorias categoria = new Categorias();
+
+                categoria.setId(autogenerarID.generarId("CATEGORIAS"));
+
+                categoria.setNombre(curso.getNombre()+  " "+ grado.getNombre());
+
+                categoria.setCursos(curso);
+
+                categoria.setGrados(grado);
+
+                categoriasRepositorio.save(categoria);
+
+                categoriasList.add(categoria);
             }
 
-            //grados.setCursos(listaCursos);
+            grado.getCategorias().addAll(categoriasList);
 
-            gradoRepositorio.save(grados);
+            gradoRepositorio.save(grado);
 
             cursosRepositorio.saveAll(cursosList);
 
-            return GradoMapper.instancia.toGradoReponse(grados);
+            return GradoMapper.instancia.toGradoReponse(grado);
 
         } catch (Exception e) {
             throw new RuntimeException("Error", e);
@@ -127,7 +146,7 @@ public class GradoServicioImp implements GradoServicio {
 
         for (Alumnos alumno : alumnosSet) {
             alumno.setGrado(grado);
-            //alumno.setCursos(new ArrayList<>(grado.getCursos()));
+            // alumno.setCursos(new ArrayList<>(grado.getCursos()));
 
             System.out.println("grados alumno : " + alumno.getGrado());
             System.out.println("Cursos alumno : " + alumno.getCursos());
