@@ -8,4 +8,6 @@ import com.examen.integrador.Entidades.Categorias;
 @Repository
 public interface CategoriasRepositorio extends JpaRepository<Categorias , String>{
     
+    
+
 }

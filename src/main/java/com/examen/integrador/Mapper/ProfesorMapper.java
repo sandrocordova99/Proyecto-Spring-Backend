@@ -11,6 +11,7 @@ import org.mapstruct.Named;
 import com.examen.integrador.DTO.AlumnoDTO.ResponseAlumnoDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorRequestDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorResponseDTO;
+import com.examen.integrador.Entidades.Categorias;
 import com.examen.integrador.Entidades.Cursos;
 import com.examen.integrador.Entidades.Grados;
 import com.examen.integrador.Entidades.Profesor;
@@ -34,6 +35,7 @@ public interface ProfesorMapper {
     @Mapping(source = "usuarios.roles", target = "roles")
     @Mapping(source = "grados", target = "nombreGrados", qualifiedByName = "mapGradoToGradoDTO")
     @Mapping(source = "curso", target = "nombreCurso", qualifiedByName = "mapCursoToCursoDTO")
+    @Mapping(source = "categorias", target = "nombreCategorias", qualifiedByName = "mapCategoriasToCategoriasDTO")
     ProfesorResponseDTO toProfesorResponse(Profesor profesor);
 
     List<ProfesorResponseDTO> toProfesorResponseList(List<Profesor> Profesor);
@@ -48,6 +50,11 @@ public interface ProfesorMapper {
     @Named("mapCursoToCursoDTO")
     default String mapCursoToCursoDTO(Cursos curso) {
         return curso.getNombre();
+    }
+
+     @Named("mapCategoriasToCategoriasDTO")
+    default Set<String> mapCategoriasToCategoriasDTO(Set<Categorias> categorias) {
+        return categorias.stream().map(Categorias::getNombre).collect(Collectors.toSet());
     }
 
 }
