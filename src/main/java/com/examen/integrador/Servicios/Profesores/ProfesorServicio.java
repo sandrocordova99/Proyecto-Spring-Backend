@@ -17,5 +17,7 @@ public interface ProfesorServicio {
 
     ProfesorResponseDTO actualizarProfesores(ProfesorEditDTO dto);
 
+    ProfesorResponseDTO asignarCategorias();
 
+    
 }

@@ -180,4 +180,10 @@ public class ProfesorServicioImp implements ProfesorServicio {
         return profesorMapper.toProfesorResponse(profeOptional);
     }
 
+    @Override
+    public ProfesorResponseDTO asignarCategorias() {
+        // TODO Auto-generated method stub
+        throw new UnsupportedOperationException("Unimplemented method 'asignarCategorias'");
+    }
+
 }
