@@ -48,6 +48,7 @@ public class GradoServicioImp implements GradoServicio {
 
     // para este punto ya deberia esta validado los campos
     @Override
+    @Transactional
     public GradoResponseDTO crearGrado(GradoRequestDTO dto) {
 
         try {

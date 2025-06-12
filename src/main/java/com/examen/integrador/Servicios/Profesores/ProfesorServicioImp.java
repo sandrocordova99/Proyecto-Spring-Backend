@@ -210,7 +210,8 @@ public class ProfesorServicioImp implements ProfesorServicio {
                 }
             }
 
-            
+
+            //Luego de verificar se asigna el grado y dentro del grado esta la seccion 
 
         } catch (Exception e) {
 
