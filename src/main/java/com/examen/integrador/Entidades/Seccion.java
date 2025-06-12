@@ -1,23 +1,17 @@
 package com.examen.integrador.Entidades;
 
-import java.util.HashSet;
-import java.util.Set;
-
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
-import jakarta.persistence.ManyToMany;
 import jakarta.persistence.ManyToOne;
-
 import lombok.Getter;
 import lombok.Setter;
 
 @Entity
 @Getter
 @Setter
-public class Categorias {
+public class Seccion {
 
     @Id
     private String id;
@@ -29,14 +23,7 @@ public class Categorias {
     private String descripcion;
 
     @ManyToOne()
-    @JoinColumn(name = "cursos")
-    private Cursos cursos;
-
-    @ManyToOne()
     @JoinColumn(name = "grados")
     private Grados grados;
-
-    @ManyToMany(mappedBy = "categorias")
-    Set<Profesor> profesores = new HashSet();
-
+    
 }

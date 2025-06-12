@@ -2,6 +2,7 @@ package com.examen.integrador.Servicios.Profesores;
 
 import java.util.List;
 
+import com.examen.integrador.DTO.ProfesorDTO.AsignarCategoriasDTO;
 import com.examen.integrador.DTO.ProfesorDTO.AsignarGradoProfesorDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorRequestDTO;
 import com.examen.integrador.DTO.ProfesorDTO.ProfesorResponseDTO;
@@ -17,5 +18,7 @@ public interface ProfesorServicio {
 
     ProfesorResponseDTO actualizarProfesores(ProfesorEditDTO dto);
 
+    ProfesorResponseDTO asignarCategorias(AsignarCategoriasDTO asignarCategoriasDTO);
 
+    
 }

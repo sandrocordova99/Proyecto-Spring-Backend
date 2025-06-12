@@ -40,4 +40,7 @@ public class Grados {
 
     @OneToMany(mappedBy = "grados")
     private Set<Categorias> categorias;
+
+    @OneToMany(mappedBy = "grados")
+    Set<Seccion> secciones = new HashSet();
 }

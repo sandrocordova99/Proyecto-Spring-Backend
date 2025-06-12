@@ -30,10 +30,14 @@ public class ProfesorResponseDTO {
     private Date contratacion;
 
     private Double sueldo;
-    
+
     // CUrsos y grados
     Set<String> nombreGrados;
 
+    // Categorias
     String nombreCurso;
+
+    // Categorias
+    Set<String> nombreCategorias;
 
 }

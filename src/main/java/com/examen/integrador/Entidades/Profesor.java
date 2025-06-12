@@ -51,4 +51,11 @@ public class Profesor {
     @JoinColumn(name = "curso_id")
     private Cursos curso;
 
+    @ManyToMany
+    @JoinTable(
+        name = "profesor_categorias", 
+        joinColumns = @JoinColumn(name = "profesor_id"), 
+        inverseJoinColumns = @JoinColumn(name = "categoria_id"))
+    Set<Categorias> categorias = new HashSet();
+
 }
