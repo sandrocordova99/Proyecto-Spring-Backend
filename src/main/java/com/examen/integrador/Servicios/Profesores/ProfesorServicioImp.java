@@ -189,7 +189,6 @@ public class ProfesorServicioImp implements ProfesorServicio {
     @Override
     @Transactional
     public ProfesorResponseDTO asignarCategorias(AsignarCategoriasDTO dto) {
-
         try {
             Profesor profesor = profesorRepositorio.findById(dto.getProfesorId())
                     .orElseThrow(() -> new RuntimeException("Profesor no encontrado"));
@@ -202,7 +201,6 @@ public class ProfesorServicioImp implements ProfesorServicio {
 
             // Verificar que todas las categorías pertenecen al curso del profesor
             Cursos cursoDelProfesor = profesor.getCurso();
-
             for (Categorias categoria : categorias) {
                 if (!categoria.getCursos().getId().equals(cursoDelProfesor.getId())) {
                     throw new RuntimeException(
@@ -210,16 +208,25 @@ public class ProfesorServicioImp implements ProfesorServicio {
                 }
             }
 
+            // Asignar las categorías al profesor
+            profesor.getCategorias().addAll(categorias);
 
-            //Luego de verificar y asignar categorias ,  se asigna el grado y dentro del grado esta la seccion 
+            // Asignar los grados de las categorías al profesor (si aún no los tiene)
+            for (Categorias categoria : categorias) {
+                Grados gradoCategoria = categoria.getGrados();
+                if (!profesor.getGrados().contains(gradoCategoria)) {
+                    profesor.getGrados().add(gradoCategoria);
+                }
+            }
 
+            Profesor actualizado = profesorRepositorio.save(profesor);
             
+            return profesorMapper.toProfesorResponse(actualizado);  
 
         } catch (Exception e) {
-
+            // Puedes loggear o lanzar una excepción más clara
+            throw new RuntimeException("Error al asignar categorías al profesor: " + e.getMessage());
         }
-
-        throw new UnsupportedOperationException("Unimplemented method 'asignarCategorias'");
     }
 
 }
