@@ -5,6 +5,7 @@ import org.mapstruct.Mapping;
 import org.mapstruct.factory.Mappers;
 
 import com.examen.integrador.DTO.CategoriaDTO.CategoriaRequestDTO;
+import com.examen.integrador.DTO.CategoriaDTO.CaterogiaResponseDTO;
 import com.examen.integrador.Entidades.Categorias;
 
 @Mapper(componentModel = "spring", uses = CategoriaMapperHelper.class)
@@ -18,8 +19,8 @@ public interface CategoriaMapper {
     Categorias toCategoriaRequest(CategoriaRequestDTO dto);
 
 
-
-
+    //usar streams 
+    CaterogiaResponseDTO toCategoriaResponseDTO (Categorias dto);
 
 
 }
