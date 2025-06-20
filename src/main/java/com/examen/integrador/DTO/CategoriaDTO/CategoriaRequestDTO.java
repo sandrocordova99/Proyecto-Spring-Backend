@@ -1,7 +1,6 @@
 package com.examen.integrador.DTO.CategoriaDTO;
 
-import java.util.HashSet;
-import java.util.Set;
+  
 
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -20,6 +19,6 @@ public class CategoriaRequestDTO {
 
     private String idGrados;
 
-    Set<String> idProfesores = new HashSet();
+    //Set<String> idProfesores = new HashSet();
 
 }

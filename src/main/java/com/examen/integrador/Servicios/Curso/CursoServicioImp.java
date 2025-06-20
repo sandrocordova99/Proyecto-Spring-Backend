@@ -27,14 +27,12 @@ public class CursoServicioImp implements CursoServicio {
     private final CursosRepositorio cursosRepositorio;
     private final AutogenerarID autogenerarID;
     private final GradoRepositorio gradoRepositorio;
-    private final CategoriasRepositorio categoriasRepositorio;
 
     public CursoServicioImp(CursosRepositorio cursosRepositorio, AutogenerarID autogenerarID,
-            GradoRepositorio gradoRepositorio, CategoriasRepositorio categoriasRepositorio) {
+            GradoRepositorio gradoRepositorio) {
         this.cursosRepositorio = cursosRepositorio;
         this.autogenerarID = autogenerarID;
         this.gradoRepositorio = gradoRepositorio;
-        this.categoriasRepositorio = categoriasRepositorio;
     }
 
     @Override
@@ -51,7 +49,7 @@ public class CursoServicioImp implements CursoServicio {
             // despues creo las categorias
 
             List<Grados> listaGrados = gradoRepositorio.findAll();
-            
+
             return CursoMapper.instancia.toCursoReponse(CursoSave);
 
         } catch (Exception e) {
