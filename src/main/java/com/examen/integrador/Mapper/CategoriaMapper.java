@@ -16,7 +16,7 @@ import com.examen.integrador.Entidades.Grados;
 @Mapper(componentModel = "spring", uses = CategoriaMapperHelper.class)
 public interface CategoriaMapper {
 
-    CategoriaMapper instancia = Mappers.getMapper(CategoriaMapper.class);
+    //CategoriaMapper instancia = Mappers.getMapper(CategoriaMapper.class);
 
     // usar streams
     @Mapping(source = "idCursos", target = "cursos", qualifiedByName = "cursosDTOToCurso")
@@ -26,7 +26,7 @@ public interface CategoriaMapper {
 
     @Mapping(source = "cursos", target = "nombreCursos", qualifiedByName = "cursoToCursosDTO")
     @Mapping(source = " grados", target = "nombreGrados", qualifiedByName = "gradosToGradosDTO")
-   // @Mapping(source = "profesores", target = "profesores", qualifiedByName = "profesoresToProfesoresDTO")
+    //@Mapping(source = "profesores", target = "profesores", qualifiedByName = "profesoresToProfesoresDTO")
     CaterogiaResponseDTO toCategoriaResponseDTO(Categorias dto);
 
     List<CaterogiaResponseDTO> listarCategoriasDTO(List<Categorias> Categorias);

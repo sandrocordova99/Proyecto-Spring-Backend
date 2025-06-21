@@ -43,12 +43,12 @@ public class CategoriaMapperHelper {
                 .orElseThrow(() -> new RuntimeException("Grado no encontrado con id: " + id));
     }
 
-    @Named("profesoresDTOToProfesores")
+    /*   @Named("profesoresDTOToProfesores")
     public Set<Profesor> mapProfesores(Set<String> ids) {
         return new HashSet<>(profesorRepositorio.findAllById(ids));
-    }
-
-    @Named("profesoresToProfesoresDTO")
+    } */
+ 
+    /*@Named("profesoresToProfesoresDTO")
     public Set<String> profesoresToProfesoresDTO(Set<Profesor> profesores) {
 
         Set<String> profesoresNombres = new HashSet();
@@ -60,6 +60,7 @@ public class CategoriaMapperHelper {
         }
 
         return profesoresNombres;
-    }
+    } */
+    
 
 }

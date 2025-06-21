@@ -14,6 +14,7 @@ import com.examen.integrador.Mapper.CategoriaMapper;
 import com.examen.integrador.Repositorio.CategoriasRepositorio;
 import com.examen.integrador.Repositorio.CursosRepositorio;
 import com.examen.integrador.Repositorio.GradoRepositorio;
+import com.examen.integrador.Validacion.AutogenerarID;
 
 @Service
 public class CategoriasServicioImp implements CategoriasServicio {
@@ -21,13 +22,16 @@ public class CategoriasServicioImp implements CategoriasServicio {
     private final CategoriasRepositorio categoriasRepositorio;
     private final CursosRepositorio cursosRepositorio;
     private final GradoRepositorio gradoRepositorio;
+    private final AutogenerarID autogenerarID;
+    private final CategoriaMapper categoriaMapper;
 
     public CategoriasServicioImp(CategoriasRepositorio categoriasRepositorio, CursosRepositorio cursosRepositorio,
-            GradoRepositorio gradoRepositorio) {
-
+            GradoRepositorio gradoRepositorio, AutogenerarID autogenerarID , CategoriaMapper categoriaMapper) {
+        this.autogenerarID = autogenerarID;
         this.categoriasRepositorio = categoriasRepositorio;
         this.cursosRepositorio = cursosRepositorio;
         this.gradoRepositorio = gradoRepositorio;
+        this.categoriaMapper = categoriaMapper;
     }
 
     @Override
@@ -41,13 +45,15 @@ public class CategoriasServicioImp implements CategoriasServicio {
             Cursos cursos = cursosRepositorio.findById(dto.getIdCursos())
                     .orElseThrow(() -> new RuntimeException("No se encontro ursos con ese ID : "));
 
-            Categorias categoria = CategoriaMapper.instancia.toCategoriaRequest(dto);
+            Categorias categoria = categoriaMapper.toCategoriaRequest(dto);
 
             categoria.setCursos(cursos);
 
             categoria.setGrados(grado);
 
-            return CategoriaMapper.instancia.toCategoriaResponseDTO(categoriasRepositorio.save(categoria));
+            categoria.setId(autogenerarID.generarId("CATEGORIA"));
+
+            return categoriaMapper.toCategoriaResponseDTO(categoriasRepositorio.save(categoria));
 
         } catch (Exception e) {
             throw new RuntimeException("Error al guardar   Categorias", e);

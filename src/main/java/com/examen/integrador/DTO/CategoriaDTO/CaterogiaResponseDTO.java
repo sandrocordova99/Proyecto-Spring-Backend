@@ -20,6 +20,6 @@ public class CaterogiaResponseDTO {
 
     private String nombreGrados;
 
-    Set<String> profesores = new HashSet();
+    //Set<String> profesores = new HashSet();
 
 }
