@@ -40,6 +40,10 @@ public class AutogenerarID {
                 respuesta = new StringBuilder("PRF-");
                 break;
 
+            case "CATEGORIA":
+                respuesta = new StringBuilder("CAT-");
+                break;
+
             default:
                 throw new IllegalArgumentException("Tipo no válido: " + Tipo);
         }

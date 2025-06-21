@@ -19,7 +19,7 @@ public interface CursoMapper {
    CursoMapper instancia = Mappers.getMapper(CursoMapper.class);
 
    Cursos toCursoRequest(CursoRequestDTO dto);
-
+   
    // CursoResponseDTO toCursoReponse(Cursos cursos);
 
    //@Mapping(source = "grado.nombre", target = "grado")

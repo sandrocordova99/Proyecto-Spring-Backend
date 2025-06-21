@@ -5,6 +5,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.Id;
@@ -41,6 +42,6 @@ public class Grados {
     @OneToMany(mappedBy = "grados")
     private Set<Categorias> categorias;
 
-    @OneToMany(mappedBy = "grados")
+    @OneToMany(mappedBy = "grados" , cascade = CascadeType.ALL , orphanRemoval = true)
     Set<Seccion> secciones = new HashSet();
 }
