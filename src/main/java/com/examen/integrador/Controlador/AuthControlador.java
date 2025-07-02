@@ -1,6 +1,7 @@
 package com.examen.integrador.Controlador;
 
 import com.examen.integrador.Entidades.Usuarios;
+import com.examen.integrador.Entidades.UsuariosLogin;
 import com.examen.integrador.Jwt.JwtUtil;
 import com.examen.integrador.Servicios.UserSerivicio;
 import com.examen.integrador.Servicios.Token.TokenServicio;
@@ -37,7 +38,7 @@ public class AuthControlador {
 
 
     @PostMapping("/login")
-    public ResponseEntity<Map<String,Object>> login(@RequestBody Usuarios user){
+    public ResponseEntity<Map<String,Object>> login(@RequestBody UsuariosLogin user){
 
         Map<String,Object> respuesta = new HashMap<>();
 

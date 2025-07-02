@@ -12,7 +12,6 @@ import com.examen.integrador.DTO.GradoDTO.AlumnoSimpleDTO;
 import com.examen.integrador.DTO.GradoDTO.GradoRequestDTO;
 import com.examen.integrador.DTO.GradoDTO.GradoResponseDTO;
 import com.examen.integrador.Entidades.Alumnos;
-import com.examen.integrador.Entidades.Cursos;
 import com.examen.integrador.Entidades.Grados;
 
 @Mapper

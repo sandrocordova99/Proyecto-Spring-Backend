@@ -40,33 +40,39 @@ public class SecurityConfig {
                 .authorizeHttpRequests(
                         auth -> auth
                                 .requestMatchers("/auth/login").permitAll()
+                                .requestMatchers("/auth/logout").hasAnyRole("ADMIN", "PROFESOR", "ALUMNO")
+
                                 .requestMatchers("/user/listar").hasRole("ADMIN")
                                 .requestMatchers("/user/listarAdmin").hasRole("ADMIN")
                                 .requestMatchers("/user/listarAlumnos").hasRole("ADMIN")
                                 .requestMatchers("/user/listarProfesores").hasRole("ADMIN")
                                 .requestMatchers("/user/eliminarUsuario/{id}").hasRole("ADMIN")
                                 .requestMatchers("/user/editarUsuarios/{id}").hasRole("ADMIN")
-                                .requestMatchers("/auth/logout").hasAnyRole("ADMIN", "PROFESOR", "ALUMNO")
+
                                 .requestMatchers("/alu/listar").hasAnyRole("ADMIN", "PROFESOR")
                                 .requestMatchers("/alu/crear").hasAnyRole("ADMIN")
                                 .requestMatchers("/alu/actualizar").hasAnyRole("ADMIN")
                                 .requestMatchers("/auth/register").hasRole("ADMIN")
+
                                 .requestMatchers("/curso/crear").hasRole("ADMIN")
                                 .requestMatchers("/curso/listar").hasAnyRole("ADMIN", "PROFESOR")
                                 .requestMatchers("/curso/borrar/{id}").hasRole("ADMIN")
-                                
                                 .requestMatchers("/curso/actualizar").hasRole("ADMIN")
 
                                 .requestMatchers("/grado/crear").hasRole("ADMIN")
                                 .requestMatchers("/grado/asignar").hasRole("ADMIN")
                                 .requestMatchers("/grado/asignarAlumnos").hasRole("ADMIN")
                                 .requestMatchers("/grado/listar").hasAnyRole("ADMIN", "PROFESOR")
+
                                 .requestMatchers("/profesor/crear").hasRole("ADMIN")
                                 .requestMatchers("/profesor/listar").hasRole("ADMIN")
                                 .requestMatchers("/profesor/asignar").hasRole("ADMIN")
                                 .requestMatchers("/profesor/actualizar").hasRole("ADMIN")
-            
+                                .requestMatchers("/profesor/asignarCategorias").hasRole("ADMIN")
+        
                                 .requestMatchers("/cat/crear").hasRole("ADMIN")
+
+                                
                                 .requestMatchers("/").permitAll()
                                 .anyRequest().authenticated())
                 /*

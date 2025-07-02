@@ -1,9 +1,8 @@
 package com.examen.integrador.DTO.ProfesorDTO;
+
 import java.sql.Date;
-import java.time.LocalDate;
 
 import com.examen.integrador.DTO.UsuarioBaseDTO;
-import com.examen.integrador.Entidades.RolesEnum;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -11,10 +10,9 @@ import lombok.Setter;
 @Getter
 @Setter
 @NoArgsConstructor
-public class ProfesorRequestDTO extends UsuarioBaseDTO{
+public class ProfesorRequestDTO extends UsuarioBaseDTO {
 
-
-    //Atributos en profesor
+    // Atributos en profesor
 
     private Date contratacion;
 
