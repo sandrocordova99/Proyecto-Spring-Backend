@@ -16,6 +16,5 @@ public class AlumnoEditDTO extends UsuarioBaseDTO{
 
     private String gradoID;
 
-     
-
+    
 }

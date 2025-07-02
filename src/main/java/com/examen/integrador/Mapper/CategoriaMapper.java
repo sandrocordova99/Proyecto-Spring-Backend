@@ -5,8 +5,7 @@ import java.util.List;
 import org.mapstruct.Mapper;
 import org.mapstruct.Mapping;
 import org.mapstruct.Named;
-import org.mapstruct.factory.Mappers;
-
+ 
 import com.examen.integrador.DTO.CategoriaDTO.CategoriaRequestDTO;
 import com.examen.integrador.DTO.CategoriaDTO.CaterogiaResponseDTO;
 import com.examen.integrador.Entidades.Categorias;

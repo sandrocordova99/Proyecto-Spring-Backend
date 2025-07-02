@@ -49,10 +49,10 @@ public interface ProfesorMapper {
 
     @Named("mapCursoToCursoDTO")
     default String mapCursoToCursoDTO(Cursos curso) {
-        return curso.getNombre();
+        return (curso != null) ? curso.getNombre() : null;
     }
 
-     @Named("mapCategoriasToCategoriasDTO")
+    @Named("mapCategoriasToCategoriasDTO")
     default Set<String> mapCategoriasToCategoriasDTO(Set<Categorias> categorias) {
         return categorias.stream().map(Categorias::getNombre).collect(Collectors.toSet());
     }

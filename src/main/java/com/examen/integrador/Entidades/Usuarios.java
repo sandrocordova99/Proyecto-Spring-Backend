@@ -53,6 +53,19 @@ public class Usuarios {
 
     
 
+
+
+
+
+
+
+
+
+
+
+
+
+    
     public String getConfirm_password() {
         return confirm_password;
     }

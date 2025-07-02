@@ -27,11 +27,11 @@ import com.examen.integrador.Validacion.UserValidacion;
 public class CursoControlador {
 
     private final CursoServicioImp cursoServicioImp;
-    private final UserValidacion userValidacion;
     private final CursosRepositorio cursosRepositorio;
 
     @Autowired
-    public CursoControlador(CursoServicioImp cursoServicioImp , UserValidacion userValidacion , CursosRepositorio cursosRepositorio) {
+    public CursoControlador(CursoServicioImp cursoServicioImp, UserValidacion userValidacion,
+            CursosRepositorio cursosRepositorio) {
         this.cursoServicioImp = cursoServicioImp;
         this.userValidacion = userValidacion;
         this.cursosRepositorio = cursosRepositorio;
@@ -42,16 +42,16 @@ public class CursoControlador {
 
         Map<String, Object> respuesta = new HashMap();
 
-        if(cursosRepositorio.existsByNombre(dto.getNombre())){
+        if (cursosRepositorio.existsByNombre(dto.getNombre())) {
 
-            respuesta.put("error" , "Nombre ya existe");
+            respuesta.put("error", "Nombre ya existe");
 
             return ResponseEntity.status(HttpStatus.CONFLICT).body(respuesta);
-        } 
+        }
 
         respuesta.put("Cursos", cursoServicioImp.crearCurso(dto));
 
-        //CursoResponseDTO curso = cursoServicioImp.crearCurso(dto);
+        // CursoResponseDTO curso = cursoServicioImp.crearCurso(dto);
 
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
