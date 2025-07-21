@@ -20,6 +20,7 @@ import java.util.HashMap;
 import java.util.Map;
 @RestController
 @RequestMapping("/auth")
+@CrossOrigin(origins = "http://localhost:4200")
 public class AuthControlador {
 
     private final AuthenticationManager authenticationManager;
@@ -57,7 +58,7 @@ public class AuthControlador {
             respuesta.put("mensaje", "Logeo exitoso");
             respuesta.put("token", token);
 
-            respuesta.put("Rol", auth.getAuthorities());
+            respuesta.put("roles", auth.getAuthorities());
 
 
             return ResponseEntity.status(HttpStatus.OK).body(respuesta);

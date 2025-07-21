@@ -49,6 +49,10 @@ public class SecurityConfig {
                                 .requestMatchers("/user/eliminarUsuario/{id}").hasRole("ADMIN")
                                 .requestMatchers("/user/editarUsuarios/{id}").hasRole("ADMIN")
 
+                                .requestMatchers("/inscripciones/alumnos-cursos-categorias/crear").hasRole("ADMIN")
+                                .requestMatchers("/inscripciones/alumnos-cursos-categorias/listarTodos").hasRole("ADMIN")
+                                .requestMatchers("/inscripciones/alumnos-cursos-categorias/alumnos/{alumnoId}/cursos/{cursoId}").hasRole("ADMIN")
+
                                 .requestMatchers("/alu/listar").hasAnyRole("ADMIN", "PROFESOR")
                                 .requestMatchers("/alu/crear").hasAnyRole("ADMIN")
                                 .requestMatchers("/alu/actualizar").hasAnyRole("ADMIN")

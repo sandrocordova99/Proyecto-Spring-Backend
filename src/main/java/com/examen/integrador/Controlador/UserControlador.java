@@ -7,12 +7,11 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
-import java.util.HashMap;
 import java.util.Map;
-
 
 @RestController
 @RequestMapping("/user")
+@CrossOrigin(origins = "http://localhost:4200")
 public class UserControlador {
 
     private final UserSerivicio userSerivicio;
@@ -23,7 +22,7 @@ public class UserControlador {
     }
 
     @GetMapping("/listar")
-    public ResponseEntity<Map<String,Object>> listar() {
+    public ResponseEntity<Map<String, Object>> listar() {
 
         Map<String, Object> respuesta = userSerivicio.listarTodosUsuarios();
 
@@ -32,7 +31,7 @@ public class UserControlador {
     }
 
     @GetMapping("/listarAdmin")
-    public ResponseEntity<Map<String,Object>> listarAdmin() {
+    public ResponseEntity<Map<String, Object>> listarAdmin() {
 
         Map<String, Object> respuesta = userSerivicio.listarAdmins();
 
@@ -41,7 +40,7 @@ public class UserControlador {
     }
 
     @GetMapping("/listarAlumnos")
-    public ResponseEntity<Map<String,Object>> listarAlumnos() {
+    public ResponseEntity<Map<String, Object>> listarAlumnos() {
 
         Map<String, Object> respuesta = userSerivicio.listarAlumnos();
 
@@ -50,7 +49,7 @@ public class UserControlador {
     }
 
     @GetMapping("/listarProfesores")
-    public ResponseEntity<Map<String,Object>> listarProfesores() {
+    public ResponseEntity<Map<String, Object>> listarProfesores() {
 
         Map<String, Object> respuesta = userSerivicio.listarProfesores();
 
@@ -59,11 +58,11 @@ public class UserControlador {
     }
 
     @DeleteMapping("/eliminarUsuario/{id}")
-    public ResponseEntity<Map<String,Object>> eliminarUsuario(@PathVariable("id") String id) {
+    public ResponseEntity<Map<String, Object>> eliminarUsuario(@PathVariable("id") String id) {
 
         Map<String, Object> respuesta = userSerivicio.eliminarUsuario(id);
 
-        if(respuesta.containsKey("error")){
+        if (respuesta.containsKey("error")) {
             return ResponseEntity.status(HttpStatus.CONFLICT).body(respuesta);
         } else {
             return ResponseEntity.status(HttpStatus.OK).body(respuesta);
@@ -71,13 +70,13 @@ public class UserControlador {
     }
 
     @PutMapping("/editarUsuarios/{id}")
-    public ResponseEntity<Map<String,Object>> editarAlumnos(@PathVariable("id") String id , @RequestBody Usuarios usuarios) {
+    public ResponseEntity<Map<String, Object>> editarAlumnos(@PathVariable("id") String id,
+            @RequestBody Usuarios usuarios) {
 
-        Map<String, Object> respuesta = userSerivicio.editarUsuario(usuarios , id);
+        Map<String, Object> respuesta = userSerivicio.editarUsuario(usuarios, id);
 
         return ResponseEntity.status(HttpStatus.OK).body(respuesta);
 
     }
-
 
 }

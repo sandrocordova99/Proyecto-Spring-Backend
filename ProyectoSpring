@@ -1,0 +1,925 @@
+{
+	"info": {
+		"_postman_id": "dd175606-4f0d-462d-a039-4f1b9b5e7b0e",
+		"name": "Spring Security",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+		"_exporter_id": "35400348"
+	},
+	"item": [
+		{
+			"name": "Autenticacion",
+			"item": [
+				{
+					"name": "Login",
+					"request": {
+						"auth": {
+							"type": "basic",
+							"basic": [
+								{
+									"key": "username",
+									"value": "user_3",
+									"type": "string"
+								},
+								{
+									"key": "password",
+									"value": "1234",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"juanperez4\",\r\n    \"password\" : \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/login",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"login"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Logout",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImV4cCI6MTc0MjM2MDI4MSwiaWF0IjoxNzQyMzU5MDgxfQ.acKG9ZsSmh3-EZ6fge-un7I4W5PSSSs_1_9ooKleCDU",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"username\" : \"admin\",\r\n    \"password\" : \"1234\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/auth/logout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"auth",
+								"logout"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Usuarios",
+			"item": [
+				{
+					"name": "Eliminar Usuario",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImV4cCI6MTc0NzU0MDQwNSwiaWF0IjoxNzQ3NTM5MjA1fQ.6OKwEXGAQ5gA6TO8ca88-y0qcxvoPS_VoyxicLW_0lg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " ",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/user/eliminarUsuario/ADM-4MN",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"user",
+								"eliminarUsuario",
+								"ADM-4MN"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Alumnos",
+			"item": [
+				{
+					"name": "Listar Alumnos",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUyMTIzMjI1LCJpYXQiOjE3NTIxMjIwMjV9.Ei-9Kv5kFwkviulWeha1ApYCBQUKsXRe2la_jtjlpUM\"",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/alu/listar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alu",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Crear Alumnos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUxNDIyNjUyLCJpYXQiOjE3NTE0MjE0NTJ9.lG1vs5GmhYw_L5kPdYS6NtiwBavIj5yBRehsNrS8Bus",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Juan\",\r\n    \"apellido\": \"Pérez\",\r\n    \"username\": \"juanpeV2ALIDACIONrez\",\r\n    \"password\": \"securepass\",\r\n    \"confirm_password\": \"securepass\",\r\n    \"email\": \"juan.perez@hotmail.com\",\r\n    \"nacimiento\": \"2005-09-15\",\r\n    \"roles\": \"ALUMNO\",\r\n    \r\n    \"nombreDeApoderado\": \"Maria Pér2ez\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/alu/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alu",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Alumnos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImV4cCI6MTc0NzUyOTA3NiwiaWF0IjoxNzQ3NTI3ODc2fQ.hSDyz23sj4dbohMQ6SXAFbr8_qVtTRd6ICVs7rdcRp4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"alumnoID\": \"ALM-4MN\",\r\n    \r\n    \"nombre\": \"Juan\",\r\n    \"apellido\": \"Perez\",\r\n    \"username\": \"juan121perez929\",\r\n    \"email\": \"juan2perez@hotmail.com\",\r\n    \"roles\": \"ALUMNO\",\r\n\r\n    \"nombreDeApoderado\": \"Edit Cordova\",\r\n    \"gradoID\": \"GRD-TCS\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/alu/actualizar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"alu",
+								"actualizar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cursos",
+			"item": [
+				{
+					"name": "Crear Cursos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUwNDc3MjM1LCJpYXQiOjE3NTA0NzYwMzV9.iwA2R1h6ASHJjELFvnvBe3b7gH0v1Fv6GBj-CXcPJsc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\" : \"Algebra\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/curso/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curso",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Cursos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUxNDIyNjUyLCJpYXQiOjE3NTE0MjE0NTJ9.lG1vs5GmhYw_L5kPdYS6NtiwBavIj5yBRehsNrS8Bus",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/curso/listar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curso",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Borrar Cursos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUwNDc2MDU3LCJpYXQiOjE3NTA0NzQ4NTd9.T2wNTYOGhY1SS7qU_J5X3bfj8Eylxe8zEoHjFdSSP9w",
+									"type": "string"
+								}
+							]
+						},
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": " "
+						},
+						"url": {
+							"raw": "http://localhost:8080/curso/borrar/CRS-15D",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curso",
+								"borrar",
+								"CRS-15D"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Cursos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzQ5MjgwMjA4LCJpYXQiOjE3NDkyNzkwMDh9.1F5fOWfyV0S_ER5uZ4LTGVA_aPDEqsdcw0HLFtJAMSg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\" : \"CRS-SAD\",\r\n    \"nombre\" : \"QuimicaEDIT\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/curso/actualizar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"curso",
+								"actualizar"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Grados",
+			"item": [
+				{
+					"name": "Crear Grados",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzQ4OTAzNTczLCJpYXQiOjE3NDg5MDIzNzN9.hD1FqgfdVWc4AJP2cSuX7AIHHKsINjgg5XZbiXPk8B4",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\" : \"Sexto Grado\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/grado/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"grado",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar cursos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzQ5Njk3NzMzLCJpYXQiOjE3NDk2OTY1MzN9.bouRu9v4s4CU9sg6DUa1yLI-vo9ULDv04cJKLGWDO_s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"gradoId\": \"GRD-TCS\",\r\n  \"cursosId\": [\"CRS-15D\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/grado/asignar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"grado",
+								"asignar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Grados",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUxNDIyNjUyLCJpYXQiOjE3NTE0MjE0NTJ9.lG1vs5GmhYw_L5kPdYS6NtiwBavIj5yBRehsNrS8Bus",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/grado/listar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"grado",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar Alumnos",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzQ5Njk3NzMzLCJpYXQiOjE3NDk2OTY1MzN9.bouRu9v4s4CU9sg6DUa1yLI-vo9ULDv04cJKLGWDO_s",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"gradoId\": \"GRD-TCS\",\r\n  \"alumnos\": [\"ALM-Q37\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/grado/asignarAlumnos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"grado",
+								"asignarAlumnos"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Profesores",
+			"item": [
+				{
+					"name": "Crear Profesor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUxNjc4MjkzLCJpYXQiOjE3NTE2NzcwOTN9._WFC9C-BJc47H7fGKP41jjpATp-YkfLpa28B4QZCBrs",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Juan\",\r\n    \"apellido\": \"Pérez\",\r\n    \"username\": \"alumnoFRONT\",\r\n    \"password\": \"1234\",\r\n    \"confirm_password\": \"securepass\",\r\n    \"email\": \"alumnoFRONT.perez@hotmail.com\",\r\n    \"nacimiento\": \"1956-09-15\",\r\n    \"roles\": \"ALUMNO\",\r\n\r\n    \"contratacion\": \"2005-09-15\",\r\n    \"sueldo\": 2500.50,\r\n    \"cursoId\": \"CRS-IAD\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/profesor/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesor",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Profesores",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUxNDIyNjUyLCJpYXQiOjE3NTE0MjE0NTJ9.lG1vs5GmhYw_L5kPdYS6NtiwBavIj5yBRehsNrS8Bus",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/profesor/listar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesor",
+								"listar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar Grados",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImV4cCI6MTc0NjM4NDM3NywiaWF0IjoxNzQ2MzgzMTc3fQ.DYZorBF-UX5lWAFMn6okTgkruaaCFF_wmTvwNVyFI3I",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"gradosId\" : [\"GRD-O6B\", \"GRD-1X2\" , \"GRD-PJM\"],\r\n    \"profesorId\" :\"PRF-3G0\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/profesor/asignarGrados",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesor",
+								"asignarGrados"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Actualizar Profesor",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJhZG1pbiIsInJvbGVzIjoiUk9MRV9BRE1JTiIsImV4cCI6MTc0NzU0MDA4NSwiaWF0IjoxNzQ3NTM4ODg1fQ.3c9Iiue1eO5lcxaAmWdvf5VaNx0U_u-t0Y8fLpAnsZM",
+									"type": "string"
+								}
+							]
+						},
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"id\": \"PRF-2G3\",\r\n\r\n    \"nombre\": \"UPDATE\",\r\n    \"apellido\": \"UPDATE\",\r\n    \"username\": \"UP23DATE\",\r\n    \"email\": \"UPDATE.perez@hotmail.com\",\r\n    \"roles\": \"PROFESOR\",\r\n\r\n    \"sueldo\": 1300.50,\r\n    \"cursoId\": \"CRS-G1U\",\r\n    \"listaGrados\":[\"GRD-O6B\", \"GRD-1X2\"]\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/profesor/actualizar",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesor",
+								"actualizar"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Asignar Categorias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUwNjMwMDU0LCJpYXQiOjE3NTA2Mjg4NTR9.oiNCq9UnmqSqrdjK8H-HMdNmN_-7BZhuO2oyyVuxesg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"categoriasId\" : [\"CAT-057\"],\r\n    \"profesorId\" : \"PRF-WTN\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/profesor/asignarCategorias",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"profesor",
+								"asignarCategorias"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Categorias",
+			"item": [
+				{
+					"name": "Crear Categorias",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUwNjMwMDU0LCJpYXQiOjE3NTA2Mjg4NTR9.oiNCq9UnmqSqrdjK8H-HMdNmN_-7BZhuO2oyyVuxesg",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"nombre\": \"Algebra 2ª\",\r\n    \"descripcion\": \"Lorem Ipsum is simply dummy text of the printing and typesetting industry. Lorem Ipsum has been the industry's standard dummy text ever since the 1500s\",\r\n    \"idCursos\": \"CRS-IAD\",\r\n    \"idGrados\": \"GRD-PJM\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/cat/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"cat",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Inscripciones",
+			"item": [
+				{
+					"name": "Crear",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUzMDQ1ODUxLCJpYXQiOjE3NTMwNDQ2NTF9.tUqkvGAmX4QckphgcUNWbgArqsaSFPArAnDfu5zsZPc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"alumnoId\" : \"ALM-747\",          \r\n    \"cursoId\" : \"CRS-IAD\",         \r\n    \"categoriaId\" : \"CAT-3KV\",     \r\n    \"fechaInicioAprendizaje\" : \"2025-07-20\",  \r\n    \"nota1\" : 0,          \r\n    \"nota2\" : 0,          \r\n    \"nota3\" : 0          \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:8080/inscripciones/alumnos-cursos-categorias/crear",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inscripciones",
+								"alumnos-cursos-categorias",
+								"crear"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar Inscripciones",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUzMDQ1ODUxLCJpYXQiOjE3NTMwNDQ2NTF9.tUqkvGAmX4QckphgcUNWbgArqsaSFPArAnDfu5zsZPc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/inscripciones/alumnos-cursos-categorias/listarTodos",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inscripciones",
+								"alumnos-cursos-categorias",
+								"listarTodos"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Listar por Alumno y Curso",
+					"request": {
+						"auth": {
+							"type": "bearer",
+							"bearer": [
+								{
+									"key": "token",
+									"value": "eyJhbGciOiJIUzI1NiJ9.eyJzdWIiOiJqdWFucGVyZXo0Iiwicm9sZXMiOiJST0xFX0FETUlOIiwiZXhwIjoxNzUzMDQ1ODUxLCJpYXQiOjE3NTMwNDQ2NTF9.tUqkvGAmX4QckphgcUNWbgArqsaSFPArAnDfu5zsZPc",
+									"type": "string"
+								}
+							]
+						},
+						"method": "GET",
+						"header": [],
+						"url": {
+							"raw": "http://localhost:8080/inscripciones/alumnos-cursos-categorias/alumnos/ALM-747/cursos/CRS-IAD",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "8080",
+							"path": [
+								"inscripciones",
+								"alumnos-cursos-categorias",
+								"alumnos",
+								"ALM-747",
+								"cursos",
+								"CRS-IAD"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}
